@@ -6,7 +6,9 @@ import {
   View,
 } from 'react-native';
 
-export default function Welcome() {
+export default function Welcome({navigation}) {
+  const {navigate} = navigation;
+
   return (
     <ImageBackground
       source={require('../../assets/img/welcomeBg.webp')}
@@ -18,7 +20,12 @@ export default function Welcome() {
           Confiabilidade em seus processos, com a garantia de resultados.
         </Text>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.authBtn} activeOpacity={0.9}>
+          <TouchableOpacity
+            onPress={() => {
+              navigate('Login');
+            }}
+            style={styles.authBtn}
+            activeOpacity={0.9}>
             <Text style={styles.authText}>Autenticar</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.registerBtn} activeOpacity={0.9}>
@@ -62,7 +69,7 @@ const styles = StyleSheet.create({
   },
   registerBtn: {
     borderWidth: 1,
-    borderColor: '#007aff',
+    borderColor: '#19E5A6',
     borderRadius: 15,
     width: '100%',
     height: 70,
@@ -76,8 +83,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   registerText: {
-    fontFamily: 'ClashGrotesk-Medium',
+    fontFamily: 'ClashGrotesk-Light',
     fontSize: 24,
-    color: '#007aff',
+    color: '#19E5A6',
   },
 });

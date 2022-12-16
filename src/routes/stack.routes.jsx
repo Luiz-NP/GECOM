@@ -4,7 +4,7 @@ const {Screen, Navigator} = createNativeStackNavigator();
 
 // screens
 
-import {Login} from '../screens/Login';
+import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
 
 // routes
