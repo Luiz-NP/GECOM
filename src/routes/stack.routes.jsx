@@ -16,6 +16,7 @@ export function StackRoutes() {
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
         animationDuration: 150,
+        navigationBarColor: '#121212',
       }}>
       <Screen
         name="Welcome"
