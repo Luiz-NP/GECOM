@@ -1,9 +1,7 @@
 import {
   ImageBackground,
-  StatusBar,
   StyleSheet,
   Text,
-  Touchable,
   TouchableOpacity,
   View,
 } from 'react-native';
