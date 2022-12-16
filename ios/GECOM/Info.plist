@@ -53,11 +53,10 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>JetBrainMono.ttf</string>
-		<string>Raleway-Bold.ttf</string>
-		<string>Raleway-Light.ttf</string>
-		<string>Raleway-Medium.ttf</string>
-		<string>Raleway-Regular.ttf</string>
+		<string>ClashGrotesk-Bold.otf</string>
+		<string>ClashGrotesk-Light.otf</string>
+		<string>ClashGrotesk-Medium.otf</string>
+		<string>ClashGrotesk-Regular.otf</string>
 	</array>
 </dict>
 </plist>
