@@ -12,7 +12,15 @@ import {
 import {Path, Svg} from 'react-native-svg';
 import Task from '../components/Task';
 
+import {useCallback} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+
+import {StyleSheet, Text, View, BackHandler} from 'react-native';
+import {Path, Svg} from 'react-native-svg';
+import Task from '../components/Task';
+
 export default function Home({navigation}) {
+  const {navigate} = navigation;
   // defining back button behavior
   useFocusEffect(
     useCallback(() => {
@@ -29,8 +37,6 @@ export default function Home({navigation}) {
       return () => subscription.remove();
     }, []),
   );
-
-  const {navigate} = navigation;
 
   return (
     <View style={global.container}>
