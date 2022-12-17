@@ -1,8 +1,29 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+
+import {StyleSheet, Text, View, BackHandler} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 import Task from '../components/Task';
 
 export default function Home() {
+  
+  // defining back button behavior
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        BackHandler.exitApp();
+        return true;
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, []),
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
