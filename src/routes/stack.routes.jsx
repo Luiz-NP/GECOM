@@ -1,4 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Home from '../screens/Home';
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
@@ -19,6 +20,13 @@ export function StackRoutes() {
         animationDuration: 150,
         navigationBarColor: '#121212',
       }}>
+      <Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Screen
         name="Welcome"
         component={Welcome}
