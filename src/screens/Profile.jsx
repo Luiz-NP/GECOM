@@ -2,12 +2,19 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 import global from '../../assets/global.jsx';
 
-export default function Profile() {
+export default function Profile({navigation}) {
+  const {navigate} = navigation;
+
   return (
     <View style={global.container}>
       <View style={global.topBar}>
         <View style={global.screenInfo}>
-          <TouchableOpacity style={styles.backBtn} activeOpacity={0.8}>
+          <TouchableOpacity
+            onPress={() => {
+              navigate('Home');
+            }}
+            style={styles.backBtn}
+            activeOpacity={0.8}>
             <Svg
               width={32}
               height={32}
