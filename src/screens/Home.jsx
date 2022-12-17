@@ -9,12 +9,9 @@ import {
 } from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 import Task from '../components/Task';
-import { AuthContext } from '../contexts/AuthContext';
 
-import {useCallback} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback, useContext, useEffect} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
 
 import {AuthContext} from '../contexts/AuthContext';
 
