@@ -1,15 +1,29 @@
 import {StyleSheet, Text, View} from 'react-native';
 
 export default function Task() {
+  const local = 'Rio de Janeiro - RJ';
+  const taskType = 'Fiscalização de Campo';
+  const status = true;
+
+  if (status === true) {
+    statusBadge = 'CONCLUÍDA';
+  } else {
+    statusBadge = 'PENDENTE';
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.statusContainer}>
-        <Text style={styles.taskStatus}>PENDENTE</Text>
+      <View
+        style={{
+          ...styles.statusContainer,
+          backgroundColor: status ? '#198A19' : '#FF6F00',
+        }}>
+        <Text style={styles.taskStatus}>{statusBadge}</Text>
       </View>
       <View style={styles.infoItems}>
-        <Text style={styles.taskTitle}>Fiscalização de Campo</Text>
+        <Text style={styles.taskTitle}>{taskType}</Text>
         <View style={styles.taskLocal}>
-          <Text style={styles.localTitle}>Rio de Janeiro - SP</Text>
+          <Text style={styles.localTitle}>{local}</Text>
         </View>
       </View>
     </View>
@@ -30,10 +44,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -25,
     left: 25,
-    width: 140,
+    width: 130,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FF6F00',
     padding: 12,
     borderRadius: 25,
   },

@@ -6,6 +6,7 @@ const {Screen, Navigator} = createNativeStackNavigator();
 // screens
 
 import Login from '../screens/Login';
+import Profile from '../screens/Profile';
 import Register from '../screens/Register';
 import Welcome from '../screens/Welcome';
 
@@ -30,6 +31,13 @@ export function StackRoutes() {
       <Screen
         name="Home"
         component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="Profile"
+        component={Profile}
         options={{
           headerShown: false,
         }}
