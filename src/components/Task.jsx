@@ -3,7 +3,6 @@ import {StyleSheet, Text, View} from 'react-native';
 export default function Task() {
   const local = 'Rio de Janeiro - RJ';
   const taskType = 'Fiscalização de Campo';
-
   const status = true;
 
   if (status === true) {
@@ -11,9 +10,6 @@ export default function Task() {
   } else {
     statusBadge = 'PENDENTE';
   }
-
-  console.log(status);
-  console.log(statusBadge);
 
   return (
     <View style={styles.container}>

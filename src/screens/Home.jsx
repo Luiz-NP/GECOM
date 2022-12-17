@@ -1,12 +1,11 @@
-import { useCallback } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import {useCallback} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
 
 import {StyleSheet, Text, View, BackHandler} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 import Task from '../components/Task';
 
 export default function Home() {
-  
   // defining back button behavior
   useFocusEffect(
     useCallback(() => {
@@ -28,16 +27,15 @@ export default function Home() {
     <View style={styles.container}>
       <View style={styles.topBar}>
         <View style={styles.screenInfo}>
-          <Text style={styles.title}>Ínicio</Text>
-          <Text style={styles.subTitle}>Suas tarefas</Text>
-        </View>
-        <View style={styles.actionArea}>
-          <View>
+          <View style={styles.titleArea}>
+            <Text style={styles.title}>Ínicio</Text>
+            <Text style={styles.subTitle}>Suas tarefas</Text>
+          </View>
+          <View style={styles.actionArea}>
             <Svg
-              style={styles.btnIcon}
               xmlns="http://www.w3.org/2000/svg"
-              width="21"
-              height="21"
+              width="28"
+              height="28"
               viewBox="0 0 20.996 20.995">
               <Path
                 id="Account"
@@ -46,12 +44,11 @@ export default function Home() {
                 fill="#fff"
               />
             </Svg>
-          </View>
-          <View>
             <Svg
+              style={styles.iconGap}
               xmlns="http://www.w3.org/2000/svg"
-              width="18.72"
-              height="19.5"
+              width="28"
+              height="28"
               viewBox="0 0 18.724 19.5">
               <Path
                 id="Settings"
@@ -83,18 +80,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#1e1e1e',
   },
   screenInfo: {
-    width: '50%',
+    width: '100%',
     marginTop: 64,
     height: 70,
-    justifyContent: 'center',
+    flexDirection: 'row',
   },
   actionArea: {
-    width: '50%',
-    marginTop: 64,
-    height: 70,
-    justifyContent: 'flex-end',
     flexDirection: 'row',
+    marginLeft: 'auto',
     alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  titleArea: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   title: {
     color: 'white',
@@ -106,8 +106,7 @@ const styles = StyleSheet.create({
     fontFamily: 'ClashGrotesk-Light',
     fontSize: 24,
   },
-  btnIcon: {
-    backgroundColor: 'red',
-    marginVertical: 12,
+  iconGap: {
+    marginLeft: 12,
   },
 });
