@@ -68,7 +68,11 @@ export default function Login({navigation}) {
         </View>
         <View style={styles.btnArea}>
           <View style={styles.authArea}>
-            <TouchableOpacity style={styles.btnGoogle} activeOpacity={0.8}>
+            <TouchableOpacity 
+              onPress={() => onGoogleButtonPress().then(() => {
+                console.log('Signed in with Google!')
+                navigation.navigate("Home");
+                })} style={styles.btnGoogle} activeOpacity={0.8}>
               <Svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
