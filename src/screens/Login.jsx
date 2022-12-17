@@ -1,8 +1,5 @@
-import {useState} from 'react';
 import {
-  Pressable,
   ImageBackground,
-  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -10,75 +7,43 @@ import {
   View,
 } from 'react-native';
 
-import {Svg, Path} from 'react-native-svg';
+import global from '../../assets/global.jsx';
 
 export default function Login({navigation}) {
-  const {navigate} = navigation;
-
   return (
     <ImageBackground
       source={require('../../assets/img/welcomeBg.webp')}
       resizeMode={'cover'}
       style={{flex: 1, width: '100%'}}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Autenticação</Text>
-        <Text style={styles.subTitle}>
+      <View style={global.containerBottom}>
+        <Text style={global.title}>Autenticação</Text>
+        <Text style={global.subTitle}>
           Informe seus dados para realizar a autenticação de seu usuário.
         </Text>
-        <View style={styles.inputArea}>
+        <View style={global.inputArea}>
           <TextInput
             placeholder="E-mail"
             placeholderTextColor={'#19E5A6'}
-            style={styles.input}></TextInput>
+            style={global.input}></TextInput>
           <TextInput
             placeholder="Senha"
             placeholderTextColor={'#19E5A6'}
-            style={styles.input}></TextInput>
+            style={global.input}></TextInput>
         </View>
-
-        <TouchableOpacity style={styles.btnSubmit} activeOpacity={0.8}>
-          <Text style={styles.submitText}>Autenticar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnForgot} activeOpacity={0.8}>
-          <Text style={styles.forgotText}>Esqueceu sua senha?</Text>
-        </TouchableOpacity>
+        <View style={styles.btnArea}>
+          <TouchableOpacity style={styles.btnSubmit} activeOpacity={0.8}>
+            <Text style={styles.submitText}>Autenticar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btnForgot} activeOpacity={0.8}>
+            <Text style={styles.forgotText}>Esqueceu sua senha?</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 'auto',
-    backgroundColor: '#121212',
-    height: 480,
-    padding: 24,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    flexDirection: 'column',
-  },
-  title: {
-    color: 'white',
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 32,
-  },
-  subTitle: {
-    color: 'white',
-    fontFamily: 'ClashGrotesk-Light',
-    fontSize: 24,
-    marginBottom: 6,
-  },
-  input: {
-    marginVertical: 6,
-    borderWidth: 1,
-    borderRadius: 15,
-    borderColor: '#19E5A6',
-    padding: 16,
-    width: '100%',
-    height: 70,
-    fontFamily: 'ClashGrotesk-Light',
-    fontSize: 24,
-  },
   btnSubmit: {
     backgroundColor: 'white',
     borderRadius: 15,
@@ -102,5 +67,8 @@ const styles = StyleSheet.create({
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 20,
     color: '#f5f5f5',
+  },
+  btnArea: {
+    flexDirection: 'column',
   },
 });

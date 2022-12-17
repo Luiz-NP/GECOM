@@ -28,7 +28,12 @@ export default function Welcome({navigation}) {
             activeOpacity={0.9}>
             <Text style={styles.authText}>Autenticar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.registerBtn} activeOpacity={0.9}>
+          <TouchableOpacity
+            onPress={() => {
+              navigate('Register');
+            }}
+            style={styles.registerBtn}
+            activeOpacity={0.9}>
             <Text style={styles.registerText}>Cadastrar-se</Text>
           </TouchableOpacity>
         </View>

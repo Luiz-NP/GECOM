@@ -5,6 +5,7 @@ const {Screen, Navigator} = createNativeStackNavigator();
 // screens
 
 import Login from '../screens/Login';
+import Register from '../screens/Register';
 import Welcome from '../screens/Welcome';
 
 // routes
@@ -28,6 +29,13 @@ export function StackRoutes() {
       <Screen
         name="Login"
         component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="Register"
+        component={Register}
         options={{
           headerShown: false,
         }}
