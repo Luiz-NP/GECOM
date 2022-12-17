@@ -6,7 +6,7 @@ export default StyleSheet.create({
   containerBottom: {
     marginTop: 'auto',
     backgroundColor: '#121212',
-    height: 480,
+    height: 550,
     padding: 24,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,

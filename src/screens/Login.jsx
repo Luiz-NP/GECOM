@@ -2,10 +2,10 @@ import {
   ImageBackground,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {InputOutline} from 'react-native-input-outline';
 
 // auth
 import auth from '@react-native-firebase/auth';
@@ -41,14 +41,29 @@ export default function Login({navigation}) {
           Informe seus dados para realizar a autenticação de seu usuário.
         </Text>
         <View style={global.inputArea}>
-          <TextInput
+          <InputOutline
             placeholder="E-mail"
-            placeholderTextColor={'#19E5A6'}
-            style={global.input}></TextInput>
-          <TextInput
+            fontFamily="ClashGrotesk-Medium"
+            paddingVertical={8}
+            bgColor="#121212"
+            fontColor="white"
+            fontSize={24}
+            roundness={15}
+            backgroundColor="transparent"
+            activeColor="#19E5A6"
+          />
+          <InputOutline
             placeholder="Senha"
-            placeholderTextColor={'#19E5A6'}
-            style={global.input}></TextInput>
+            fontFamily="ClashGrotesk-Medium"
+            paddingVertical={8}
+            bgColor="#121212"
+            fontColor="white"
+            fontSize={24}
+            roundness={15}
+            backgroundColor="transparent"
+            activeColor="#19E5A6"
+            secureTextEntry
+          />
         </View>
         <View style={styles.btnArea}>
           <TouchableOpacity style={styles.btnSubmit} activeOpacity={0.8}>
