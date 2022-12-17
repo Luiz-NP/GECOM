@@ -67,12 +67,14 @@ export default function Login({navigation}) {
           />
         </View>
         <View style={styles.btnArea}>
-          <View>
-            <TouchableOpacity style={styles.btnSubmit} activeOpacity={0.8}>
+          <View style={styles.authArea}>
+            <TouchableOpacity style={styles.btnGoogle} activeOpacity={0.8}>
               <Svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
-                viewBox="0 0 48 48">
+                viewBox="0 0 48 48"
+                width={36}
+                height={36}>
                 <Defs>
                   <Path
                     id="a"
@@ -115,9 +117,9 @@ export default function Login({navigation}) {
 
 const styles = StyleSheet.create({
   btnSubmit: {
-    backgroundColor: 'white',
+    backgroundColor: '#19E5A6',
     borderRadius: 15,
-    width: '100%',
+    width: '75%',
     height: 70,
     alignItems: 'center',
     justifyContent: 'center',
@@ -143,5 +145,19 @@ const styles = StyleSheet.create({
   },
   inputArea: {
     marginVertical: 8,
+  },
+  authArea: {
+    flexDirection: 'row',
+  },
+  btnGoogle: {
+    borderWidth: 1,
+    borderColor: '#19E5A6',
+    borderRadius: 15,
+    width: '22%',
+    marginRight: 12,
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 6,
   },
 });
