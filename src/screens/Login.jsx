@@ -7,9 +7,29 @@ import {
   View,
 } from 'react-native';
 
+// auth
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import "../configs/google.config";
+
 import global from '../../assets/global.jsx';
 
 export default function Login({navigation}) {
+
+  async function onGoogleButtonPress() {
+    // Check if your device supports Google Play
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
+  
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+  
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
+  }
+
   return (
     <ImageBackground
       source={require('../../assets/img/welcomeBg.webp')}
