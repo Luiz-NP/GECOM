@@ -1,4 +1,5 @@
 import {
+  Alert,
   ImageBackground,
   StyleSheet,
   Text,
@@ -8,6 +9,8 @@ import {
 import {InputOutline} from 'react-native-input-outline';
 import {ClipPath, Defs, Path, Svg, Use} from 'react-native-svg';
 
+import { useState } from 'react';
+
 // auth
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -16,7 +19,27 @@ import "../configs/google.config";
 import global from '../../assets/global.jsx';
 
 export default function Login({navigation}) {
+  const {navigate} = navigation;
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // email/password sign-in
+  async function handleSignInWithEmailAndPassword() {
+    if (email === '' || password === '') return Alert.alert("preencha todos os campos")
+    await auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        navigate("Home");
+        setEmail('');
+        setPassword('');
+      })
+      .catch((error) => {
+        console.log(error.code);
+      })
+  }
+
+  // google sign-in
   async function onGoogleButtonPress() {
     // Check if your device supports Google Play
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
@@ -43,6 +66,7 @@ export default function Login({navigation}) {
         </Text>
         <View style={styles.inputArea}>
           <InputOutline
+            onChangeText={setEmail}
             placeholder="E-mail"
             fontFamily="ClashGrotesk-Medium"
             paddingVertical={8}
@@ -54,6 +78,7 @@ export default function Login({navigation}) {
             activeColor="#19E5A6"
           />
           <InputOutline
+            onChangeText={setPassword}
             placeholder="Senha"
             fontFamily="ClashGrotesk-Medium"
             paddingVertical={8}
@@ -71,8 +96,8 @@ export default function Login({navigation}) {
             <TouchableOpacity 
               onPress={() => onGoogleButtonPress().then(() => {
                 console.log('Signed in with Google!')
-                navigation.navigate("Home");
-                })} style={styles.btnGoogle} activeOpacity={0.8}>
+                navigate("Home");
+              })} style={styles.btnGoogle} activeOpacity={0.8}>
               <Svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -106,7 +131,7 @@ export default function Login({navigation}) {
                 />
               </Svg>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnSubmit} activeOpacity={0.8}>
+            <TouchableOpacity onPress={handleSignInWithEmailAndPassword} style={styles.btnSubmit} activeOpacity={0.8}>
               <Text style={styles.submitText}>Autenticar</Text>
             </TouchableOpacity>
           </View>
