@@ -48,6 +48,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     height: 180,
+    marginBottom: 12,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     padding: 24,
