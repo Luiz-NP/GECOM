@@ -72,7 +72,6 @@ export default function Register() {
             fontColor="white"
             fontSize={24}
             roundness={15}
-            trailingIcon={React.FC}
             characterCount={12}
             characterCountFontSize={16}
             characterCountColor="#19E5A6"
