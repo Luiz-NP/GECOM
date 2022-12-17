@@ -11,8 +11,9 @@ export default function Home() {
           <Text style={styles.subTitle}>Suas tarefas</Text>
         </View>
         <View style={styles.actionArea}>
-          <View style={styles.btnIcon}>
+          <View>
             <Svg
+              style={styles.btnIcon}
               xmlns="http://www.w3.org/2000/svg"
               width="21"
               height="21"
@@ -25,7 +26,7 @@ export default function Home() {
               />
             </Svg>
           </View>
-          <View style={styles.btnIcon}>
+          <View>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               width="18.72"
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   btnIcon: {
+    backgroundColor: 'red',
     marginVertical: 12,
   },
 });

@@ -18,7 +18,7 @@ export default function Task() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 120,
+    height: 100,
     borderRadius: 15,
     margin: 12,
     padding: 25,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -25,
     left: 25,
-    width: 160,
+    width: 140,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FF6F00',
