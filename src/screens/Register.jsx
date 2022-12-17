@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ImageBackground,
+  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -16,7 +17,8 @@ export default function Register() {
       source={require('../../assets/img/welcomeBg.webp')}
       resizeMode={'cover'}
       style={{flex: 1, width: '100%'}}>
-      <View style={{...global.containerBottom, ...styles.containerBottom}}>
+      <KeyboardAvoidingView
+        style={{...global.containerBottom, ...styles.containerBottom}}>
         <Text style={global.title}>Registrar-se</Text>
         <Text style={global.subTitle}>
           Informe seus dados para realizar o cadastro de seu usuário.
@@ -26,7 +28,9 @@ export default function Register() {
           fontFamily="ClashGrotesk-Medium"
           paddingVertical={8}
           bgColor="#121212"
+          fontColor="white"
           fontSize={24}
+          roundness={15}
           backgroundColor="transparent"
           activeColor="#19E5A6"
         />
@@ -35,11 +39,48 @@ export default function Register() {
           fontFamily="ClashGrotesk-Medium"
           paddingVertical={8}
           bgColor="#121212"
+          fontColor="white"
           fontSize={24}
+          roundness={15}
           backgroundColor="transparent"
           activeColor="#19E5A6"
         />
-      </View>
+        <InputOutline
+          placeholder="E-mail"
+          fontFamily="ClashGrotesk-Medium"
+          paddingVertical={8}
+          bgColor="#121212"
+          fontColor="white"
+          fontSize={24}
+          roundness={15}
+          backgroundColor="transparent"
+          activeColor="#19E5A6"
+        />
+        <InputOutline
+          placeholder="Senha"
+          fontFamily="ClashGrotesk-Medium"
+          paddingVertical={8}
+          bgColor="#121212"
+          fontColor="white"
+          fontSize={24}
+          roundness={15}
+          trailingIcon={true}
+          backgroundColor="transparent"
+          activeColor="#19E5A6"
+          secureTextEntry
+        />
+        <InputOutline
+          placeholder="Autorização de técnico"
+          fontFamily="ClashGrotesk-Medium"
+          paddingVertical={8}
+          bgColor="#121212"
+          fontColor="white"
+          fontSize={24}
+          roundness={15}
+          backgroundColor="transparent"
+          activeColor="#19E5A6"
+        />
+      </KeyboardAvoidingView>
     </ImageBackground>
   );
 }
