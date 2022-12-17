@@ -17,9 +17,6 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useCallback, useContext, useEffect} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 
-import {StyleSheet, Text, View, BackHandler} from 'react-native';
-import {Path, Svg} from 'react-native-svg';
-import Task from '../components/Task';
 import {AuthContext} from '../contexts/AuthContext';
 
 export default function Home({navigation}) {
@@ -96,46 +93,6 @@ export default function Home({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    backgroundColor: '#121212',
-  },
-  topBar: {
-    flexDirection: 'row',
-    width: '100%',
-    height: 180,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    padding: 24,
-    backgroundColor: '#1e1e1e',
-  },
-  screenInfo: {
-    width: '100%',
-    marginTop: 64,
-    height: 70,
-    flexDirection: 'row',
-  },
-  actionArea: {
-    flexDirection: 'row',
-    marginLeft: 'auto',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  titleArea: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
-  title: {
-    color: 'white',
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 32,
-  },
-  subTitle: {
-    color: 'white',
-    fontFamily: 'ClashGrotesk-Light',
-    fontSize: 24,
-  },
   iconGap: {
     marginLeft: 12,
   },

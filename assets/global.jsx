@@ -56,7 +56,6 @@ export default StyleSheet.create({
   screenInfo: {
     width: '100%',
     marginTop: 64,
-    alignItems: 'center',
     height: 70,
     flexDirection: 'row',
   },
