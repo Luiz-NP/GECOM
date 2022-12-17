@@ -10,6 +10,7 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         auth().onAuthStateChanged(user => {
             setUser(user);
+            console.log(user);
         })
     },[]);
     
