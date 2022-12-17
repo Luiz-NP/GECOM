@@ -21,15 +21,15 @@ export function StackRoutes() {
         navigationBarColor: '#121212',
       }}>
       <Screen
-        name="Home"
-        component={Home}
+        name="Welcome"
+        component={Welcome}
         options={{
           headerShown: false,
         }}
       />
       <Screen
-        name="Welcome"
-        component={Welcome}
+        name="Home"
+        component={Home}
         options={{
           headerShown: false,
         }}
