@@ -1,11 +1,15 @@
-import { useCallback } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 
 import {StyleSheet, Text, View, BackHandler} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 import Task from '../components/Task';
+import { AuthContext } from '../contexts/AuthContext';
 
 export default function Home() {
+  const { user } = useContext(AuthContext);
+
+  console.log(user?.displayName);
   
   // defining back button behavior
   useFocusEffect(
