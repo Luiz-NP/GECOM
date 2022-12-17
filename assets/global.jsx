@@ -59,6 +59,7 @@ export default StyleSheet.create({
     height: 70,
     alignItems: 'center',
     flexDirection: 'row',
+    alignItems: 'center',
   },
   actionArea: {
     flexDirection: 'row',

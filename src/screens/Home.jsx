@@ -1,5 +1,3 @@
-import global from '../../assets/global.jsx';
-
 import {
   StyleSheet,
   Text,
@@ -13,6 +11,8 @@ import Task from '../components/Task';
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback, useContext, useEffect} from 'react';
 
+import Task from '../components/Task';
+import global from '../../assets/global.jsx';
 import {AuthContext} from '../contexts/AuthContext';
 
 export default function Home({navigation}) {
