@@ -26,10 +26,6 @@ export default function Profile({navigation}) {
           </TouchableOpacity>
           <View style={global.titleArea}>
             <Text style={global.title}>Perfil</Text>
-            <View style={global.titleArea}>
-              <Text style={global.title}>Perfil</Text>
-              <Text style={global.subTitle}>Suas informações</Text>
-            </View>
           </View>
         </View>
       </View>
