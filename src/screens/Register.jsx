@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   ImageBackground,
   KeyboardAvoidingView,
@@ -21,12 +21,16 @@ export default function Register({navigation}) {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const inputRef = useRef(null);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   async function signUpWithEmailAndPassword() {
+    if (firstName === '' || lastName === '' || email === '' || password === '') return Alert.alert("preencha todos os campos");
+
     setIsLoading(!isLoading);
 
     // formating username
@@ -74,6 +78,7 @@ export default function Register({navigation}) {
             activeColor="#19E5A6"
           />
           <InputOutline
+            ref={inputRef}
             onChangeText={setLastName}
             placeholder="Sobrenome"
             fontFamily="ClashGrotesk-Medium"
