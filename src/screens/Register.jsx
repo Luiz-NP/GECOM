@@ -7,16 +7,46 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
 import {InputOutline} from 'react-native-input-outline';
 
+// auth
+import auth from '@react-native-firebase/auth';
+
 import global from '../../assets/global.jsx';
 
-export default function Register() {
+export default function Register({navigation}) {
+  const {navigate} = navigation;
+
   const [isLoading, setIsLoading] = useState(false);
 
-  function toggleLoading() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function signUpWithEmailAndPassword() {
     setIsLoading(!isLoading);
+
+    // formating username
+    const unformatted = `${firstName} ${lastName}`;
+    const formatted = unformatted.split(' ').map(name => {
+        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+      }).join(' ');
+      
+    await auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(async ({user}) => {
+        await user.updateProfile({
+          displayName: formatted,
+        });
+        navigate("Login");
+        Alert.alert("User created");
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
   }
 
   return (
@@ -32,6 +62,7 @@ export default function Register() {
         </Text>
         <View style={styles.inputArea}>
           <InputOutline
+            onChangeText={setFirstName}
             placeholder="Nome"
             fontFamily="ClashGrotesk-Medium"
             paddingVertical={8}
@@ -43,6 +74,7 @@ export default function Register() {
             activeColor="#19E5A6"
           />
           <InputOutline
+            onChangeText={setLastName}
             placeholder="Sobrenome"
             fontFamily="ClashGrotesk-Medium"
             paddingVertical={8}
@@ -54,6 +86,7 @@ export default function Register() {
             activeColor="#19E5A6"
           />
           <InputOutline
+            onChangeText={setEmail}
             placeholder="E-mail"
             fontFamily="ClashGrotesk-Medium"
             paddingVertical={8}
@@ -65,6 +98,7 @@ export default function Register() {
             activeColor="#19E5A6"
           />
           <InputOutline
+            onChangeText={setPassword}
             placeholder="Senha"
             fontFamily="ClashGrotesk-Medium"
             paddingVertical={8}
@@ -95,7 +129,7 @@ export default function Register() {
         <View style={styles.btnArea}>
           <TouchableOpacity
             activeOpacity={1}
-            onPress={toggleLoading}
+            onPress={signUpWithEmailAndPassword}
             disabled={isLoading}
             style={[isLoading ? styles.isLoadingTrue : styles.isLoadingFalse]}>
             {isLoading && <ActivityIndicator size="large" color="#19E5A6" />}
