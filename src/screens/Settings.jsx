@@ -100,6 +100,55 @@ export default function Settings({navigation}) {
               <Text style={styles.settingLightText}>Claro</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.settingOverall}>
+            <View style={styles.settingsItem}>
+              <Svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                fill={'#19E5A6'}
+                viewBox="0 0 24 24">
+                <Path d="M4.5.257l3.771 3.771c.409 1.889-2.33 4.66-4.242 4.242l-3.771-3.77c-.172.584-.258 1.188-.258 1.792 0 1.602.607 3.202 1.83 4.426 1.351 1.351 3.164 1.958 4.931 1.821.933-.072 1.852.269 2.514.931l9.662 9.662c.578.578 1.337.868 2.097.868 1.661 0 3.001-1.364 2.966-3.03-.016-.737-.306-1.47-.868-2.033l-9.662-9.663c-.662-.661-1.002-1.581-.931-2.514.137-1.767-.471-3.58-1.82-4.93-1.225-1.224-2.825-1.83-4.428-1.83-.603 0-1.207.086-1.791.257zm17.5 20.743c0 .553-.447 1-1 1-.553 0-1-.448-1-1s.447-1 1-1 1 .447 1 1z" />
+              </Svg>
+              <View style={styles.settingsText}>
+                <Text style={styles.settingTitle}>Solução de Problemas</Text>
+                <Text style={styles.settingsubTitle}>
+                  Entre em contato conosco para uma maior resolução de dúvidas e
+                  problemas.
+                </Text>
+              </View>
+            </View>
+            <View style={styles.settingsItem}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.settingOptionContact}>
+                <Svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24">
+                  <Path
+                    fill={'#19E5A6'}
+                    d="M20 22.621l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.817-2.106 1.039c-7.202 3.755 4.233 25.982 11.6 22.615.121-.055 2.102-1.029 2.11-1.033z"
+                  />
+                </Svg>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.settingOptionContact}>
+                <Svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24">
+                  <Path
+                    fill={'#19E5A6'}
+                    d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"
+                  />
+                </Svg>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -136,6 +185,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  settingOverall: {
+    marginVertical: 24,
+  },
   indicatorText: {
     fontFamily: 'ClashGrotesk-Medium',
     color: '#19E5A6',
@@ -170,9 +222,8 @@ const styles = StyleSheet.create({
   },
   settingOptionDark: {
     marginHorizontal: 12,
-    backgroundColor: 'black',
+    backgroundColor: '#121212',
     alignItems: 'center',
-    borderWidth: 2,
     padding: 6,
     width: 150,
     borderRadius: 15,
@@ -181,8 +232,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     backgroundColor: 'white',
     alignItems: 'center',
-    borderWidth: 2,
     padding: 6,
+    width: 150,
+    borderRadius: 15,
+  },
+  settingOptionContact: {
+    marginHorizontal: 12,
+    alignItems: 'center',
+    backgroundColor: '#121212',
+    padding: 12,
     width: 150,
     borderRadius: 15,
   },

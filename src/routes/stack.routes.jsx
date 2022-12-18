@@ -21,7 +21,6 @@ export function StackRoutes() {
         gestureEnabled: true,
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
-        animationDuration: 150,
         navigationBarColor: '#121212',
       }}>
       <Screen
@@ -36,6 +35,7 @@ export function StackRoutes() {
         component={Home}
         options={{
           headerShown: false,
+          gestureEnabled: true,
         }}
       />
       <Screen
@@ -43,6 +43,7 @@ export function StackRoutes() {
         component={Profile}
         options={{
           headerShown: false,
+          animation: 'slide_from_bottom',
         }}
       />
       <Screen
@@ -50,6 +51,7 @@ export function StackRoutes() {
         component={Settings}
         options={{
           headerShown: false,
+          animation: 'slide_from_right',
         }}
       />
       <Screen
