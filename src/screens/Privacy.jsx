@@ -31,7 +31,7 @@ export default function Privacy({navigation}) {
             </Svg>
           </TouchableOpacity>
           <View style={global.titleArea}>
-            <Text style={global.title}>Privacidade e Termos</Text>
+            <Text style={{...global.title, marginLeft: 12}}>Privacidade</Text>
           </View>
         </View>
       </View>

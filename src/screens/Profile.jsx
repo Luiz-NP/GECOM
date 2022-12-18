@@ -144,6 +144,9 @@ const styles = StyleSheet.create({
   backBtn: {
     marginRight: 16,
   },
+  profileContainer: {
+    marginBottom: 48,
+  },
   userInfo: {
     alignItems: 'center',
     justifyContent: 'center',
