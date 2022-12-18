@@ -32,7 +32,7 @@ export default function Task() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
+    height: 120,
     borderRadius: 15,
     margin: 12,
     padding: 25,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -25,
     left: 25,
-    width: 130,
+    width: 150,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 12,
@@ -57,15 +57,15 @@ const styles = StyleSheet.create({
   },
   taskLocal: {
     backgroundColor: '#121212',
-    width: 145,
+    width: 180,
     marginTop: 6,
     padding: 6,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 15,
+    borderRadius: 10,
   },
   infoItems: {
-    marginTop: 16,
+    marginTop: 18,
   },
   taskTitle: {
     fontFamily: 'ClashGrotesk-Medium',

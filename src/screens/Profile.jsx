@@ -11,13 +11,16 @@ import {Path, Svg} from 'react-native-svg';
 import global from '../../assets/global.jsx';
 import ProfileSkeleton from '../Skeletons/ProfileSkeleton.jsx';
 
+import Animated, {FadeInDown, FadeOut} from 'react-native-reanimated';
+import {FadeInUp, FadeOutDown} from 'react-native-reanimated';
+
 export default function Profile({navigation}) {
-  const [onLoad, setOnLoad] = useState(true);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
     setInterval(() => {
-      setOnLoad(false);
-    }, 1000);
+      setLoading(false);
+    }, 2000);
   }, []);
   const {navigate} = navigation;
 
@@ -50,10 +53,12 @@ export default function Profile({navigation}) {
           </View>
         </View>
       </View>
-      {onLoad ? (
-        <ProfileSkeleton />
+      {Loading ? (
+        <Animated.View entering={FadeInUp.duration(800)}>
+          <ProfileSkeleton />
+        </Animated.View>
       ) : (
-        <View style={styles.userInfo}>
+        <Animated.View style={styles.userInfo}>
           <Image
             style={styles.userAvatar}
             source={{
@@ -71,7 +76,7 @@ export default function Profile({navigation}) {
               {isAutorized ? 'Técnico autorizado' : 'Técnico não-autorizado'}
             </Text>
           </View>
-        </View>
+        </Animated.View>
       )}
       <ScrollView style={styles.profileContainer}>
         <View style={styles.optionsArea}>

@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   userCompany: {
     borderWidth: 1,
     borderColor: '#1e1e1e',
-    height: 25,
+    height: 20,
     width: 200,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   authorizationType: {
-    height: 30,
-    width: 220,
+    height: 25,
+    width: 200,
   },
 });
