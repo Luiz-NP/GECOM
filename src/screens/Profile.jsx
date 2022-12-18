@@ -113,10 +113,10 @@ export default function Profile({navigation}) {
             </Svg>
             <View style={styles.optionText}>
               <Text style={styles.optionTitle}>
-                Alterar código de Autorização
+                Adicionar código de Autorização
               </Text>
               <Text style={styles.optionsubTitle}>
-                Informe o seu código de autorização, caso esteja expirado ou
+                Informe o seu código de autorização, caso esteja expirado e/ou
                 inválido.
               </Text>
             </View>

@@ -9,6 +9,8 @@ import {
 import global from '../../assets/global.jsx';
 import {Path, Svg} from 'react-native-svg';
 
+import {InputOutline} from 'react-native-input-outline';
+
 export default function RegisterCar({navigation}) {
   const {navigate} = navigation;
   return (
@@ -35,6 +37,17 @@ export default function RegisterCar({navigation}) {
           </View>
         </View>
       </View>
+      <InputOutline
+        placeholder="Placa do carro"
+        fontFamily="ClashGrotesk-Medium"
+        paddingVertical={8}
+        bgColor="#121212"
+        fontColor="white"
+        fontSize={24}
+        roundness={15}
+        backgroundColor="transparent"
+        activeColor="#19E5A6"
+      />
     </View>
   );
 }
