@@ -37,7 +37,7 @@ export default function Profile({navigation}) {
             onPress={() => {
               navigate('Home');
             }}
-            style={styles.backBtn}
+            style={global.backBtn}
             activeOpacity={0.8}>
             <Svg
               width={32}
@@ -80,7 +80,12 @@ export default function Profile({navigation}) {
       )}
       <ScrollView style={styles.profileContainer}>
         <View style={styles.optionsArea}>
-          <TouchableOpacity activeOpacity={0.8} style={styles.option}>
+          <TouchableOpacity
+            onPress={() => {
+              navigate('RegisterCar');
+            }}
+            activeOpacity={0.8}
+            style={styles.option}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -148,9 +153,6 @@ export default function Profile({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  backBtn: {
-    marginRight: 16,
-  },
   profileContainer: {
     marginBottom: 48,
   },

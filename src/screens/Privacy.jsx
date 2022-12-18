@@ -19,7 +19,7 @@ export default function Privacy({navigation}) {
             onPress={() => {
               navigate('Home');
             }}
-            style={styles.backBtn}
+            style={global.backBtn}
             activeOpacity={0.8}>
             <Svg
               width={32}
@@ -31,7 +31,7 @@ export default function Privacy({navigation}) {
             </Svg>
           </TouchableOpacity>
           <View style={global.titleArea}>
-            <Text style={{...global.title, marginLeft: 16}}>Privacidade</Text>
+            <Text style={global.title}>Privacidade</Text>
           </View>
         </View>
       </View>

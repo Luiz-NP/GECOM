@@ -10,6 +10,7 @@ import Login from '../screens/Login';
 import Privacy from '../screens/Privacy';
 import Profile from '../screens/Profile';
 import Register from '../screens/Register';
+import RegisterCar from '../screens/RegisterCar';
 import Settings from '../screens/Settings';
 import Welcome from '../screens/Welcome';
 
@@ -44,6 +45,13 @@ export function StackRoutes() {
         options={{
           headerShown: false,
           animation: 'slide_from_bottom',
+        }}
+      />
+      <Screen
+        name="RegisterCar"
+        component={RegisterCar}
+        options={{
+          headerShown: false,
         }}
       />
       <Screen

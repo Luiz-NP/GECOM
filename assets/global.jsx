@@ -83,4 +83,7 @@ export default StyleSheet.create({
     fontFamily: 'ClashGrotesk-Light',
     fontSize: 24,
   },
+  backBtn: {
+    marginRight: 16,
+  },
 });
