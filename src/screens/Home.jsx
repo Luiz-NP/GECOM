@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Path, Svg} from 'react-native-svg';
-import Task from '../components/Task';
 
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback, useContext, useEffect} from 'react';
