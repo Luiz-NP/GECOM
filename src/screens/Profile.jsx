@@ -71,7 +71,7 @@ export default function Profile({navigation}) {
             <Text
               style={{
                 ...styles.authorizationType,
-                color: isAutorized ? '#24BF24' : '#BF2424',
+                color: isAutorized ? '#19E5A6' : '#BF2424',
               }}>
               {isAutorized ? 'Técnico autorizado' : 'Técnico não-autorizado'}
             </Text>
@@ -83,44 +83,49 @@ export default function Profile({navigation}) {
           <TouchableOpacity activeOpacity={0.8} style={styles.option}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              fill={'white'}
+              width="36"
+              height="36"
+              fill={'#19E5A6'}
               viewBox="0 0 24 24">
-              <Path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.707 13.946l-1.035 1.054h-.672v1h-1v1h-3v-2.292l3.146-3.185c.496 1.111 1.419 1.988 2.561 2.423zm5.293-4.279c0 2.025-1.642 3.667-3.667 3.667-2.024 0-3.666-1.642-3.666-3.667s1.642-3.667 3.666-3.667c2.025 0 3.667 1.642 3.667 3.667zm-1.375-1.375c0-.506-.41-.917-.917-.917s-.916.411-.916.917.409.917.916.917.917-.411.917-.917z" />
+              <Path d="M21.739 14.921c-1.347-.39-1.885-.538-3.552-.921 0 0-2.379-2.359-2.832-2.816-.568-.572-1.043-1.184-2.949-1.184h-7.894c-.511 0-.735.547-.069 1-.743.602-1.62 1.38-2.258 2.027-1.436 1.455-2.185 2.385-2.185 4.255 0 1.76 1.042 3.718 3.174 3.718h.01c.413 1.162 1.512 2 2.816 2 1.304 0 2.403-.838 2.816-2h6.367c.413 1.162 1.512 2 2.816 2s2.403-.838 2.816-2h.685c1.994 0 2.5-1.776 2.5-3.165 0-2.041-1.123-2.584-2.261-2.914zm-15.739 6.279c-.662 0-1.2-.538-1.2-1.2s.538-1.2 1.2-1.2 1.2.538 1.2 1.2-.538 1.2-1.2 1.2zm3.576-6.2c-1.071 0-3.5-.106-5.219-.75.578-.75.998-1.222 1.27-1.536.318-.368.873-.714 1.561-.714h2.388v3zm1-3h1.835c.882 0 1.428.493 2.022 1.105.452.466 1.732 1.895 1.732 1.895h-5.588v-3zm7.424 9.2c-.662 0-1.2-.538-1.2-1.2s.538-1.2 1.2-1.2 1.2.538 1.2 1.2-.538 1.2-1.2 1.2zm-10.768-14.135c.71-.751 1.688-1.215 2.768-1.215s2.058.464 2.768 1.215l1.164-1.236c-1.006-1.067-2.397-1.727-3.932-1.727-1.535 0-2.926.66-3.932 1.727l1.164 1.236zm-2.038-2.163c1.23-1.304 2.929-2.11 4.806-2.11s3.576.806 4.806 2.11l1.194-1.266c-1.535-1.629-3.656-2.636-6-2.636s-4.465 1.007-6 2.636l1.194 1.266zm6.806 4.098h-4c.035-.906.749-1.737 2-1.737 1.243 0 1.965.831 2 1.737z" />
             </Svg>
             <View style={styles.optionText}>
-              <Text style={styles.optionTitle}>Alterar senha</Text>
+              <Text style={styles.optionTitle}>Cadastrar carro</Text>
               <Text style={styles.optionsubTitle}>
-                Escolha uma senha forte e não a reutilize em outras contas.
+                Informe as informações de seu carro para que seja possível a
+                realização de suas tarefas.
               </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} style={styles.option}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              fill={'white'}
+              width="36"
+              height="36"
+              fill={'#19E5A6'}
               viewBox="0 0 24 24">
-              <Path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.707 13.946l-1.035 1.054h-.672v1h-1v1h-3v-2.292l3.146-3.185c.496 1.111 1.419 1.988 2.561 2.423zm5.293-4.279c0 2.025-1.642 3.667-3.667 3.667-2.024 0-3.666-1.642-3.666-3.667s1.642-3.667 3.666-3.667c2.025 0 3.667 1.642 3.667 3.667zm-1.375-1.375c0-.506-.41-.917-.917-.917s-.916.411-.916.917.409.917.916.917.917-.411.917-.917z" />
+              <Path d="M10 17c0 .552-.447 1-1 1s-1-.448-1-1 .447-1 1-1 1 .448 1 1zm3 0c0 .552-.447 1-1 1s-1-.448-1-1 .447-1 1-1 1 .448 1 1zm3 0c0 .552-.447 1-1 1s-1-.448-1-1 .447-1 1-1 1 .448 1 1zm2-7v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v4h-3v14h18v-14h-3zm-10-4c0-2.206 1.795-4 4-4s4 1.794 4 4v4h-8v-4zm11 16h-14v-10h14v10z" />
             </Svg>
             <View style={styles.optionText}>
-              <Text style={styles.optionTitle}>Testar câmera</Text>
-              <Text style={styles.optionsubTitle}>Debug ok?</Text>
+              <Text style={styles.optionTitle}>
+                Alterar código de Autorização
+              </Text>
+              <Text style={styles.optionsubTitle}>
+                Informe o novo código de autorização, caso esteja expirado.
+              </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} style={styles.option}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              fill={'white'}
+              width="36"
+              height="36"
+              fill={'#19E5A6'}
               viewBox="0 0 24 24">
-              <Path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.707 13.946l-1.035 1.054h-.672v1h-1v1h-3v-2.292l3.146-3.185c.496 1.111 1.419 1.988 2.561 2.423zm5.293-4.279c0 2.025-1.642 3.667-3.667 3.667-2.024 0-3.666-1.642-3.666-3.667s1.642-3.667 3.666-3.667c2.025 0 3.667 1.642 3.667 3.667zm-1.375-1.375c0-.506-.41-.917-.917-.917s-.916.411-.916.917.409.917.916.917.917-.411.917-.917z" />
+              <Path d="M22 18.055v2.458c0 1.925-4.655 3.487-10 3.487-5.344 0-10-1.562-10-3.487v-2.458c2.418 1.738 7.005 2.256 10 2.256 3.006 0 7.588-.523 10-2.256zm-10-3.409c-3.006 0-7.588-.523-10-2.256v2.434c0 1.926 4.656 3.487 10 3.487 5.345 0 10-1.562 10-3.487v-2.434c-2.418 1.738-7.005 2.256-10 2.256zm0-14.646c-5.344 0-10 1.562-10 3.488s4.656 3.487 10 3.487c5.345 0 10-1.562 10-3.487 0-1.926-4.655-3.488-10-3.488zm0 8.975c-3.006 0-7.588-.523-10-2.256v2.44c0 1.926 4.656 3.487 10 3.487 5.345 0 10-1.562 10-3.487v-2.44c-2.418 1.738-7.005 2.256-10 2.256z" />
             </Svg>
             <View style={styles.optionText}>
-              <Text style={styles.optionTitle}>Alterar senha</Text>
+              <Text style={styles.optionTitle}>Alterar suas informações</Text>
               <Text style={styles.optionsubTitle}>
                 Escolha uma senha forte e não a reutilize em outras contas.
               </Text>
@@ -150,6 +155,9 @@ const styles = StyleSheet.create({
   userInfo: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  iconBg: {
+    borderRadius: 25,
   },
   userAvatar: {
     width: 200,
