@@ -1,4 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import DebugCamera from '../screens/DebugCamera';
 import Home from '../screens/Home';
 
 const {Screen, Navigator} = createNativeStackNavigator();
@@ -60,6 +61,13 @@ export function StackRoutes() {
       <Screen
         name="Register"
         component={Register}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="DebugCamera"
+        component={DebugCamera}
         options={{
           headerShown: false,
         }}
