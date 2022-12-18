@@ -1,4 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import DebugCamera from '../screens/DebugCamera';
 import Home from '../screens/Home';
 
 const {Screen, Navigator} = createNativeStackNavigator();
@@ -6,6 +7,7 @@ const {Screen, Navigator} = createNativeStackNavigator();
 // screens
 
 import Login from '../screens/Login';
+import Privacy from '../screens/Privacy';
 import Profile from '../screens/Profile';
 import Register from '../screens/Register';
 import Welcome from '../screens/Welcome';
@@ -43,6 +45,13 @@ export function StackRoutes() {
         }}
       />
       <Screen
+        name="Privacy"
+        component={Privacy}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
         name="Login"
         component={Login}
         options={{
@@ -52,6 +61,13 @@ export function StackRoutes() {
       <Screen
         name="Register"
         component={Register}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="DebugCamera"
+        component={DebugCamera}
         options={{
           headerShown: false,
         }}
