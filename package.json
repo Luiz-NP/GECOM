@@ -18,6 +18,7 @@
     "@react-navigation/native-stack": "^6.9.2",
     "react": "18.1.0",
     "react-native": "0.70.6",
+    "react-native-camera-kit": "^13.0.0",
     "react-native-cli": "^2.0.1",
     "react-native-input-outline": "^1.5.2",
     "react-native-paper": "^5.0.2",
