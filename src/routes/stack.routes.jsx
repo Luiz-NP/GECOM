@@ -10,6 +10,7 @@ import Login from '../screens/Login';
 import Privacy from '../screens/Privacy';
 import Profile from '../screens/Profile';
 import Register from '../screens/Register';
+import Settings from '../screens/Settings';
 import Welcome from '../screens/Welcome';
 
 // routes
@@ -40,6 +41,13 @@ export function StackRoutes() {
       <Screen
         name="Profile"
         component={Profile}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="Settings"
+        component={Settings}
         options={{
           headerShown: false,
         }}

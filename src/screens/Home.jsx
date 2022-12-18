@@ -63,7 +63,11 @@ export default function Home({navigation}) {
                 />
               </Svg>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.8}>
+            <TouchableOpacity
+              onPress={() => {
+                navigate('Settings');
+              }}
+              activeOpacity={0.8}>
               <Svg
                 style={styles.iconGap}
                 xmlns="http://www.w3.org/2000/svg"
