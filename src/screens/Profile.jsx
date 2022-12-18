@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -8,8 +9,16 @@ import {
 } from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 import global from '../../assets/global.jsx';
+import ProfileSkeleton from '../Skeletons/ProfileSkeleton.jsx';
 
 export default function Profile({navigation}) {
+  const [onLoad, setOnLoad] = useState(true);
+
+  useEffect(() => {
+    setInterval(() => {
+      setOnLoad(false);
+    }, 1000);
+  }, []);
   const {navigate} = navigation;
 
   const displayName = 'Victor Lima';
@@ -41,7 +50,9 @@ export default function Profile({navigation}) {
           </View>
         </View>
       </View>
-      <ScrollView style={styles.profileContainer}>
+      {onLoad ? (
+        <ProfileSkeleton />
+      ) : (
         <View style={styles.userInfo}>
           <Image
             style={styles.userAvatar}
@@ -61,6 +72,8 @@ export default function Profile({navigation}) {
             </Text>
           </View>
         </View>
+      )}
+      <ScrollView style={styles.profileContainer}>
         <View style={styles.optionsArea}>
           <TouchableOpacity activeOpacity={0.8} style={styles.option}>
             <Svg
