@@ -1,4 +1,5 @@
 import {
+  Linking,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,6 +10,8 @@ import {Path, Svg} from 'react-native-svg';
 import global from '../../assets/global.jsx';
 
 export default function Settings({navigation}) {
+  const supportMail = 'support@quarkzplace.one';
+  const phoneNumber = '+5534992637647';
   const {navigate} = navigation;
   return (
     <View style={global.container}>
@@ -120,6 +123,7 @@ export default function Settings({navigation}) {
             </View>
             <View style={styles.settingsItem}>
               <TouchableOpacity
+                onPress={() => Linking.openURL(`tel:${phoneNumber}`)}
                 activeOpacity={0.8}
                 style={styles.settingOptionContact}>
                 <Svg
@@ -134,6 +138,9 @@ export default function Settings({navigation}) {
                 </Svg>
               </TouchableOpacity>
               <TouchableOpacity
+                onPress={() =>
+                  Linking.openURL(`mailto:${supportMail}?subject=Suporte`)
+                }
                 activeOpacity={0.8}
                 style={styles.settingOptionContact}>
                 <Svg
