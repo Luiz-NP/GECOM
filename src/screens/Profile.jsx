@@ -111,7 +111,8 @@ export default function Profile({navigation}) {
                 Alterar código de Autorização
               </Text>
               <Text style={styles.optionsubTitle}>
-                Informe o novo código de autorização, caso esteja expirado.
+                Informe o seu código de autorização, caso esteja expirado ou
+                inválido.
               </Text>
             </View>
           </TouchableOpacity>
@@ -127,7 +128,8 @@ export default function Profile({navigation}) {
             <View style={styles.optionText}>
               <Text style={styles.optionTitle}>Alterar suas informações</Text>
               <Text style={styles.optionsubTitle}>
-                Escolha uma senha forte e não a reutilize em outras contas.
+                Altere seus dados caso estejam inválidos e/ou necessitam de
+                atualização.
               </Text>
             </View>
           </TouchableOpacity>

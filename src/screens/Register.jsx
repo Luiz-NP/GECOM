@@ -29,26 +29,30 @@ export default function Register({navigation}) {
   const [password, setPassword] = useState('');
 
   async function signUpWithEmailAndPassword() {
-    if (firstName === '' || lastName === '' || email === '' || password === '') return Alert.alert("preencha todos os campos");
+    if (firstName === '' || lastName === '' || email === '' || password === '')
+      return Alert.alert('preencha todos os campos');
 
     setIsLoading(!isLoading);
 
     // formating username
     const unformatted = `${firstName} ${lastName}`;
-    const formatted = unformatted.split(' ').map(name => {
+    const formatted = unformatted
+      .split(' ')
+      .map(name => {
         return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-      }).join(' ');
-      
+      })
+      .join(' ');
+
     await auth()
       .createUserWithEmailAndPassword(email, password)
       .then(async ({user}) => {
         await user.updateProfile({
           displayName: formatted,
         });
-        navigate("Login");
-        Alert.alert("User created");
+        navigate('Login');
+        Alert.alert('User created');
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.code);
       });
   }
@@ -118,17 +122,6 @@ export default function Register({navigation}) {
             backgroundColor="transparent"
             activeColor="#19E5A6"
             secureTextEntry
-          />
-          <InputOutline
-            placeholder="Autorização de técnico"
-            fontFamily="ClashGrotesk-Medium"
-            paddingVertical={8}
-            bgColor="#121212"
-            fontColor="white"
-            fontSize={24}
-            roundness={15}
-            backgroundColor="transparent"
-            activeColor="#19E5A6"
           />
         </View>
         <View style={styles.btnArea}>
