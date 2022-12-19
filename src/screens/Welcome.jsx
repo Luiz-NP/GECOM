@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -5,9 +6,39 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import LottieView from 'lottie-react-native';
+import Animated, {FadeInLeft, FadeOutRight} from 'react-native-reanimated';
 
 export default function Welcome({navigation}) {
+  const [Loading, setLoading] = useState(true);
   const {navigate} = navigation;
+
+  useEffect(() => {
+    setInterval(() => {
+      setLoading(false);
+    }, 2500);
+  }, []);
+
+  if (Loading === true) {
+    return (
+      <Animated.View
+        entering={FadeInLeft.duration(500)}
+        exiting={FadeOutRight.duration(500)}
+        style={{
+          width: '100%',
+          height: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#121212',
+        }}>
+        <LottieView
+          source={require('../../assets/json/splash.json')}
+          autoPlay
+          loop
+        />
+      </Animated.View>
+    );
+  }
 
   return (
     <ImageBackground
