@@ -102,7 +102,12 @@ export default function Profile({navigation}) {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.8} style={styles.option}>
+          <TouchableOpacity
+            onPress={() => {
+              navigate('AddCode');
+            }}
+            activeOpacity={0.8}
+            style={styles.option}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"

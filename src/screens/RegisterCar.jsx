@@ -37,19 +37,25 @@ export default function RegisterCar({navigation}) {
           </View>
         </View>
       </View>
-      <InputOutline
-        placeholder="Placa do carro"
-        fontFamily="ClashGrotesk-Medium"
-        paddingVertical={8}
-        bgColor="#121212"
-        fontColor="white"
-        fontSize={24}
-        roundness={15}
-        backgroundColor="transparent"
-        activeColor="#19E5A6"
-      />
+      <View style={styles.registerContainer}>
+        <InputOutline
+          placeholder="Placa do carro"
+          fontFamily="ClashGrotesk-Medium"
+          paddingVertical={8}
+          bgColor="#121212"
+          fontColor="white"
+          fontSize={24}
+          roundness={15}
+          backgroundColor="transparent"
+          activeColor="#19E5A6"
+        />
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  registerContainer: {
+    padding: 12,
+  },
+});

@@ -1,4 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import AddCode from '../screens/AddCode';
 import DebugCamera from '../screens/DebugCamera';
 import Home from '../screens/Home';
 
@@ -50,6 +51,13 @@ export function StackRoutes() {
       <Screen
         name="RegisterCar"
         component={RegisterCar}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="AddCode"
+        component={AddCode}
         options={{
           headerShown: false,
         }}
