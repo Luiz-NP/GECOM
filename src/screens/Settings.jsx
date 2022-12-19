@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
     color: '#19E5A6',
   },
   exampleText: {
+    marginTop: 8,
     color: 'white',
     fontSize: 24,
     fontFamily: 'ClashGrotesk-Medium',

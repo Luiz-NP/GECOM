@@ -16,7 +16,7 @@ export default function Welcome({navigation}) {
   useEffect(() => {
     setInterval(() => {
       setLoading(false);
-    }, 2500);
+    }, 3000);
   }, []);
 
   if (Loading === true) {

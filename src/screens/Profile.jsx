@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
   userInfo: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 5,
   },
   iconBg: {
     borderRadius: 25,
@@ -179,11 +180,14 @@ const styles = StyleSheet.create({
   userName: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 24,
+    height: 30,
+    marginTop: 2,
     color: 'white',
   },
   userCompany: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 18,
+    height: 25,
     color: '#818181',
   },
   authorizationArea: {
@@ -197,6 +201,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingHorizontal: 12,
     color: 'white',
+    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   optionsArea: {
     padding: 12,
