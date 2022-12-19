@@ -1,4 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import AddCode from '../screens/AddCode';
 import DebugCamera from '../screens/DebugCamera';
 import Home from '../screens/Home';
 
@@ -10,6 +11,8 @@ import Login from '../screens/Login';
 import Privacy from '../screens/Privacy';
 import Profile from '../screens/Profile';
 import Register from '../screens/Register';
+import RegisterCar from '../screens/RegisterCar';
+import Settings from '../screens/Settings';
 import Welcome from '../screens/Welcome';
 
 // routes
@@ -20,7 +23,6 @@ export function StackRoutes() {
         gestureEnabled: true,
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
-        animationDuration: 150,
         navigationBarColor: '#121212',
       }}>
       <Screen
@@ -35,6 +37,7 @@ export function StackRoutes() {
         component={Home}
         options={{
           headerShown: false,
+          gestureEnabled: true,
         }}
       />
       <Screen
@@ -42,6 +45,29 @@ export function StackRoutes() {
         component={Profile}
         options={{
           headerShown: false,
+          animation: 'slide_from_bottom',
+        }}
+      />
+      <Screen
+        name="RegisterCar"
+        component={RegisterCar}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="AddCode"
+        component={AddCode}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerShown: false,
+          animation: 'slide_from_right',
         }}
       />
       <Screen

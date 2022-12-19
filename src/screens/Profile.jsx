@@ -37,7 +37,7 @@ export default function Profile({navigation}) {
             onPress={() => {
               navigate('Home');
             }}
-            style={styles.backBtn}
+            style={global.backBtn}
             activeOpacity={0.8}>
             <Svg
               width={32}
@@ -80,7 +80,12 @@ export default function Profile({navigation}) {
       )}
       <ScrollView style={styles.profileContainer}>
         <View style={styles.optionsArea}>
-          <TouchableOpacity activeOpacity={0.8} style={styles.option}>
+          <TouchableOpacity
+            onPress={() => {
+              navigate('RegisterCar');
+            }}
+            activeOpacity={0.8}
+            style={styles.option}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -97,7 +102,12 @@ export default function Profile({navigation}) {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.8} style={styles.option}>
+          <TouchableOpacity
+            onPress={() => {
+              navigate('AddCode');
+            }}
+            activeOpacity={0.8}
+            style={styles.option}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -108,10 +118,11 @@ export default function Profile({navigation}) {
             </Svg>
             <View style={styles.optionText}>
               <Text style={styles.optionTitle}>
-                Alterar código de Autorização
+                Adicionar código de Autorização
               </Text>
               <Text style={styles.optionsubTitle}>
-                Informe o novo código de autorização, caso esteja expirado.
+                Informe o seu código de autorização, caso esteja expirado e/ou
+                inválido.
               </Text>
             </View>
           </TouchableOpacity>
@@ -127,7 +138,8 @@ export default function Profile({navigation}) {
             <View style={styles.optionText}>
               <Text style={styles.optionTitle}>Alterar suas informações</Text>
               <Text style={styles.optionsubTitle}>
-                Escolha uma senha forte e não a reutilize em outras contas.
+                Altere seus dados caso estejam inválidos e/ou necessitam de
+                atualização.
               </Text>
             </View>
           </TouchableOpacity>
@@ -146,15 +158,13 @@ export default function Profile({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  backBtn: {
-    marginRight: 16,
-  },
   profileContainer: {
     marginBottom: 48,
   },
   userInfo: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 5,
   },
   iconBg: {
     borderRadius: 25,
@@ -170,11 +180,14 @@ const styles = StyleSheet.create({
   userName: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 24,
+    height: 30,
+    marginTop: 2,
     color: 'white',
   },
   userCompany: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 18,
+    height: 25,
     color: '#818181',
   },
   authorizationArea: {
@@ -188,6 +201,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingHorizontal: 12,
     color: 'white',
+    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   optionsArea: {
     padding: 12,

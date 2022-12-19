@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     marginVertical: 12,
+    marginBottom: 18,
     borderRadius: 100,
   },
   userName: {
@@ -62,12 +63,12 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
   },
   authorizationArea: {
-    marginVertical: 12,
+    marginVertical: 16,
     borderRadius: 15,
     paddingHorizontal: 6,
   },
   authorizationType: {
-    height: 32,
+    height: 30,
     width: 200,
   },
 });

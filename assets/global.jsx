@@ -47,7 +47,7 @@ export default StyleSheet.create({
   topBar: {
     flexDirection: 'row',
     width: '100%',
-    height: 180,
+    height: 148,
     marginBottom: 12,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
@@ -56,7 +56,7 @@ export default StyleSheet.create({
   },
   screenInfo: {
     width: '100%',
-    marginTop: 64,
+    marginTop: 36,
     height: 70,
     alignItems: 'center',
     flexDirection: 'row',
@@ -82,5 +82,8 @@ export default StyleSheet.create({
     color: 'white',
     fontFamily: 'ClashGrotesk-Light',
     fontSize: 24,
+  },
+  backBtn: {
+    marginRight: 16,
   },
 });
