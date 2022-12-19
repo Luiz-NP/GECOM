@@ -22,7 +22,6 @@ export default function Welcome({navigation}) {
   if (Loading === true) {
     return (
       <Animated.View
-        entering={FadeInLeft.duration(500)}
         exiting={FadeOutRight.duration(500)}
         style={{
           width: '100%',
