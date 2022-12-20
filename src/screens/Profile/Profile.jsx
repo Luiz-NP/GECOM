@@ -8,8 +8,8 @@ import {
   View,
 } from 'react-native';
 import {Path, Svg} from 'react-native-svg';
-import global from '../../assets/global.jsx';
-import ProfileSkeleton from '../Skeletons/ProfileSkeleton.jsx';
+import global from '../../../assets/global.jsx';
+import ProfileSkeleton from '../../Skeletons/ProfileSkeleton.jsx';
 
 import Animated, {FadeInDown, FadeOut} from 'react-native-reanimated';
 import {FadeInUp, FadeOutDown} from 'react-native-reanimated';

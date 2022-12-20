@@ -1,19 +1,19 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import AddCode from '../screens/AddCode';
-import DebugCamera from '../screens/DebugCamera';
-import Home from '../screens/Home';
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
 // screens
 
-import Login from '../screens/Login';
-import Privacy from '../screens/Privacy';
-import Profile from '../screens/Profile';
-import Register from '../screens/Register';
-import RegisterCar from '../screens/RegisterCar';
-import Settings from '../screens/Settings';
-import Welcome from '../screens/Welcome';
+import DebugCamera from '../screens/Debug/DebugCamera';
+import Home from '../screens/Home/Home';
+import Login from '../screens/Welcome/Login';
+import AddCode from '../screens/Profile/AddCode';
+import Privacy from '../screens/Profile/Privacy';
+import Profile from '../screens/Profile/Profile';
+import RegisterCar from '../screens/Profile/RegisterCar';
+import Register from '../screens/Welcome/Register';
+import Settings from '../screens/Settings/Settings';
+import Welcome from '../screens/Welcome/Welcome';
 
 // routes
 export function StackRoutes() {

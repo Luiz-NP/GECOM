@@ -14,7 +14,7 @@ import {InputOutline} from 'react-native-input-outline';
 // auth
 import auth from '@react-native-firebase/auth';
 
-import global from '../../assets/global.jsx';
+import global from '../../../assets/global.jsx';
 
 export default function Register({navigation}) {
   const {navigate} = navigation;
