@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import {Path, Svg} from 'react-native-svg';
-import global from '../../assets/global.jsx';
+import global from '../../../assets/global.jsx';
 
 export default function Privacy({navigation}) {
   const {navigate} = navigation;

@@ -59,7 +59,7 @@ export default function Register({navigation}) {
 
   return (
     <ImageBackground
-      source={require('../../assets/img/welcomeBg.webp')}
+      source={require('../../../assets/img/welcomeBg.webp')}
       resizeMode={'cover'}
       style={{flex: 1, width: '100%'}}>
       <KeyboardAvoidingView

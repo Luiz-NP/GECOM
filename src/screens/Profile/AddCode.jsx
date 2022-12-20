@@ -1,6 +1,6 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
-import global from '../../assets/global.jsx';
+import global from '../../../assets/global.jsx';
 
 export default function AddCode({navigation}) {
   const {navigate} = navigation;

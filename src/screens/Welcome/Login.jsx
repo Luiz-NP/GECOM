@@ -9,14 +9,14 @@ import {
 import {InputOutline} from 'react-native-input-outline';
 import {ClipPath, Defs, Path, Svg, Use} from 'react-native-svg';
 
-import { useState } from 'react';
+import {useState} from 'react';
 
 // auth
 import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import "../configs/google.config";
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import '../../configs/google.config';
 
-import global from '../../assets/global.jsx';
+import global from '../../../assets/global.jsx';
 
 export default function Login({navigation}) {
   const {navigate} = navigation;
@@ -26,37 +26,38 @@ export default function Login({navigation}) {
 
   // email/password sign-in
   async function handleSignInWithEmailAndPassword() {
-    if (email === '' || password === '') return Alert.alert("preencha todos os campos")
+    if (email === '' || password === '')
+      return Alert.alert('preencha todos os campos');
     await auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        navigate("Home");
+        navigate('Home');
         setEmail('');
         setPassword('');
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.code);
-      })
+      });
   }
 
   // google sign-in
   async function onGoogleButtonPress() {
     // Check if your device supports Google Play
-    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-    
+    await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+
     // Get the users ID token
-    const { idToken } = await GoogleSignin.signIn();
-  
+    const {idToken} = await GoogleSignin.signIn();
+
     // Create a Google credential with the token
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-  
+
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
   }
 
   return (
     <ImageBackground
-      source={require('../../assets/img/welcomeBg.webp')}
+      source={require('../../../assets/img/welcomeBg.webp')}
       resizeMode={'cover'}
       style={{flex: 1, width: '100%'}}>
       <View style={global.containerBottom}>
@@ -93,11 +94,15 @@ export default function Login({navigation}) {
         </View>
         <View style={styles.btnArea}>
           <View style={styles.authArea}>
-            <TouchableOpacity 
-              onPress={() => onGoogleButtonPress().then(() => {
-                console.log('Signed in with Google!')
-                navigate("Home");
-              })} style={styles.btnGoogle} activeOpacity={0.8}>
+            <TouchableOpacity
+              onPress={() =>
+                onGoogleButtonPress().then(() => {
+                  console.log('Signed in with Google!');
+                  navigate('Home');
+                })
+              }
+              style={styles.btnGoogle}
+              activeOpacity={0.8}>
               <Svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -131,7 +136,10 @@ export default function Login({navigation}) {
                 />
               </Svg>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleSignInWithEmailAndPassword} style={styles.btnSubmit} activeOpacity={0.8}>
+            <TouchableOpacity
+              onPress={handleSignInWithEmailAndPassword}
+              style={styles.btnSubmit}
+              activeOpacity={0.8}>
               <Text style={styles.submitText}>Autenticar</Text>
             </TouchableOpacity>
           </View>

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import global from '../../assets/global.jsx';
+import global from '../../../assets/global.jsx';
 import {Path, Svg} from 'react-native-svg';
 
 import {InputOutline} from 'react-native-input-outline';

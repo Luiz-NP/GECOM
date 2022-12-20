@@ -31,7 +31,7 @@ export default function Welcome({navigation}) {
           backgroundColor: '#121212',
         }}>
         <LottieView
-          source={require('../../assets/json/splash.json')}
+          source={require('../../../assets/json/splash.json')}
           autoPlay
           loop
         />
@@ -41,7 +41,7 @@ export default function Welcome({navigation}) {
 
   return (
     <ImageBackground
-      source={require('../../assets/img/welcomeBg.webp')}
+      source={require('../../../assets/img/welcomeBg.webp')}
       resizeMode={'cover'}
       style={{flex: 1, width: '100%'}}>
       <View style={styles.container}>
