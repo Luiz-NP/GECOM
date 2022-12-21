@@ -25,7 +25,8 @@ export default function Profile({navigation}) {
   }, []);
   const {navigate} = navigation;
 
-  const displayName = 'Victor Lima';
+  const userImage = auth().currentUser.photoURL;
+  const displayName = auth().currentUser.displayName;
   const displayCompany = 'QuarkzPlace Ltd.';
 
   const isAutorized = true;
@@ -35,7 +36,7 @@ export default function Profile({navigation}) {
     auth()
       .signOut()
       .then(() => {
-        console.log('User signed out!');
+        console.log('Deslogado com sucesso.');
       });
   }
 
@@ -72,7 +73,7 @@ export default function Profile({navigation}) {
           <Image
             style={styles.userAvatar}
             source={{
-              uri: 'https://i.pinimg.com/736x/36/c6/e5/36c6e5a05b323b35f185b9cfe8ce8255.jpg',
+              uri: `${userImage}`,
             }}
           />
           <Text style={styles.userName}>{displayName}</Text>

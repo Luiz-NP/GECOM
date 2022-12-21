@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
-import Animated, {FadeInLeft, FadeOutRight} from 'react-native-reanimated';
+import Animated, {FadeOutRight} from 'react-native-reanimated';
 
 export default function Welcome({navigation}) {
   const [Loading, setLoading] = useState(true);
