@@ -1,6 +1,7 @@
 import {
   Alert,
   ImageBackground,
+  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -19,6 +20,8 @@ import '../../configs/google.config';
 import global from '../../../assets/global.jsx';
 
 export default function Login({navigation}) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const {navigate} = navigation;
 
   const [email, setEmail] = useState('');
@@ -143,11 +146,25 @@ export default function Login({navigation}) {
               <Text style={styles.submitText}>Autenticar</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.btnForgot} activeOpacity={0.8}>
+          <TouchableOpacity
+            onPress={() => setModalVisible(!modalVisible)}
+            style={styles.btnForgot}
+            activeOpacity={0.8}>
             <Text style={styles.forgotText}>Esqueceu sua senha?</Text>
           </TouchableOpacity>
         </View>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={global.containerBottom}>
+          <Text>Esqueci minha senha</Text>
+        </View>
+      </Modal>
     </ImageBackground>
   );
 }
