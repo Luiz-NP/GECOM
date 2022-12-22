@@ -18,7 +18,10 @@ import ProfileSkeleton from '../../Skeletons/ProfileSkeleton.jsx';
 
 import Animated, {FadeInDown, FadeOut} from 'react-native-reanimated';
 import {FadeInUp, FadeOutDown} from 'react-native-reanimated';
+
 import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import '../../configs/google.config';
 
 export default function Profile({navigation}) {
   const [Loading, setLoading] = useState(true);
@@ -42,6 +45,7 @@ export default function Profile({navigation}) {
     auth()
       .signOut()
       .then(() => {
+        GoogleSignin.signOut();
         console.log('Deslogado com sucesso.');
       });
   }
