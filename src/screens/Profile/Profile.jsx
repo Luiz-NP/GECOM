@@ -26,6 +26,7 @@ import '../../configs/google.config';
 export default function Profile({navigation}) {
   const [Loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalBg, setModalBg] = useState(false);
 
   useEffect(() => {
     setInterval(() => {
@@ -110,14 +111,9 @@ export default function Profile({navigation}) {
               visible={modalVisible}
               onRequestClose={() => {
                 setModalVisible(!modalVisible);
+                setModalBg(!modalBg);
               }}>
               <StatusBar backgroundColor={'transparent'} translucent={true} />
-              <BlurView
-                style={{flex: 1}}
-                blurType="light"
-                blurAmount={10}
-                reducedTransparencyFallbackColor="white"
-              />
               <View style={modal.containerBottom}>
                 <Text style={modal.title}>Escolha a origem de sua imagem</Text>
                 <TouchableOpacity activeOpacity={0.8} style={modal.listItem}>

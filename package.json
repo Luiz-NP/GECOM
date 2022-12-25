@@ -24,6 +24,7 @@
     "react-native-camera-kit": "^13.0.0",
     "react-native-cli": "^2.0.1",
     "react-native-fs": "^2.20.0",
+    "react-native-image-picker": "^4.10.3",
     "react-native-input-outline": "^1.5.2",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-paper": "^5.0.2",
