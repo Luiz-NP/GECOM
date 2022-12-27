@@ -24,12 +24,13 @@ export default function DebugCamera() {
 
   async function takePic(e) {
     if (e.type === 'capture') {
-      const {uri} = await cameraRef.current.camera.capture();
+      const uri = e.captureImages[e.captureImages.length-1].uri;
 
       const data = await RNFS.readFile(uri, 'base64').then(res => {
         return res;
       });
       setPhoto(data);
+
     }
   }
 
@@ -88,7 +89,7 @@ export default function DebugCamera() {
           top: 50,
           left: 120,
         }}
-        onBottomButtonPressed={takePic}
+        onBottomButtonPressed={(e) => takePic(e)}
         flashImages={{
           // optional, images for flash state
           on: require('../../../assets/camera/flash-on.png'),
