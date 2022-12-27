@@ -1,11 +1,11 @@
-import { PermissionsAndroid, View, Image, Button, Text} from 'react-native';
-import {useEffect, useRef, useState} from 'react';
+import { PermissionsAndroid, View, Image, Button, Text, Alert} from 'react-native';
+import {useEffect, useState} from 'react';
 import {CameraScreen} from 'react-native-camera-kit';
 import RNFS from 'react-native-fs';
 import Geolocation from '@react-native-community/geolocation';
+import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 
 export default function DebugCamera() {
-  const cameraRef = useRef(null);
   const [permissions, setPermissios] = useState();
   const [photo, setPhoto] = useState();
 
@@ -21,20 +21,28 @@ export default function DebugCamera() {
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       );
 
-      if (camera === 'granted' && storage === 'granted' && location === 'granted') setPermissios(true);
+      const locationEnabler = await RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
+        interval: 10000,
+        fastInterval: 5000,
+      });
+
+      console.log(locationEnabler);
+
+      if (camera === 'granted' && storage === 'granted' && location === 'granted' && (locationEnabler === 'enabled' || locationEnabler === 'already-enabled')) setPermissios(true);
       else setPermissios('denied');
     })();
   }, []);
 
   async function takePic(e) {
     if (e.type === 'capture') {
+      await getLocation();
+
       const uri = e.captureImages[e.captureImages.length-1].uri;
 
       const data = await RNFS.readFile(uri, 'base64').then(res => {
         return res;
       });
       setPhoto(data);
-      await getLocation();
     }
   }
 
@@ -42,7 +50,11 @@ export default function DebugCamera() {
     Geolocation.getCurrentPosition(info => {
       console.log(info.coords.latitude);
       console.log(info.coords.longitude);
-    }, error => console.log(error), {timeout: 20000, maximumAge: 1000});
+    },
+    error => {
+      console.log(error);
+    },
+    {timeout: 20000, maximumAge: 1000});
   }
 
   if (permissions === undefined) {
@@ -90,7 +102,6 @@ export default function DebugCamera() {
   return (
     permissions && (
       <CameraScreen
-        ref={cameraRef}
         style={{
           height: '100%',
           paddingBottom: 80,
