@@ -1,7 +1,7 @@
+import { PermissionsAndroid, View, Image, Button, Text} from 'react-native';
+import {useEffect, useRef, useState} from 'react';
 import {CameraScreen} from 'react-native-camera-kit';
 import RNFS from 'react-native-fs';
-import {PermissionsAndroid, View, Image, Button, Text} from 'react-native';
-import {useEffect, useRef, useState} from 'react';
 
 export default function DebugCamera() {
   const cameraRef = useRef(null);
@@ -16,8 +16,11 @@ export default function DebugCamera() {
       const storage = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
       );
+      const location = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      );
 
-      if (camera === 'granted' && storage === 'granted') setPermissios(true);
+      if (camera === 'granted' && storage === 'granted' && location === 'granted') setPermissios(true);
       else setPermissios('denied');
     })();
   }, []);
