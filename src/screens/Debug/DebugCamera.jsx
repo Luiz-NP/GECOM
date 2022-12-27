@@ -8,6 +8,7 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 export default function DebugCamera() {
   const [permissions, setPermissios] = useState();
   const [photo, setPhoto] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     (async () => {
@@ -53,6 +54,7 @@ export default function DebugCamera() {
     },
     error => {
       console.log(error);
+      setError(true);
     },
     {timeout: 20000, maximumAge: 1000});
   }
@@ -88,7 +90,12 @@ export default function DebugCamera() {
   }
 
   if (photo) {
-    return (
+    if (error) {
+      setPhoto(null);
+      setError(false);
+      Alert.alert("Epa, deu ruim", "Verifique se a localização está ligada.")
+    }
+      return (
       <View>
         <Image
           style={{width: '100%', height: '92.9%'}}
