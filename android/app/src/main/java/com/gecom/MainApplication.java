@@ -1,5 +1,6 @@
 package com.gecom;
 
+import com.heanoria.library.reactnative.locationenabler.RNAndroidLocationEnablerPackage;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
