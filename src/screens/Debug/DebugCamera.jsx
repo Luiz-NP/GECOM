@@ -2,6 +2,7 @@ import { PermissionsAndroid, View, Image, Button, Text} from 'react-native';
 import {useEffect, useRef, useState} from 'react';
 import {CameraScreen} from 'react-native-camera-kit';
 import RNFS from 'react-native-fs';
+import Geolocation from '@react-native-community/geolocation';
 
 export default function DebugCamera() {
   const cameraRef = useRef(null);
@@ -33,8 +34,15 @@ export default function DebugCamera() {
         return res;
       });
       setPhoto(data);
-
+      await getLocation();
     }
+  }
+
+  async function getLocation() {
+    Geolocation.getCurrentPosition(info => {
+      console.log(info.coords.latitude);
+      console.log(info.coords.longitude);
+    }, error => console.log(error), {timeout: 20000, maximumAge: 1000});
   }
 
   if (permissions === undefined) {
