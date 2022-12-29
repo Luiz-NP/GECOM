@@ -7,8 +7,9 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 
 export default function DebugCamera() {
   const [permissions, setPermissios] = useState();
-  const [photo, setPhoto] = useState();
+  const [photos, setPhotos] = useState([]);
   const [error, setError] = useState();
+  const [showPhoto, setShowPhoto] = useState();
 
   useEffect(() => {
     (async () => {
@@ -43,7 +44,8 @@ export default function DebugCamera() {
       const data = await RNFS.readFile(uri, 'base64').then(res => {
         return res;
       });
-      setPhoto(data);
+      setPhotos(prev => [...prev, data]);
+      setShowPhoto(true);
     }
   }
 
@@ -89,9 +91,10 @@ export default function DebugCamera() {
     );
   }
 
-  if (photo) {
+  if (photos.length > 0 && showPhoto) {
+    console.log(photos.length);
     if (error) {
-      setPhoto(null);
+      setShowPhoto(false);
       setError(false);
       Alert.alert("Epa, deu ruim", "Verifique se a localização está ligada.")
     }
@@ -99,9 +102,9 @@ export default function DebugCamera() {
       <View>
         <Image
           style={{width: '100%', height: '92.9%'}}
-          source={{uri: 'data:image/jpeg;base64,' + photo}}
+          source={{uri: 'data:image/jpeg;base64,' + photos[photos.length-1]}}
         />
-        <Button onPress={() => setPhoto(null)} title="Back" />
+        <Button onPress={() => setShowPhoto(false)} title="Back" />
       </View>
     );
   }
