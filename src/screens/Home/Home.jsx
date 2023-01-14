@@ -13,12 +13,12 @@ import {useCallback, useContext, useEffect} from 'react';
 import Task from '../../components/Task';
 import global from '../../../assets/global.jsx';
 import {AuthContext} from '../../contexts/AuthContext';
+import {ceil} from 'react-native-reanimated';
 
 export default function Home({navigation}) {
   const {navigate} = navigation;
   const {user} = useContext(AuthContext);
 
-  console.log(user?.displayName);
   // defining back button behavior
   useFocusEffect(
     useCallback(() => {
@@ -85,7 +85,16 @@ export default function Home({navigation}) {
           </View>
         </View>
       </View>
-      <Task />
+      {/* <Task /> */}
+
+      <View style={styles.startButtonWrapper}>
+        <TouchableOpacity 
+          style={styles.startButton}
+          onPress={() => navigate("Camera")}
+        >
+          <Text style={styles.startButtonText}>iniciar fiscalização</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -93,5 +102,24 @@ export default function Home({navigation}) {
 const styles = StyleSheet.create({
   iconGap: {
     marginLeft: 12,
+  },
+
+  startButtonWrapper: {
+    alignItems: 'center',
+    
+    marginVertical: 24,
+  },
+
+  startButton: {
+    backgroundColor: "blue",
+    
+    paddingHorizontal: 48,
+    paddingVertical: 24,
+
+    borderRadius: 12,
+  },
+
+  startButtonText: {
+    fontSize: 24,
   },
 });
