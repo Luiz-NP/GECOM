@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -8,18 +8,22 @@ import {
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import Animated, {FadeOutRight} from 'react-native-reanimated';
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Welcome({navigation}) {
-  const [Loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const {navigate} = navigation;
 
-  useEffect(() => {
-    setInterval(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
+  const { user } = useContext(AuthContext);
 
-  if (Loading === true) {
+  useEffect(() => {
+    if (user) navigate("Home");
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000);
+  }, [user]);
+
+  if (loading) {
     return (
       <Animated.View
         exiting={FadeOutRight.duration(500)}
