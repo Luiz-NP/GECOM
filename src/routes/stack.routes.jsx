@@ -3,8 +3,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const {Screen, Navigator} = createNativeStackNavigator();
 
 // screens
-
-import DebugCamera from '../screens/Debug/DebugCamera';
+import { Camera } from "../screens/Oversight/Camera";
+import { Confirm } from "../screens/Oversight/Confirm";
+import { Finish } from "../screens/Oversight/Finish";
 import Home from '../screens/Home/Home';
 import Login from '../screens/Welcome/Login';
 import AddCode from '../screens/Profile/AddCode';
@@ -24,7 +25,8 @@ export function StackRoutes() {
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
         navigationBarColor: '#121212',
-      }}>
+      }}
+      >
       <Screen
         name="Welcome"
         component={Welcome}
@@ -92,8 +94,22 @@ export function StackRoutes() {
         }}
       />
       <Screen
-        name="DebugCamera"
-        component={DebugCamera}
+        name="Camera"
+        component={Camera}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="Confirm"
+        component={Confirm}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="Finish"
+        component={Finish}
         options={{
           headerShown: false,
         }}
