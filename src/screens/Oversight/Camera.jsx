@@ -1,17 +1,26 @@
 import { PermissionsAndroid, View, Image, Button, Text, Alert} from 'react-native';
-import {useEffect, useState} from 'react';
-import {CameraScreen} from 'react-native-camera-kit';
-import RNFS from 'react-native-fs';
-import Geolocation from '@react-native-community/geolocation';
+import { useEffect, useState, useContext } from 'react';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
+import Geolocation from '@react-native-community/geolocation';
+import RNFS from 'react-native-fs';
+import { CameraScreen } from 'react-native-camera-kit';
+import { DataContext } from '../../contexts/DataContext';
 
-export default function DebugCamera() {
+export const Camera = ({ navigation }) => {
+  // navigation prop to navigate
+  const { navigate } = navigation;
+
+  // data context
+  const { setData } = useContext(DataContext);
+
   const [permissions, setPermissios] = useState();
-  const [photos, setPhotos] = useState([]);
+  const [photo, setPhoto] = useState();
   const [error, setError] = useState();
-  const [showPhoto, setShowPhoto] = useState();
+  const [location, setLocation] = useState(null);
+  const [loading, setLoading] = useState();
 
   useEffect(() => {
+    // get permissions
     (async () => {
       const camera = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.CAMERA,
@@ -28,39 +37,47 @@ export default function DebugCamera() {
         fastInterval: 5000,
       });
 
-      console.log(locationEnabler);
-
       if (camera === 'granted' && storage === 'granted' && location === 'granted' && (locationEnabler === 'enabled' || locationEnabler === 'already-enabled')) setPermissios(true);
       else setPermissios('denied');
     })();
   }, []);
 
+  // taking a pic
   async function takePic(e) {
     if (e.type === 'capture') {
+      setLoading(true);
       await getLocation();
 
       const uri = e.captureImages[e.captureImages.length-1].uri;
 
-      const data = await RNFS.readFile(uri, 'base64').then(res => {
+      const pic = await RNFS.readFile(uri, 'base64').then(res => {
         return res;
       });
-      setPhotos(prev => [...prev, data]);
-      setShowPhoto(true);
+      setPhoto(pic);
     }
   }
 
+  // getting location at photo time
   async function getLocation() {
     Geolocation.getCurrentPosition(info => {
-      console.log(info.coords.latitude);
-      console.log(info.coords.longitude);
+      const coordinates = {
+        latitude: parseFloat(info.coords.latitude),
+        longitude: parseFloat(info.coords.longitude), 
+      };
+
+      console.log(coordinates);
+
+      setLocation(coordinates);
+      setLoading(false);
     },
     error => {
       console.log(error);
       setError(true);
     },
-    {timeout: 20000, maximumAge: 1000});
+      { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 });
   }
 
+  // loading if you haven't already given permissions
   if (permissions === undefined) {
     return (
       <View
@@ -75,6 +92,7 @@ export default function DebugCamera() {
     );
   }
 
+  // blocking if you don't have permissions
   if (permissions === 'denied') {
     return (
       <View
@@ -91,10 +109,26 @@ export default function DebugCamera() {
     );
   }
 
-  if (photos.length > 0 && showPhoto) {
-    console.log(photos.length);
+  // loading state
+  if (loading) {
+    return (
+      <View
+        style={{
+          height: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'black',
+        }}>
+        <Text style={{color: 'white'}}>Carregando...</Text>
+      </View>
+    );
+  }
+
+  // showing photo
+  if (photo && location) {
     if (error) {
-      setShowPhoto(false);
+      setPhoto(null);
+      setLocation(null);
       setError(false);
       Alert.alert("Epa, deu ruim", "Verifique se a localização está ligada.")
     }
@@ -102,9 +136,23 @@ export default function DebugCamera() {
       <View>
         <Image
           style={{width: '100%', height: '92.9%'}}
-          source={{uri: 'data:image/jpeg;base64,' + photos[photos.length-1]}}
+          source={{uri: 'data:image/jpeg;base64,' + photo}}
         />
-        <Button onPress={() => setShowPhoto(false)} title="Back" />
+        <Button onPress={() => {
+          // storing data in context
+          const data = {
+            photo: photo,
+            location: location
+          };
+          
+          setData(prev => [...prev, data]);
+
+          // cleaning up
+          setPhoto(null);
+          setLocation(null);
+          
+          navigate("Confirm");
+        }} title="continuar" />
       </View>
     );
   }
@@ -133,5 +181,5 @@ export default function DebugCamera() {
         showCapturedImageCount={false} // (default false) optional, show count for photos taken during that capture session
       />
     )
-  );
+  ); 
 }
