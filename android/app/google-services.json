@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "311422833312",
+    "project_id": "gecom-5ace8",
+    "storage_bucket": "gecom-5ace8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311422833312:android:83e7be505fb25020b76fc5",
+        "android_client_info": {
+          "package_name": "com.gecom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311422833312-t9q9qjjsoin7nh4tdgchea7pkdohlg45.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gecom",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "311422833312-at24f0dc2t3gs5it2g0e30172p1gcm3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUyXATQ14meOCpuioVW0aq8DlkjCTSRxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311422833312-at24f0dc2t3gs5it2g0e30172p1gcm3r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
