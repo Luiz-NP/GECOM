@@ -1,7 +1,10 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Welcome} from '../screens/Welcome';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const {Screen, Navigator} = createNativeStackNavigator();
+
+// screens
+import { Welcome } from '../screens/Welcome';
+
 // routes
 export const StackRoutes = (): JSX.Element => {
   return (
@@ -13,7 +16,7 @@ export const StackRoutes = (): JSX.Element => {
         navigationBarColor: '#121212',
       }}>
       <Screen
-        name="Welcome"
+        name="welcome"
         component={Welcome}
         options={{
           headerShown: false,
