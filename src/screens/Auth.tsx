@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   forgotText: {
     fontFamily: 'ClashGrotesk-Medium',
-    color: '#8af3cb',
+    color: 'white',
     textAlign: 'center',
     fontSize: 18,
     marginTop: 12,
