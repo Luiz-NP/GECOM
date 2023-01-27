@@ -1,10 +1,7 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Welcome} from '../screens/Welcome';
 
-const { Screen, Navigator } = createNativeStackNavigator();
-
-// components
-import App from "../../App";
-
+const {Screen, Navigator} = createNativeStackNavigator();
 // routes
 export const StackRoutes = (): JSX.Element => {
   return (
@@ -14,15 +11,14 @@ export const StackRoutes = (): JSX.Element => {
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
         navigationBarColor: '#121212',
-      }}
-    >
-      <Screen 
-        name="App"
-        component={App}
+      }}>
+      <Screen
+        name="Welcome"
+        component={Welcome}
         options={{
           headerShown: false,
         }}
       />
     </Navigator>
   );
-}
+};

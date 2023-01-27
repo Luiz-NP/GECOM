@@ -14,6 +14,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-GECOM-GECOMTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-GECOM-GECOMTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		34869DF60C7940EE8B6BC9A2 /* ClashGrotesk-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE5DFA4F8FB94BB5B0A5B90F /* ClashGrotesk-Bold.otf */; };
+		E9ACB9804F994FC2AB6FF76B /* ClashGrotesk-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BCCA5529412E40EF9C5B09FC /* ClashGrotesk-Light.otf */; };
+		BD5DFDF7D8DF477FAEC9912D /* ClashGrotesk-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CC79920BDBE4036B1AA61D0 /* ClashGrotesk-Medium.otf */; };
+		9B5703DD3C1447809A6F80F4 /* ClashGrotesk-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6DE88FFA63624BE4AB71F749 /* ClashGrotesk-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GECOM/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-GECOM-GECOMTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GECOM-GECOMTests.release.xcconfig"; path = "Target Support Files/Pods-GECOM-GECOMTests/Pods-GECOM-GECOMTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		DE5DFA4F8FB94BB5B0A5B90F /* ClashGrotesk-Bold.otf */ = {isa = PBXFileReference; name = "ClashGrotesk-Bold.otf"; path = "../assets/fonts/ClashGrotesk-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BCCA5529412E40EF9C5B09FC /* ClashGrotesk-Light.otf */ = {isa = PBXFileReference; name = "ClashGrotesk-Light.otf"; path = "../assets/fonts/ClashGrotesk-Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3CC79920BDBE4036B1AA61D0 /* ClashGrotesk-Medium.otf */ = {isa = PBXFileReference; name = "ClashGrotesk-Medium.otf"; path = "../assets/fonts/ClashGrotesk-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6DE88FFA63624BE4AB71F749 /* ClashGrotesk-Regular.otf */ = {isa = PBXFileReference; name = "ClashGrotesk-Regular.otf"; path = "../assets/fonts/ClashGrotesk-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +130,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				B8D45514B5CC4AD6AFC9D189 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +156,18 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		B8D45514B5CC4AD6AFC9D189 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				DE5DFA4F8FB94BB5B0A5B90F /* ClashGrotesk-Bold.otf */,
+				BCCA5529412E40EF9C5B09FC /* ClashGrotesk-Light.otf */,
+				3CC79920BDBE4036B1AA61D0 /* ClashGrotesk-Medium.otf */,
+				6DE88FFA63624BE4AB71F749 /* ClashGrotesk-Regular.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -244,6 +265,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				34869DF60C7940EE8B6BC9A2 /* ClashGrotesk-Bold.otf in Resources */,
+				E9ACB9804F994FC2AB6FF76B /* ClashGrotesk-Light.otf in Resources */,
+				BD5DFDF7D8DF477FAEC9912D /* ClashGrotesk-Medium.otf in Resources */,
+				9B5703DD3C1447809A6F80F4 /* ClashGrotesk-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
