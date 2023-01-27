@@ -17,6 +17,7 @@ export const StackRoutes = (): JSX.Element => {
         component={Welcome}
         options={{
           headerShown: false,
+          navigationBarColor: '#006458',
         }}
       />
     </Navigator>
