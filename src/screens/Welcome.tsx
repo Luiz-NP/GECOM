@@ -6,7 +6,9 @@ import {
   View,
 } from 'react-native';
 
-export const Welcome = (): JSX.Element => {
+export const Welcome = ({ navigation }: any): JSX.Element => {
+  const { navigate } = navigation;
+
   return (
     <View style={styles.welcomeContainer}>
       <StatusBar
@@ -21,10 +23,16 @@ export const Welcome = (): JSX.Element => {
             Confiabilidade em seus processos, com a garantia de resultados
           </Text>
         </View>
-        <TouchableOpacity style={styles.authBtn} activeOpacity={0.8}>
+        <TouchableOpacity 
+          onPress={() => navigate("login")}
+          style={styles.authBtn} 
+          activeOpacity={0.8}>
           <Text style={styles.authText}>Autenticar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.registerBtn} activeOpacity={0.8}>
+        <TouchableOpacity 
+          onPress={() => navigate("register")}
+          style={styles.registerBtn} 
+          activeOpacity={0.8}>
           <Text style={styles.registerText}>Cadastrar-se</Text>
         </TouchableOpacity>
       </View>
