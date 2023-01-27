@@ -76,6 +76,9 @@ export const Auth = (): JSX.Element => {
             <Text style={styles.authText}>Autenticar</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity activeOpacity={0.8}>
+          <Text style={styles.forgotText}>Esqueceu sua senha?</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -136,21 +139,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 24,
   },
-  registerBtn: {
-    width: '100%',
-    height: 70,
-    borderWidth: 1,
-    borderColor: '#8af3cb',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 12,
-  },
-  registerText: {
+  forgotText: {
     fontFamily: 'ClashGrotesk-Medium',
     color: '#8af3cb',
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 18,
+    marginTop: 12,
   },
   input: {
     width: '100%',
