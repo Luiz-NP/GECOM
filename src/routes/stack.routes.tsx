@@ -1,9 +1,10 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
 // screens
-import { Welcome } from '../screens/Welcome';
+import {Welcome} from '../screens/Welcome';
+import {Auth} from '../screens/Auth';
 
 // routes
 export const StackRoutes = (): JSX.Element => {
@@ -16,7 +17,15 @@ export const StackRoutes = (): JSX.Element => {
         navigationBarColor: '#121212',
       }}>
       <Screen
-        name="welcome"
+        name="Auth"
+        component={Auth}
+        options={{
+          headerShown: false,
+          navigationBarColor: '#006458',
+        }}
+      />
+      <Screen
+        name="Welcome"
         component={Welcome}
         options={{
           headerShown: false,
