@@ -6,6 +6,7 @@ const {Screen, Navigator} = createNativeStackNavigator();
 import {Welcome} from '../screens/Welcome';
 import {Auth} from '../screens/Auth';
 import {Register} from '../screens/Register';
+import {Home} from '../screens/Home';
 
 const config = {
   animation: 'spring',
@@ -30,6 +31,15 @@ export const StackRoutes = (): JSX.Element => {
         headerShown: false,
         navigationBarColor: '#121212',
       }}>
+      <Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: 'pop',
+          navigationBarColor: 'white',
+        }}
+      />
       <Screen
         name="Welcome"
         component={Welcome}
