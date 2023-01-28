@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   authText: {
     fontFamily: 'ClashGrotesk-Medium',
-    color: 'black',
+    color: '#006458',
     textAlign: 'center',
     fontSize: 24,
   },
