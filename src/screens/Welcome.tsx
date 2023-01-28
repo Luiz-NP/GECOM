@@ -6,8 +6,8 @@ import {
   View,
 } from 'react-native';
 
-export const Welcome = ({ navigation }: any): JSX.Element => {
-  const { navigate } = navigation;
+export const Welcome = ({navigation}: any): JSX.Element => {
+  const {navigate} = navigation;
 
   return (
     <View style={styles.welcomeContainer}>
@@ -23,15 +23,15 @@ export const Welcome = ({ navigation }: any): JSX.Element => {
             Confiabilidade em seus processos, com a garantia de resultados
           </Text>
         </View>
-        <TouchableOpacity 
-          onPress={() => navigate("login")}
-          style={styles.authBtn} 
+        <TouchableOpacity
+          onPress={() => navigate('Auth')}
+          style={styles.authBtn}
           activeOpacity={0.8}>
           <Text style={styles.authText}>Autenticar</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
-          onPress={() => navigate("register")}
-          style={styles.registerBtn} 
+        <TouchableOpacity
+          onPress={() => navigate('Register')}
+          style={styles.registerBtn}
           activeOpacity={0.8}>
           <Text style={styles.registerText}>Cadastrar-se</Text>
         </TouchableOpacity>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     width: '100%',
-    height: 350,
+    height: 450,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     padding: 24,

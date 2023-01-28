@@ -9,7 +9,8 @@ import {
 
 import Svg, {Defs, Path, ClipPath, Use} from 'react-native-svg';
 
-export const Register = (): JSX.Element => {
+export const Register = ({navigation}: any): JSX.Element => {
+  const {navigate} = navigation;
   return (
     <View style={styles.registerContainer}>
       <StatusBar
@@ -17,6 +18,23 @@ export const Register = (): JSX.Element => {
         backgroundColor="transparent"
         translucent
       />
+      <TouchableOpacity
+        style={styles.backBtn}
+        activeOpacity={1}
+        onPress={() => navigate('Welcome')}>
+        <Svg width={48} height={48} viewBox="0 0 24 24" fill="none">
+          <Defs>
+            <ClipPath id="prefix__clip0">
+              <Path fill="#fff" d="M0 0h24v24H0z" />
+            </ClipPath>
+          </Defs>
+          <Path
+            d="M20.5 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20.5v-2z"
+            fill="#8af3cb"
+            clipPath="url(#prefix__clip0)"
+          />
+        </Svg>
+      </TouchableOpacity>
       <View style={styles.bottomContainer}>
         <View style={styles.textArea}>
           <Text style={styles.title}>Registrar-se</Text>
@@ -58,6 +76,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#025248',
     justifyContent: 'center',
   },
+  backBtn: {
+    position: 'absolute',
+    width: 70,
+    height: 70,
+    backgroundColor: '#006458',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 24,
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 'auto',
+    top: 212,
+    zIndex: 1,
+  },
   bottomContainer: {
     width: '100%',
     height: 600,
@@ -66,6 +104,7 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: '#006458',
     marginTop: 'auto',
+    zIndex: 0,
   },
   textArea: {
     marginTop: 6,
