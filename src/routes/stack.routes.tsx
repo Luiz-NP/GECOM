@@ -5,6 +5,7 @@ const {Screen, Navigator} = createNativeStackNavigator();
 // screens
 import {Welcome} from '../screens/Welcome';
 import {Auth} from '../screens/Auth';
+import {Register} from '../screens/Register';
 
 // routes
 export const StackRoutes = (): JSX.Element => {
@@ -16,6 +17,14 @@ export const StackRoutes = (): JSX.Element => {
         animation: 'slide_from_right',
         navigationBarColor: '#121212',
       }}>
+      <Screen
+        name="Register"
+        component={Register}
+        options={{
+          headerShown: false,
+          navigationBarColor: '#006458',
+        }}
+      />
       <Screen
         name="Auth"
         component={Auth}
