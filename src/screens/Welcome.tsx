@@ -6,6 +6,8 @@ import {
   View,
 } from 'react-native';
 
+import LottieView from 'lottie-react-native';
+
 export const Welcome = ({navigation}: any): JSX.Element => {
   const {navigate} = navigation;
 
@@ -15,6 +17,12 @@ export const Welcome = ({navigation}: any): JSX.Element => {
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
+      />
+      <LottieView
+        style={{width: '100%', height: '100%'}}
+        source={require('../../assets/img/lines.json')}
+        loop
+        autoPlay
       />
       <View style={styles.bottomContainer}>
         <View style={styles.textArea}>
