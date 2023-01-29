@@ -186,13 +186,13 @@ export const Camera = ({ navigation }: any) => {
           left: 120,
         }}
         onBottomButtonPressed={(e) => takePic(e)}
-          flashImages={{
+          // flashImages={{
             // optional, images for flash state
-            on: require('./assets/flash-on.png'),
-            off: require('./assets/flash-off.png'),
-            auto: require('./assets/flash-auto.png'),
-          }}
-        captureButtonImage={require('./assets/capture-icon.png')} // optional, image capture button
+            // on: require('./assets/flash-on.png'),
+            // off: require('./assets/flash-off.png'),
+            // auto: require('./assets/flash-auto.png'),
+          // }}
+        // captureButtonImage={require('./assets/capture-icon.png')} // optional, image capture button
         hideControls={false} // (default false) optional, hides camera controls
         showCapturedImageCount={false} // (default false) optional, show count for photos taken during that capture session
       />
