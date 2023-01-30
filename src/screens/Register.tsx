@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   StatusBar,
   StyleSheet,
@@ -5,13 +6,37 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  Alert,
 } from 'react-native';
 
-import Svg, {Defs, Path, ClipPath, Use} from 'react-native-svg';
+import Svg, {Defs, Path, ClipPath} from 'react-native-svg';
 import LottieView from 'lottie-react-native';
+
+// firebase auth
+import auth from "@react-native-firebase/auth";
 
 export const Register = ({navigation}: any): JSX.Element => {
   const {navigate} = navigation;
+  const {alert} = Alert;
+
+  // states
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // sign-up function
+  const handleSignUp = async () => {
+    await auth().createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        // get currentUser and send email verification
+        const user = auth().currentUser;
+
+        user?.sendEmailVerification()
+          .then(() => alert("Verifique seu email", "enviamos um link de verificação no seu email, veifique para continuar"))
+          .catch(error => console.log(error));
+      })
+      .catch(error => console.error(error));
+  };
+
   return (
     <View style={styles.registerContainer}>
       <StatusBar
@@ -58,17 +83,22 @@ export const Register = ({navigation}: any): JSX.Element => {
           placeholderTextColor={'#8af3cb'}
           style={styles.input}></TextInput>
         <TextInput
+          onChangeText={setEmail}
           placeholder="E-mail"
           placeholderTextColor={'#8af3cb'}
           style={styles.input}></TextInput>
         <TextInput
+          onChangeText={setPassword}
           placeholder="Senha"
           placeholderTextColor={'#8af3cb'}
           secureTextEntry={true}
           maxLength={8}
           style={styles.input}></TextInput>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <TouchableOpacity style={styles.registerBtn} activeOpacity={0.8}>
+          <TouchableOpacity 
+            onPress={handleSignUp}
+            style={styles.registerBtn} 
+            activeOpacity={0.8}>
             <Text style={styles.registerText}>Finalizar registro</Text>
           </TouchableOpacity>
         </View>

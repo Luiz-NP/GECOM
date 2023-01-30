@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   StatusBar,
   StyleSheet,
@@ -5,13 +6,45 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  Alert,
 } from 'react-native';
 
 import Svg, {Defs, Path, ClipPath, Use} from 'react-native-svg';
 import LottieView from 'lottie-react-native';
 
+// firebase Auth
+import auth from "@react-native-firebase/auth";
+
 export const Auth = ({navigation}: any): JSX.Element => {
   const {navigate} = navigation;
+  const {alert} = Alert;
+
+  // states
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // sign-in function
+  const handleSignIn = async () => {
+    await auth().signInWithEmailAndPassword(email, password)
+      .then(() => {
+        // get currentUser and checking if the email was verified
+        const user = auth().currentUser;
+
+        user?.emailVerified ? navigate("Home") : alert("Verifique seu email", "enviamos um link de verificação no seu email, veifique para continuar");
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
+  };
+
   return (
     <View style={styles.authContainer}>
       <StatusBar
@@ -50,10 +83,12 @@ export const Auth = ({navigation}: any): JSX.Element => {
           </Text>
         </View>
         <TextInput
+          onChangeText={setEmail}
           placeholder="E-mail"
           placeholderTextColor={'#8af3cb'}
           style={styles.input}></TextInput>
         <TextInput
+          onChangeText={setPassword}
           placeholder="Senha"
           placeholderTextColor={'#8af3cb'}
           secureTextEntry={true}
@@ -97,7 +132,10 @@ export const Auth = ({navigation}: any): JSX.Element => {
               />
             </Svg>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.authBtn} activeOpacity={0.8}>
+          <TouchableOpacity 
+            onPress={handleSignIn} 
+            style={styles.authBtn} 
+            activeOpacity={0.8}>
             <Text style={styles.authText}>Autenticar</Text>
           </TouchableOpacity>
         </View>
