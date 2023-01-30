@@ -25,13 +25,11 @@ const config = {
 export const StackRoutes = (): JSX.Element => {
   return (
     <Navigator
-      initialRouteName="Profile"
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
         headerShown: false,
-        navigationBarColor: '#121212',
       }}>
       <Screen
         name="Home"
@@ -74,7 +72,7 @@ export const StackRoutes = (): JSX.Element => {
         options={{
           headerShown: false,
           animationTypeForReplace: 'pop',
-          navigationBarColor: 'white',
+          navigationBarColor: '#025248',
         }}
       />
     </Navigator>

@@ -39,7 +39,7 @@ export const Profile = (): JSX.Element => {
             text="Contate o nosso suporte para aprender sobre a plataforma."
           />
           <ProfileButton
-            title=" Treinamento e/ou especialização"
+            title="Treinamento e/ou especialização"
             text="Entre em contato conosco para soolicitar um treinamento direto á sua equipe."
           />
         </View>
@@ -54,7 +54,6 @@ const style = StyleSheet.create({
     backgroundColor: '#025248',
   },
   header: {
-    backgroundColor: '#006458',
     flex: 0.17,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
@@ -63,14 +62,14 @@ const style = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   titleScreen: {
-    fontFamily: 'ClashGrotesk-Bold',
+    fontFamily: 'ClashGrotesk-Medium',
     fontSize: 32,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
   subTitleScreen: {
     color: '#FFFFFF',
     fontSize: 24,
-    fontFamily: 'ClashGrotesk-Bold',
+    fontFamily: 'ClashGrotesk-Medium',
   },
   content: {
     flex: 0.8,
@@ -90,7 +89,7 @@ const style = StyleSheet.create({
     borderWidth: 2,
   },
   userName: {
-    fontFamily: 'ClashGrotesk-Bold',
+    fontFamily: 'ClashGrotesk-Medium',
     color: '#FFFFFF',
     fontSize: 20,
     marginTop: 15,
@@ -106,16 +105,16 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   titleSection: {
-    fontFamily: 'ClashGrotesk-Bold',
+    fontFamily: 'ClashGrotesk-Medium',
     borderRadius: 20,
     backgroundColor: '#006458',
-    width: '80%',
+    width: '60%',
     paddingVertical: 10,
   },
   textSecton: {
     textAlign: 'center',
     color: '#FFFFFF',
     fontSize: 18,
-    fontFamily: 'ClashGrotesk-Bold',
+    fontFamily: 'ClashGrotesk-Medium',
   },
 });

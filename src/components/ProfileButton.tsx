@@ -36,12 +36,12 @@ const style = StyleSheet.create({
   contentTextBtn: {
     width: '85%',
     paddingLeft: 10,
-    fontFamily: 'ClashGrotesk-Bold',
+    fontFamily: 'ClashGrotesk-Medium',
     color: '#FFFFFF',
-    fontSize: 17,
+    fontSize: 18,
   },
   descriptionText: {
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 14,
+    fontFamily: 'ClashGrotesk-Light',
+    fontSize: 16,
   },
 });
