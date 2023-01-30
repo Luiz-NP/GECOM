@@ -32,20 +32,10 @@ export const StackRoutes = (): JSX.Element => {
         headerShown: false,
       }}>
       <Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: 'pop',
-          navigationBarColor: 'white',
-        }}
-      />
-      <Screen
         name="Welcome"
         component={Welcome}
         options={{
           headerShown: false,
-          animationTypeForReplace: 'pop',
           navigationBarColor: '#006458',
         }}
       />
@@ -54,7 +44,6 @@ export const StackRoutes = (): JSX.Element => {
         component={Register}
         options={{
           headerShown: false,
-          animationTypeForReplace: 'pop',
           navigationBarColor: '#006458',
         }}
       />
@@ -67,11 +56,18 @@ export const StackRoutes = (): JSX.Element => {
         }}
       />
       <Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+          navigationBarColor: 'white',
+        }}
+      />
+      <Screen
         name="Profile"
         component={Profile}
         options={{
           headerShown: false,
-          animationTypeForReplace: 'pop',
           navigationBarColor: '#025248',
         }}
       />

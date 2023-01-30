@@ -1,4 +1,4 @@
-import {View, StatusBar, Text, StyleSheet} from 'react-native';
+import {View, StatusBar, Text, StyleSheet, Pressable} from 'react-native';
 
 export const Home = ({navigation}: any): JSX.Element => {
   const {navigate} = navigation;
