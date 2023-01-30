@@ -7,6 +7,7 @@ import {Welcome} from '../screens/Welcome';
 import {Auth} from '../screens/Auth';
 import {Register} from '../screens/Register';
 import {Home} from '../screens/Home';
+import {Profile} from '../screens/Profile';
 
 const config = {
   animation: 'spring',
@@ -24,6 +25,7 @@ const config = {
 export const StackRoutes = (): JSX.Element => {
   return (
     <Navigator
+      initialRouteName="Profile"
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
@@ -64,6 +66,15 @@ export const StackRoutes = (): JSX.Element => {
         options={{
           headerShown: false,
           navigationBarColor: '#006458',
+        }}
+      />
+      <Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: 'pop',
+          navigationBarColor: 'white',
         }}
       />
     </Navigator>
