@@ -19,12 +19,15 @@ export const Auth = ({navigation}: any): JSX.Element => {
   const {navigate} = navigation;
   const {alert} = Alert;
 
+  // states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // sign-in function
   const handleSignIn = async () => {
     await auth().signInWithEmailAndPassword(email, password)
       .then(() => {
+        // get currentUser and checking if the email was verified
         const user = auth().currentUser;
 
         user?.emailVerified ? navigate("Home") : alert("Verifique seu email", "enviamos um link de verificação no seu email, veifique para continuar");
