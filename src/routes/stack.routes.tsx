@@ -8,6 +8,7 @@ import {Auth} from '../screens/Auth';
 import {Register} from '../screens/Register';
 import {Home} from '../screens/Home';
 import {Profile} from '../screens/Profile';
+import { Camera } from '../components/Camera';
 
 const config = {
   animation: 'spring',
@@ -31,6 +32,13 @@ export const StackRoutes = (): JSX.Element => {
         animation: 'slide_from_right',
         headerShown: false,
       }}>
+      <Screen 
+        name="Camera"
+        component={Camera}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Screen
         name="Welcome"
         component={Welcome}

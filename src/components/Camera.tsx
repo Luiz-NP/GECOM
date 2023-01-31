@@ -4,7 +4,7 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import Geolocation from '@react-native-community/geolocation';
 import RNFS from 'react-native-fs';
 import { CameraScreen } from 'react-native-camera-kit';
-import { DataContext } from "./contexts/DataContext";
+import { DataContext } from "../contexts/DataContext";
 
 // types
 type uri = {
@@ -151,7 +151,7 @@ export const Camera = ({ navigation }: any) => {
       return (
       <View>
         <Image
-          style={{width: '100%', height: '95%'}}
+          style={{width: '100%', height: '95.3%'}}
           source={{uri: 'data:image/jpeg;base64,' + photo}}
         />
         <Button onPress={() => {
@@ -166,8 +166,6 @@ export const Camera = ({ navigation }: any) => {
           // cleaning up
           setPhoto(null);
           setLocation(null);
-          
-          navigate("confirm");
         }} title="Back" />
       </View>
     );
@@ -175,27 +173,26 @@ export const Camera = ({ navigation }: any) => {
 
   return (
     permissions && (
-      <CameraScreen
-          style={{
+      <View style={{
           height: '100%',
           paddingBottom: 10,
           paddingRight: 130,
-        }}
-        torchImageStyle={{
-          top: 10,
-          left: 120,
-        }}
-        onBottomButtonPressed={(e) => takePic(e)}
-          // flashImages={{
-            // optional, images for flash state
-            // on: require('./assets/flash-on.png'),
-            // off: require('./assets/flash-off.png'),
-            // auto: require('./assets/flash-auto.png'),
-          // }}
-        // captureButtonImage={require('./assets/capture-icon.png')} // optional, image capture button
-        hideControls={false} // (default false) optional, hides camera controls
-        showCapturedImageCount={false} // (default false) optional, show count for photos taken during that capture session
-      />
+        }}>
+        <CameraScreen
+          torchImageStyle={{
+            top: 10,
+            left: 120,
+          }}
+          onBottomButtonPressed={(e) => takePic(e)}
+            flashImages={{
+              // optional, images for flash state
+              on: require('../assets/camera/flash-on.png'),
+              off: require('../assets/camera/flash-off.png'),
+              auto: require('../assets/camera/flash-auto.png'),
+            }}
+          captureButtonImage={require('../assets/camera/capture-icon.png')} // optional, image capture button
+        />
+      </View>
     )
   ); 
 }
