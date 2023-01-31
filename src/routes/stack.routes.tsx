@@ -26,6 +26,7 @@ const config = {
 export const StackRoutes = (): JSX.Element => {
   return (
     <Navigator
+    initialRouteName='Home'
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
