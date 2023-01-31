@@ -1,10 +1,13 @@
 import {Routes} from './src/routes';
 import {AuthProvider} from './src/contexts/AuthContext';
+import {DataProvider} from './src/contexts/DataContext';
 
 const App = () => {
   return (
     <AuthProvider>
-      <Routes />
+      <DataProvider>
+        <Routes />
+      </DataProvider>  
     </AuthProvider>
   );
 };
