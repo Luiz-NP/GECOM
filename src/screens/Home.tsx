@@ -12,7 +12,7 @@ import {
 import {TaskHome} from '../components/TaskHome';
 
 // firestore
-import  firestore from "@react-native-firebase/firestore";
+import firestore from '@react-native-firebase/firestore';
 
 export const Home = ({navigation}: any): JSX.Element => {
   const {navigate} = navigation;
@@ -25,10 +25,12 @@ export const Home = ({navigation}: any): JSX.Element => {
   const [count, setCount] = useState(10);
 
   // firestore querys
-  const taskCollection = firestore().collection("Tasks").get();
-
-  console.log(taskCollection);
-
+  firestore()
+    .collection('Tasks')
+    .get()
+    .then((res) => {
+      console.log(res);
+    });
 
   return (
     <View style={styles.homeContainer}>
