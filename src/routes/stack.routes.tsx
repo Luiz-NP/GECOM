@@ -26,20 +26,13 @@ const config = {
 export const StackRoutes = (): JSX.Element => {
   return (
     <Navigator
-    initialRouteName='Home'
+    initialRouteName='Welcome'
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
         headerShown: false,
-      }}>
-      <Screen 
-        name="Camera"
-        component={Camera}
-        options={{
-          headerShown: false,
-        }}
-      />
+      }}> 
       <Screen
         name="Welcome"
         component={Welcome}
@@ -78,6 +71,13 @@ export const StackRoutes = (): JSX.Element => {
         options={{
           headerShown: false,
           navigationBarColor: '#025248',
+        }}
+      />
+      <Screen 
+        name="Camera"
+        component={Camera}
+        options={{
+          headerShown: false,
         }}
       />
     </Navigator>

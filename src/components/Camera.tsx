@@ -21,7 +21,7 @@ type Coordinates = {
   longitude: number,
 };
 
-export const Camera = ({ navigation }: any) => {
+export const Camera = ({ navigation }: any): JSX.Element => {
   // navigation prop to navigate
   const { navigate } = navigation;
 
