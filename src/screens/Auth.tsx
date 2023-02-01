@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import {
   StatusBar,
   StyleSheet,
@@ -13,9 +13,11 @@ import Svg, {Defs, Path, ClipPath, Use} from 'react-native-svg';
 import LottieView from 'lottie-react-native';
 
 // auth
-import auth from "@react-native-firebase/auth";
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import "../configs/google.config";
+import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import '../configs/google.config';
+
+import {ForgotPasswordModal} from '../components/modals/ForgotPasswordModal';
 
 export const Auth = ({navigation}: any): JSX.Element => {
   const {navigate} = navigation;
@@ -25,14 +27,23 @@ export const Auth = ({navigation}: any): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Sets modal visibility
+  const [modal, setModal] = useState(false);
+
   // sign-in function
   const handleSignIn = async () => {
-    await auth().signInWithEmailAndPassword(email, password)
+    await auth()
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
         // get currentUser and checking if the email was verified
         const user = auth().currentUser;
 
-        user?.emailVerified ? navigate("Home") : alert("Verifique seu email", "enviamos um link de verificação no seu email, veifique para continuar");
+        user?.emailVerified
+          ? navigate('Home')
+          : alert(
+              'Verifique seu email',
+              'enviamos um link de verificação no seu email, veifique para continuar',
+            );
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -60,7 +71,7 @@ export const Auth = ({navigation}: any): JSX.Element => {
 
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
-  }
+  };
 
   return (
     <View style={styles.authContainer}>
@@ -75,6 +86,9 @@ export const Auth = ({navigation}: any): JSX.Element => {
         loop
         autoPlay
       />
+
+      <ForgotPasswordModal modal={modal} setModal={setModal} />
+
       <TouchableOpacity
         style={styles.backBtn}
         activeOpacity={1}
@@ -112,14 +126,16 @@ export const Auth = ({navigation}: any): JSX.Element => {
           maxLength={8}
           style={styles.input}></TextInput>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={() =>
-              onGoogleButtonPress().then(() => {
-                console.log('Signed in with Google!');
-                navigate('Home');
-            }).catch(err => console.log(err))
+              onGoogleButtonPress()
+                .then(() => {
+                  console.log('Signed in with Google!');
+                  navigate('Home');
+                })
+                .catch(err => console.log(err))
             }
-            style={styles.googleBtn} 
+            style={styles.googleBtn}
             activeOpacity={0.8}>
             <Svg viewBox="0 0 32 32" width={36} height={36}>
               <Defs>
@@ -157,14 +173,14 @@ export const Auth = ({navigation}: any): JSX.Element => {
               />
             </Svg>
           </TouchableOpacity>
-          <TouchableOpacity 
-            onPress={handleSignIn} 
-            style={styles.authBtn} 
+          <TouchableOpacity
+            onPress={handleSignIn}
+            style={styles.authBtn}
             activeOpacity={0.8}>
             <Text style={styles.authText}>Autenticar</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity activeOpacity={0.8}>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => setModal(true)}>
           <Text style={styles.forgotText}>Esqueceu sua senha?</Text>
         </TouchableOpacity>
       </View>
