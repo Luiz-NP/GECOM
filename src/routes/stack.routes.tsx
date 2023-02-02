@@ -8,7 +8,7 @@ import {Auth} from '../screens/Auth';
 import {Register} from '../screens/Register';
 import {Home} from '../screens/Home';
 import {Profile} from '../screens/Profile';
-import { Camera } from '../components/Camera';
+import {Camera} from '../components/Camera';
 
 const config = {
   animation: 'spring',
@@ -26,13 +26,12 @@ const config = {
 export const StackRoutes = (): JSX.Element => {
   return (
     <Navigator
-    initialRouteName='Welcome'
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
         headerShown: false,
-      }}> 
+      }}>
       <Screen
         name="Welcome"
         component={Welcome}
@@ -73,7 +72,7 @@ export const StackRoutes = (): JSX.Element => {
           navigationBarColor: '#025248',
         }}
       />
-      <Screen 
+      <Screen
         name="Camera"
         component={Camera}
         options={{

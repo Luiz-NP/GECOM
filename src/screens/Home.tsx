@@ -1,11 +1,10 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   View,
   StatusBar,
   Text,
   StyleSheet,
   Pressable,
-  ImageBackground,
   ScrollView,
 } from 'react-native';
 
@@ -14,8 +13,21 @@ import {TaskHome} from '../components/TaskHome';
 // firestore
 import firestore from '@react-native-firebase/firestore';
 
+interface IFirestoreProps {
+  distance: number;
+  location: string;
+  status: boolean;
+}
+
+interface IData {
+  _data: IFirestoreProps;
+}
+
 export const Home = ({navigation}: any): JSX.Element => {
   const {navigate} = navigation;
+
+  const [tasks, setTasks] = useState<IData[] | any>([]);
+  const [tasksFiltered, setTasksFiltered] = useState<IData[] | any>([]);
 
   // index = 0 -> Todas
   // index = 1 -> Pendentes
@@ -25,12 +37,35 @@ export const Home = ({navigation}: any): JSX.Element => {
   const [count, setCount] = useState(10);
 
   // firestore querys
-  firestore()
-    .collection('Tasks')
-    .get()
-    .then((res) => {
-      console.log(res);
-    });
+
+  useEffect(() => {
+    firestore()
+      .collection('Tasks')
+      .doc('BdqLKrrejbVdGRryDtDppZtJ7mt1')
+      .get()
+      .then(({_data}: any) => {
+        setTasks(_data.Task);
+        setTasksFiltered(_data.Task);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (buttonSelected === 1) {
+      const tasksPending = tasks.filter((task: any) => {
+        return task.status === 'pending';
+      });
+
+      return setTasksFiltered(tasksPending);
+    }
+    if (buttonSelected === 2) {
+      const tasksCompleted = tasks.filter((task: any) => {
+        return task.status === 'completed';
+      });
+
+      return setTasksFiltered(tasksCompleted);
+    }
+    return setTasksFiltered(tasks);
+  }, [buttonSelected]);
 
   return (
     <View style={styles.homeContainer}>
@@ -98,8 +133,16 @@ export const Home = ({navigation}: any): JSX.Element => {
       </View>
 
       <ScrollView contentContainerStyle={styles.tasks}>
-        <TaskHome />
-        <TaskHome />
+        {tasksFiltered.map((task: any) => {
+          return (
+            <TaskHome
+              key={task.id}
+              distance={task.distance}
+              location={task.location}
+              status={task.status}
+            />
+          );
+        })}
       </ScrollView>
     </View>
   );
