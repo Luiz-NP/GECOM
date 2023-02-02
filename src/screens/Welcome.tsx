@@ -1,3 +1,4 @@
+import { useContext, useEffect } from 'react';
 import {
   StatusBar,
   StyleSheet,
@@ -7,9 +8,16 @@ import {
 } from 'react-native';
 
 import LottieView from 'lottie-react-native';
+import {AuthContext} from '../contexts/AuthContext';
 
 export const Welcome = ({navigation}: any): JSX.Element => {
   const {navigate} = navigation;
+
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (user) navigate("Home");
+  }, [user]);
 
   return (
     <View style={styles.welcomeContainer}>

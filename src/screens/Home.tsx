@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {
   View,
   StatusBar,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import {TaskHome} from '../components/TaskHome';
+import {AuthContext} from '../contexts/AuthContext';
 
 // firestore
 import firestore from '@react-native-firebase/firestore';
@@ -36,9 +37,15 @@ export const Home = ({navigation}: any): JSX.Element => {
 
   const [count, setCount] = useState(10);
 
-  // firestore querys
+  // getting user from AuthContext
+  const { user } = useContext(AuthContext);
 
+  // firestore querys
   useEffect(() => {
+    // verify when user is connected, else navigate to Login screen
+    if (!user) navigate("Auth"); 
+
+    // getting task data from firestore
     firestore()
       .collection('Tasks')
       .doc('BdqLKrrejbVdGRryDtDppZtJ7mt1')
