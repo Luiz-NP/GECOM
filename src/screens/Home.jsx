@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+/*========== ROOT IMPORTS ==========*/
 import {
   View,
   StatusBar,
@@ -7,46 +7,34 @@ import {
   Pressable,
   ScrollView,
 } from 'react-native';
+import {useContext, useEffect, useState} from 'react';
 
-import {TaskHome} from '../components/TaskHome';
-import {AuthContext} from '../contexts/AuthContext';
-
-// firestore
+/*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
 import {firebase} from '@react-native-firebase/auth';
 
-interface IFirestoreProps {
-  distance: number;
-  location: string;
-  status: boolean;
-}
+/*========== LOCAL FILES & COMPONENTS ==========*/
+import {TaskHome} from '../components/TaskHome';
+import {AuthContext} from '../contexts/AuthContext';
 
-interface IData {
-  _data: IFirestoreProps;
-}
-
-export const Home = ({navigation}: any): JSX.Element => {
+/*========== COMPONENT DECLARATION ==========*/
+export function Home({navigation}) {
+  /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
 
-  const [tasks, setTasks] = useState<IData[] | any>([]);
-  const [tasksFiltered, setTasksFiltered] = useState<IData[] | any>([]);
-  
-  // when this is changed, useEffect will run again
-  const [update, setUpdate] = useState<boolean>(false);
-
-  // index = 0 -> Todas
-  // index = 1 -> Pendentes
-  // index = 2 -> Concluídas
-  const [buttonSelected, setButtonSelected] = useState(0);
-
+  /*========== STATES ==========*/
+  const [tasks, setTasks] = useState([]);
+  const [tasksFiltered, setTasksFiltered] = useState([]);
+  const [update, setUpdate] = useState(false); // when this is changed, useEffect runs again
+  const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
   const [count, setCount] = useState(10);
 
-  // getting user from AuthContext
-  const { user } = useContext(AuthContext);
+  /*========== CONTEXTS ==========*/
+  const { user } = useContext(AuthContext); // getting user from AuthContext
 
-  // firestore querys
+  /*========== USE EFFECTS ==========*/
   useEffect(() => {
-    // verify when user is connected, else navigate to Login screen
+    // checking if there is a user, if not, we send it to Login screen
     if (!user) navigate("Auth"); 
 
     // getting task data from firestore
@@ -63,22 +51,20 @@ export const Home = ({navigation}: any): JSX.Element => {
   // filtering tasks when user click on buttons
   useEffect(() => {
     if (buttonSelected === 1) {
-      const tasksPending = tasks.filter((task: any) => {
-        return task.status === 'pending';
-      });
+      const tasksPending = tasks.filter(task => task.status === 'pending');
 
       return setTasksFiltered(tasksPending);
     }
     if (buttonSelected === 2) {
-      const tasksCompleted = tasks.filter((task: any) => {
-        return task.status === 'completed';
-      });
+      const tasksCompleted = tasks.filter(task => task.status === 'completed');
 
       return setTasksFiltered(tasksCompleted);
     }
     return setTasksFiltered(tasks);
   }, [buttonSelected]);
 
+  /*========== FUNCTIONS ==========*/
+  
   // adding new task when user click on add task button
   const addNewTask = () => {
     firestore()
@@ -93,7 +79,8 @@ export const Home = ({navigation}: any): JSX.Element => {
       })
       .catch(error => console.log(error));
   };
-
+  
+  /*========== FRONT ==========*/
   return (
     <View style={styles.homeContainer}>
       <StatusBar

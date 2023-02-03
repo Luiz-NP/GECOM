@@ -1,11 +1,18 @@
-import React from 'react';
+/*========== ROOT IMPORTS ==========*/
+import {
+    StatusBar, 
+    StyleSheet, 
+    Text, 
+    View
+} from 'react-native';
 
-import {StatusBar, StyleSheet, Text, View} from 'react-native';
-
+/*========== LOCAL FILES & COMPONENTS ==========*/
 import {ProfileButton} from '../components/ProfileButton';
 
-export const Profile = (): JSX.Element => {
-  return (
+export function Profile() {
+  
+    /*========== FRONT ==========*/
+    return (
     <View style={style.profileContainer}>
       <StatusBar
         barStyle="light-content"
@@ -42,7 +49,7 @@ export const Profile = (): JSX.Element => {
             title="Treinamento e/ou especialização"
             text="Entre em contato conosco para soolicitar um treinamento direto á sua equipe."
           />
-        </View>
+        </View>:
       </View>
     </View>
   );

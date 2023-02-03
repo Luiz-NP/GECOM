@@ -1,4 +1,4 @@
-import { useState } from 'react';
+/*========== ROOT IMPORTS ==========*/
 import {
   StatusBar,
   StyleSheet,
@@ -8,21 +8,28 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
+import { useState } from 'react';
 
+/*========== LIBRARY IMPORTS ==========*/
 import Svg, {Defs, Path, ClipPath} from 'react-native-svg';
 import LottieView from 'lottie-react-native';
 
-// firebase auth
+/*========== FIREBASE IMPORTS ==========*/
 import auth from "@react-native-firebase/auth";
 
-export const Register = ({navigation}: any): JSX.Element => {
+/*========== COMPONENT DECLARATION ==========*/
+export function Register({navigation}) {
+    
+  /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
   const {alert} = Alert;
 
-  // states
+  /*========== STATES ==========*/
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  /*========== FUNCTIONS ==========*/
+    
   // sign-up function
   const handleSignUp = async () => {
     await auth().createUserWithEmailAndPassword(email, password)
@@ -37,6 +44,7 @@ export const Register = ({navigation}: any): JSX.Element => {
       .catch(error => console.error(error));
   };
 
+  /*========== FRONT ==========*/
   return (
     <View style={styles.registerContainer}>
       <StatusBar
