@@ -1,4 +1,4 @@
-import {useState} from 'react';
+/*========== ROOT IMPORTS ==========*/
 import {
   StatusBar,
   StyleSheet,
@@ -8,30 +8,36 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
+import {useState} from 'react';
 
+/*========== LIBRARY IMPORTS ==========*/
 import Svg, {Defs, Path, ClipPath, Use} from 'react-native-svg';
 import LottieView from 'lottie-react-native';
 
-// auth
+/*========== FIREBASE IMPORTS ==========*/
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import '../configs/google.config';
 
+/*========== LOCAL FILES & COMPONENTS ==========*/
 import {ForgotPasswordModal} from '../components/modals/ForgotPasswordModal';
 
-export const Auth = ({navigation}: any): JSX.Element => {
+/*========== COMPONENT DECLARATION ==========*/
+export function Auth({navigation}) {
+
+  /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
   const {alert} = Alert;
 
-  // states
+  /*========== STATES ==========*/
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [modal, setModal] = useState(false); // sets modal visibility
 
-  // Sets modal visibility
-  const [modal, setModal] = useState(false);
+  /*========== FUNCTIONS ==========*/
 
-  // sign-in function
-  const handleSignIn = async () => {
+  // email/password sign-in function
+  async function handleSignIn() {
     await auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -39,11 +45,11 @@ export const Auth = ({navigation}: any): JSX.Element => {
         const user = auth().currentUser;
 
         user?.emailVerified
-          ? navigate('Home')
-          : alert(
-              'Verifique seu email',
-              'enviamos um link de verificação no seu email, veifique para continuar',
-            );
+        ? navigate('Home')
+        : alert(
+          'Verifique seu email',
+          'enviamos um link de verificação no seu email, veifique para continuar',
+        );
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -58,8 +64,8 @@ export const Auth = ({navigation}: any): JSX.Element => {
       });
   };
 
-  // google sign-in
-  const onGoogleButtonPress = async () => {
+  // google sign-in function
+  async function onGoogleButtonPress() {
     // Check if your device supports Google Play
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
 
@@ -73,6 +79,7 @@ export const Auth = ({navigation}: any): JSX.Element => {
     return auth().signInWithCredential(googleCredential);
   };
 
+  /*========== FRONT ==========*/
   return (
     <View style={styles.authContainer}>
       <StatusBar

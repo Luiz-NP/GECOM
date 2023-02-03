@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+/*========== ROOT IMPORTS ==========*/
 import {
   StatusBar,
   StyleSheet,
@@ -6,19 +6,30 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useContext, useEffect } from 'react';
 
+/*========== LIBRARY IMPORTS ==========*/
 import LottieView from 'lottie-react-native';
+
+/*========== LOCAL FILES & COMPONENTS ==========*/
 import {AuthContext} from '../contexts/AuthContext';
 
+/*========== COMPONENT DECLARATION ==========*/
 export const Welcome = ({navigation}: any): JSX.Element => {
+   
+  /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
 
+  /*========== CONTEXTS ==========*/
   const { user } = useContext(AuthContext);
 
+  /*========== USE EFFECTS ==========*/
   useEffect(() => {
+    // 
     if (user) navigate("Home");
   }, [user]);
 
+  /*========== FRONT ==========*/
   return (
     <View style={styles.welcomeContainer}>
       <StatusBar
