@@ -1,11 +1,8 @@
+/*========== ROOT IMPORTS ==========*/
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 
-interface ButtonProps {
-  title: string;
-  text: string;
-}
-
-export const ProfileButton = ({title, text}: ButtonProps) => {
+/*========== COMPONENT DECLARATION ==========*/
+export function ProfileButton({title, text}) {
   return (
     <Pressable style={style.btn}>
       <View style={style.icon}></View>

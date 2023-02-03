@@ -24,7 +24,7 @@ const config = {
 };
 
 // routes
-export const StackRoutes = (): JSX.Element => {
+export function StackRoutes() {
   return (
     <Navigator
       // initialRouteName="AddNewTask"

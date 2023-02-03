@@ -1,12 +1,8 @@
+/*========== ROOT IMPORTS ==========*/
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 
-interface ITaksProps {
-  distance: number;
-  location: string;
-  status: boolean;
-}
-
-export const TaskHome = ({distance, location, status}: ITaksProps) => {
+/*========== COMPONENT DECLARATION ==========*/
+export function TaskHome({distance, location, status}) {
   return (
     <Pressable style={styles.task}>
       <Text style={styles.textTask}>Fiscalização de Campo</Text>
