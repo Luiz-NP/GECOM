@@ -13,6 +13,7 @@ import {AuthContext} from '../contexts/AuthContext';
 
 // firestore
 import firestore from '@react-native-firebase/firestore';
+import {firebase} from '@react-native-firebase/auth';
 
 interface IFirestoreProps {
   distance: number;
@@ -29,6 +30,9 @@ export const Home = ({navigation}: any): JSX.Element => {
 
   const [tasks, setTasks] = useState<IData[] | any>([]);
   const [tasksFiltered, setTasksFiltered] = useState<IData[] | any>([]);
+  
+  // when this is changed, useEffect will run again
+  const [update, setUpdate] = useState<boolean>(false);
 
   // index = 0 -> Todas
   // index = 1 -> Pendentes
@@ -54,8 +58,9 @@ export const Home = ({navigation}: any): JSX.Element => {
         setTasks(_data.Task);
         setTasksFiltered(_data.Task);
       });
-  }, []);
+  }, [update]);
 
+  // filtering tasks when user click on buttons
   useEffect(() => {
     if (buttonSelected === 1) {
       const tasksPending = tasks.filter((task: any) => {
@@ -73,6 +78,21 @@ export const Home = ({navigation}: any): JSX.Element => {
     }
     return setTasksFiltered(tasks);
   }, [buttonSelected]);
+
+  // adding new task when user click on add task button
+  const addNewTask = () => {
+    firestore()
+      .collection("Tasks")
+      .doc("BdqLKrrejbVdGRryDtDppZtJ7mt1")
+      .update({
+        Task: firebase.firestore.FieldValue.arrayUnion({id: tasks.length + 1, distance: 0.9, location: "Uberaba - MG", status: "completed"})
+      })
+      .then(() => {
+        console.log("task created!");
+        setUpdate(!update);
+      })
+      .catch(error => console.log(error));
+  };
 
   return (
     <View style={styles.homeContainer}>
@@ -150,6 +170,11 @@ export const Home = ({navigation}: any): JSX.Element => {
             />
           );
         })}
+        <Pressable 
+          onPress={addNewTask}
+          style={styles.addTaskButton}>
+          <Text style={styles.addTaskText}>adicionar tarefa</Text>
+        </Pressable>
       </ScrollView>
     </View>
   );
@@ -239,5 +264,21 @@ const styles = StyleSheet.create({
 
   tasks: {
     marginTop: 10,
+  },
+
+  addTaskButton: {
+    width: '100%',
+    borderRadius: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: '#00c4ac',
+    marginTop: 24,
+    marginBottom: 96,
+  },
+
+  addTaskText: {
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    color: '#00c4ac',
   },
 });
