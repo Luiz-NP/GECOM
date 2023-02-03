@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { StackRoutes } from "./stack.routes";
 
 // create route context
-export const Routes = (): JSX.Element => {
+export function Routes() {
   return (
     <NavigationContainer>
       <StackRoutes />

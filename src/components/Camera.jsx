@@ -1,41 +1,42 @@
-import { PermissionsAndroid, View, Image, Button, Text, Alert} from 'react-native';
+/*========== ROOT IMPORTS ==========*/
+import { 
+  PermissionsAndroid, 
+  View, 
+  Image, 
+  Button, 
+  Text, 
+  Alert
+} from 'react-native';
 import { useEffect, useState, useContext } from 'react';
+
+/*========== LIBRARY IMPORTS ==========*/
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import Geolocation from '@react-native-community/geolocation';
 import RNFS from 'react-native-fs';
+
+/*========== LOCAL FILES & COMPONENTS ==========*/
 import { CameraScreen } from 'react-native-camera-kit';
 import { DataContext } from "../contexts/DataContext";
 
-// types
-type uri = {
-  uri: string,
-};
-
-type Pic = {
-  type: string,
-  captureImages: uri[], 
-};
-
-type Coordinates = {
-  latitude: number,
-  longitude: number,
-};
-
-export const Camera = ({ navigation }: any): JSX.Element => {
-  // navigation prop to navigate
+/*========== COMPONENT DECLARATION ==========*/
+export function Camera = ({ navigation }) {
+  
+  /*========== DESTRUCTURING ==========*/
   const { navigate } = navigation;
 
-  // data context
+  /*========== STATES ==========*/
+  const [permissions, setPermissios] = useState(false);
+  const [photo, setPhoto] = useState(null);
+  const [error, setError] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+
+  /*========== CONTEXTS ==========*/
   const { setData } = useContext(DataContext);
 
-  // states
-  const [permissions, setPermissios] = useState<boolean | string>(false);
-  const [photo, setPhoto] = useState<string | null>(null);
-  const [error, setError] = useState<boolean>(false);
-  const [location, setLocation] = useState<Coordinates | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
+  /*========== LIFE CICLE ==========*/
+   useEffect(() => {
     // get permissions
     (async () => {
       const camera = await PermissionsAndroid.request(
@@ -58,8 +59,10 @@ export const Camera = ({ navigation }: any): JSX.Element => {
     })();
   }, []);
 
+  /*========== FUNCTIONS ==========*/
+
   // taking a pic
-  async function takePic(e: Pic) {
+  async function takePic(e) {
     if (e.type === 'capture') {
       setLoading(true);
       await getLocation();
@@ -92,6 +95,8 @@ export const Camera = ({ navigation }: any): JSX.Element => {
     },
       { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 });
   }
+
+  /*========== CONDITIONAL RENDERING ==========*/
 
   // loading if you haven't already given permissions
   if (permissions === undefined) {
@@ -171,6 +176,7 @@ export const Camera = ({ navigation }: any): JSX.Element => {
     );
   }
 
+  /*========== FRONT ==========*/
   return (
     permissions && (
       <View style={{

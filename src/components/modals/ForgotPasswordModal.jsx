@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+/*========== ROOT IMPORTS ==========*/
 import {
   Modal,
   View,
@@ -7,18 +7,17 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import React, {useState} from 'react';
 
+/*========== FIREBASE IMPORTS ==========*/
 import auth from '@react-native-firebase/auth';
 
-interface IModalProps {
-  modal: boolean;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const ForgotPasswordModal = ({modal, setModal}: IModalProps) => {
+export const ForgotPasswordModal = ({modal, setModal}) => {
+  /*========== STATES ==========*/
   const [email, setEmail] = useState('');
 
-  const handleForgotPassword = () => {
+  /*========== FUNCTIONS ==========*/
+  function handleForgotPassword() {
     if (email.trim()) {
       auth()
         .sendPasswordResetEmail(email)
@@ -28,6 +27,7 @@ export const ForgotPasswordModal = ({modal, setModal}: IModalProps) => {
     }
   };
 
+  /*========== FRONT ==========*/
   return (
     <Modal visible={modal} transparent={true} animationType="slide">
       <View style={styles.container}>
