@@ -89,7 +89,7 @@ export function Auth({navigation}) {
       />
       <LottieView
         style={{width: '100%', height: '100%'}}
-        source={require('../../assets/img/lines.json')}
+        source={require('../assets/img/lines.json')}
         loop
         autoPlay
       />

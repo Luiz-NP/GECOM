@@ -11,7 +11,6 @@ import {useContext, useEffect, useState} from 'react';
 
 /*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
-import {firebase} from '@react-native-firebase/auth';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import {TaskHome} from '../components/TaskHome';
@@ -30,19 +29,19 @@ export function Home({navigation}) {
   const [count, setCount] = useState(10);
 
   /*========== CONTEXTS ==========*/
-  const { user } = useContext(AuthContext); // getting user from AuthContext
+  const {user} = useContext(AuthContext); // getting user from AuthContext
 
   /*========== USE EFFECTS ==========*/
   useEffect(() => {
     // checking if there is a user, if not, we send it to Login screen
-    if (!user) navigate("Auth"); 
+    if (!user) navigate('Auth');
 
     // getting task data from firestore
     firestore()
       .collection('Tasks')
       .doc('BdqLKrrejbVdGRryDtDppZtJ7mt1')
       .get()
-      .then(({_data}: any) => {
+      .then(({_data}) => {
         setTasks(_data.Task);
         setTasksFiltered(_data.Task);
       });
@@ -64,22 +63,7 @@ export function Home({navigation}) {
   }, [buttonSelected]);
 
   /*========== FUNCTIONS ==========*/
-  
-  // adding new task when user click on add task button
-  const addNewTask = () => {
-    firestore()
-      .collection("Tasks")
-      .doc("BdqLKrrejbVdGRryDtDppZtJ7mt1")
-      .update({
-        Task: firebase.firestore.FieldValue.arrayUnion({id: tasks.length + 1, distance: 0.9, location: "Uberaba - MG", status: "completed"})
-      })
-      .then(() => {
-        console.log("task created!");
-        setUpdate(!update);
-      })
-      .catch(error => console.log(error));
-  };
-  
+
   /*========== FRONT ==========*/
   return (
     <View style={styles.homeContainer}>
@@ -147,7 +131,7 @@ export function Home({navigation}) {
       </View>
 
       <ScrollView contentContainerStyle={styles.tasks}>
-        {tasksFiltered.map((task: any) => {
+        {tasksFiltered.map(task => {
           return (
             <TaskHome
               key={task.id}
@@ -157,15 +141,15 @@ export function Home({navigation}) {
             />
           );
         })}
-        <Pressable 
-          onPress={addNewTask}
+        <Pressable
+          onPress={() => navigate('AddNewTask', {id: tasks.length + 1})}
           style={styles.addTaskButton}>
           <Text style={styles.addTaskText}>adicionar tarefa</Text>
         </Pressable>
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   homeContainer: {

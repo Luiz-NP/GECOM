@@ -9,6 +9,7 @@ import {Register} from '../screens/Register';
 import {Home} from '../screens/Home';
 import {Profile} from '../screens/Profile';
 import {Camera} from '../components/Camera';
+import {AddNewTask} from '../screens/AddTask';
 
 const config = {
   animation: 'spring',
@@ -26,6 +27,7 @@ const config = {
 export const StackRoutes = (): JSX.Element => {
   return (
     <Navigator
+      // initialRouteName="AddNewTask"
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
@@ -59,6 +61,14 @@ export const StackRoutes = (): JSX.Element => {
       <Screen
         name="Home"
         component={Home}
+        options={{
+          headerShown: false,
+          navigationBarColor: 'white',
+        }}
+      />
+      <Screen
+        name="AddNewTask"
+        component={AddNewTask}
         options={{
           headerShown: false,
           navigationBarColor: 'white',

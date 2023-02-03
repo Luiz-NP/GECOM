@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useContext, useEffect } from 'react';
+import {useContext, useEffect} from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
 import LottieView from 'lottie-react-native';
@@ -15,18 +15,16 @@ import LottieView from 'lottie-react-native';
 import {AuthContext} from '../contexts/AuthContext';
 
 /*========== COMPONENT DECLARATION ==========*/
-export const Welcome = ({navigation}: any): JSX.Element => {
-   
+export function Welcome({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
 
   /*========== CONTEXTS ==========*/
-  const { user } = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
 
   /*========== USE EFFECTS ==========*/
   useEffect(() => {
-    // 
-    if (user) navigate("Home");
+    if (user) navigate('Home');
   }, [user]);
 
   /*========== FRONT ==========*/
@@ -39,7 +37,7 @@ export const Welcome = ({navigation}: any): JSX.Element => {
       />
       <LottieView
         style={{width: '100%', height: '100%'}}
-        source={require('../../assets/img/lines.json')}
+        source={require('../assets/img/lines.json')}
         loop
         autoPlay
       />
@@ -65,7 +63,7 @@ export const Welcome = ({navigation}: any): JSX.Element => {
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   welcomeContainer: {
