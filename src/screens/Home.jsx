@@ -235,10 +235,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderColor: '#00c4ac',
     backgroundColor: '#00c4ac',
+    fontFamily: 'ClashGrotesk-Medium',
+    color: '#FFFFFF',
+    fontSize: 16,
     borderRadius: 5,
     paddingHorizontal: 5,
-    top: -10,
-    right: 0,
+    top: -5,
+    right: -5,
   },
 
   btnNavSelected: {
