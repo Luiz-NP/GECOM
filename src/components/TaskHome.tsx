@@ -30,16 +30,21 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginTop: 15,
+    height: 120,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
 
   textTask: {
-    fontSize: 24,
+    fontSize: 32,
+    fontFamily: 'ClashGrotesk-Medium',
+    color: '#FFFFFF',
     marginBottom: 10,
   },
 
   contentInfo: {
-    width: '60%',
     flexDirection: 'row',
+    alignItems: 'center',
   },
 
   info: {
@@ -51,6 +56,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   textInfo: {
-    fontFamily: 'ClashGrotesk-Bold',
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 18,
+    color: '#FFFFFF',
   },
 });

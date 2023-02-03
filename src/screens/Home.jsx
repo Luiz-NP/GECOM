@@ -69,7 +69,7 @@ export function Home({navigation}) {
   return (
     <View style={styles.homeContainer}>
       <StatusBar
-        barStyle="dark-content"
+        barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   icons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '25%',
+    width: '20%',
   },
 
   icon: {
@@ -224,6 +224,9 @@ const styles = StyleSheet.create({
     width: '31%',
     borderRadius: 15,
     paddingVertical: 8,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#00c4ac',
   },
@@ -242,6 +245,8 @@ const styles = StyleSheet.create({
     width: '31%',
     borderRadius: 15,
     paddingVertical: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
     backgroundColor: '#338f84',
     borderColor: '#338f84',
@@ -250,12 +255,16 @@ const styles = StyleSheet.create({
   textBtnNav: {
     textAlign: 'center',
     textTransform: 'uppercase',
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
     color: '#00c4ac',
   },
 
   textBtnNavSelected: {
     textAlign: 'center',
     textTransform: 'uppercase',
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
     color: '#FFFFFF',
   },
 

@@ -63,7 +63,7 @@ export const StackRoutes = (): JSX.Element => {
         component={Home}
         options={{
           headerShown: false,
-          navigationBarColor: 'white',
+          navigationBarColor: '#025248',
         }}
       />
       <Screen
