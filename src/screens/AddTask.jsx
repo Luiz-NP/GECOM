@@ -59,10 +59,12 @@ export function AddNewTask({route, navigation}) {
             .collection('Tasks')
             .doc(uid)
             .set({
-              id: taskID,
-              distance: 0,
-              location: location,
-              status: 'pending',
+              Task: [{
+                id: taskID,
+                distance: 0,
+                location: location,
+                status: 'pending',
+              }]
             })
             .then(() => {
               console.log('task created!');
