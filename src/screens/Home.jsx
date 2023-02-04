@@ -28,7 +28,8 @@ export function Home({navigation}) {
   const [tasks, setTasks] = useState([]);
   const [tasksFiltered, setTasksFiltered] = useState([]);
   const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
-  const [count, setCount] = useState(10);
+  const [pendingTasks, setPendingTasks] = useState(0);
+  const [completedTasks, setCompletedTasks] = useState(0);
 
   /*========== CONTEXTS ==========*/
   const {user} = useContext(AuthContext); // getting user from AuthContext
@@ -49,23 +50,25 @@ export function Home({navigation}) {
       .doc('BdqLKrrejbVdGRryDtDppZtJ7mt1')
       .get()
       .then(({_data}) => {
+        // all tasks
         setTasks(_data?.Task);
         setTasksFiltered(_data?.Task);
+
+        // pending tasks
+        const tasksPending = _data?.Task.filter(task => task.status === 'pending');
+        setPendingTasks(tasksPending);
+
+        // completed tasks
+        const tasksCompleted = _data?.Task.filter(task => task.status === 'completed');
+        setCompletedTasks(tasksCompleted);
       });
   }, [update]);
 
   // filtering tasks when user click on buttons
   useEffect(() => {
-    if (buttonSelected === 1) {
-      const tasksPending = tasks?.filter(task => task.status === 'pending');
-
-      return setTasksFiltered(tasksPending);
-    }
-    if (buttonSelected === 2) {
-      const tasksCompleted = tasks?.filter(task => task.status === 'completed');
-
-      return setTasksFiltered(tasksCompleted);
-    }
+    if (buttonSelected === 1) return setTasksFiltered(pendingTasks);
+    if (buttonSelected === 2) return setTasksFiltered(completedTasks);
+    
     return setTasksFiltered(tasks);
   }, [buttonSelected]);
 
@@ -133,7 +136,7 @@ export function Home({navigation}) {
         <Pressable
           style={buttonSelected === 1 ? styles.btnNavSelected : styles.btnNav}
           onPress={() => setButtonSelected(1)}>
-          <Text style={styles.count}>{count}</Text>
+          <Text style={styles.count}>{pendingTasks?.length ?? 0}</Text>
 
           <Text
             style={
@@ -148,7 +151,7 @@ export function Home({navigation}) {
         <Pressable
           style={buttonSelected === 2 ? styles.btnNavSelected : styles.btnNav}
           onPress={() => setButtonSelected(2)}>
-          <Text style={styles.count}>{count}</Text>
+          <Text style={styles.count}>{completedTasks?.length ?? 0}</Text>
 
           <Text
             style={
