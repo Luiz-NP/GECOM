@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 
   textTask: {
-    fontSize: 32,
+    fontSize: 24,
     fontFamily: 'ClashGrotesk-Medium',
     color: '#FFFFFF',
     marginBottom: 10,

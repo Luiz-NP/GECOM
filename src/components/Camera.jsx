@@ -19,7 +19,7 @@ import { CameraScreen } from 'react-native-camera-kit';
 import { DataContext } from "../contexts/DataContext";
 
 /*========== COMPONENT DECLARATION ==========*/
-export function Camera = ({ navigation }) {
+export function Camera({ navigation }) {
   
   /*========== DESTRUCTURING ==========*/
   const { navigate } = navigation;
