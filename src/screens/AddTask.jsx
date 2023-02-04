@@ -6,6 +6,7 @@ import {
   StatusBar,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
 import {useContext, useState} from 'react';
 
@@ -33,6 +34,8 @@ export function AddNewTask({route, navigation}) {
   const handleAddNewTask = () => {
     // getting current user id
     const uid = auth().currentUser.uid;
+
+    if (location === '') return Alert.alert('Preencha os Campos');
 
     firestore()
       .collection('Tasks')
