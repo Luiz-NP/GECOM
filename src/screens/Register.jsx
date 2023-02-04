@@ -19,25 +19,41 @@ import auth from "@react-native-firebase/auth";
 
 /*========== COMPONENT DECLARATION ==========*/
 export function Register({navigation}) {
-    
+  
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
   const {alert} = Alert;
 
   /*========== STATES ==========*/
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   /*========== FUNCTIONS ==========*/
-    
+  
   // sign-up function
-  const handleSignUp = async () => {
+  async function handleSignUp() {
+    // Capitalize name
+    const unformatted = `${firstName} ${lastName}`;
+    const formatted = unformatted
+      .split(' ')
+      .map(name => {
+        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+      })
+      .join(' ');
+    
     await auth().createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        // get currentUser and send email verification
-        const user = auth().currentUser;
+      .then(async ({user}) => {   
+        // update user info
+        await user.updateProfile({
+          displayName: formatted,
+        });
 
-        user?.sendEmailVerification()
+        // get newUser and send email verification
+        const newUser = auth().currentUser;
+
+        newUser?.sendEmailVerification()
           .then(() => alert("Verifique seu email", "enviamos um link de verificação no seu email, veifique para continuar"))
           .catch(error => console.log(error));
       })
@@ -83,10 +99,12 @@ export function Register({navigation}) {
           </Text>
         </View>
         <TextInput
+          onChangeText={setFirstName}
           placeholder="Nome"
           placeholderTextColor={'#8af3cb'}
           style={styles.input}></TextInput>
         <TextInput
+          onChange={setLastName}
           placeholder="Sobrenome"
           placeholderTextColor={'#8af3cb'}
           style={styles.input}></TextInput>
