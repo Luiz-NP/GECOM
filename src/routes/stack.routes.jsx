@@ -27,7 +27,7 @@ const config = {
 export function StackRoutes() {
   return (
     <Navigator
-      // initialRouteName="AddNewTask"
+      initialRouteName="Profile"
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',

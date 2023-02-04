@@ -1,18 +1,16 @@
 /*========== ROOT IMPORTS ==========*/
-import {
-    StatusBar, 
-    StyleSheet, 
-    Text, 
-    View
-} from 'react-native';
+import {StatusBar, StyleSheet, Text, View} from 'react-native';
+
+import auth from '@react-native-firebase/auth';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import {ProfileButton} from '../components/ProfileButton';
 
 export function Profile() {
-  
-    /*========== FRONT ==========*/
-    return (
+  const user = auth().currentUser;
+
+  /*========== FRONT ==========*/
+  return (
     <View style={style.profileContainer}>
       <StatusBar
         barStyle="light-content"
@@ -28,10 +26,9 @@ export function Profile() {
       <View style={style.content}>
         <View style={style.user}>
           <Text style={style.userPhoto}>{''}</Text>
-          <Text style={style.userName}>USER NAME</Text>
+          <Text style={style.userName}>{user.displayName}</Text>
           <Text style={style.userDescription}>QuarkzPlace Ltd.</Text>
         </View>
-
         <View style={style.functions}>
           <View style={style.titleSection}>
             <Text style={style.textSecton}>Como podemos te ajudar?</Text>
@@ -49,11 +46,11 @@ export function Profile() {
             title="Treinamento e/ou especialização"
             text="Entre em contato conosco para soolicitar um treinamento direto á sua equipe."
           />
-        </View>:
+        </View>
       </View>
     </View>
   );
-};
+}
 
 const style = StyleSheet.create({
   profileContainer: {
