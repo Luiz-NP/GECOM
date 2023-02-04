@@ -12,10 +12,12 @@ import Svg, {Defs, Path, ClipPath, Use} from 'react-native-svg';
 
 /*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
+import auth from "@react-native-firebase/auth";
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import {TaskHome} from '../components/TaskHome';
 import {AuthContext} from '../contexts/AuthContext';
+import {UpdateContext} from '../contexts/UpdateContext';
 
 /*========== COMPONENT DECLARATION ==========*/
 export function Home({navigation}) {
@@ -25,18 +27,22 @@ export function Home({navigation}) {
   /*========== STATES ==========*/
   const [tasks, setTasks] = useState([]);
   const [tasksFiltered, setTasksFiltered] = useState([]);
-  const [update, setUpdate] = useState(false); // when this is changed, useEffect runs again
   const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
   const [count, setCount] = useState(10);
 
   /*========== CONTEXTS ==========*/
   const {user} = useContext(AuthContext); // getting user from AuthContext
-
-  /*========== USE EFFECTS ==========*/
+  const {update, setUpdate} = useContext(UpdateContext) // reload data when change
+  
+  /*========== LIFE CICLE ==========*/
   useEffect(() => {
     // checking if there is a user, if not, we send it to Login screen
     if (!user) navigate('Auth');
+    
+    setUpdate(!update);
+  }, []);
 
+  useEffect(() => {
     // getting task data from firestore
     firestore()
       .collection('Tasks')
@@ -51,19 +57,17 @@ export function Home({navigation}) {
   // filtering tasks when user click on buttons
   useEffect(() => {
     if (buttonSelected === 1) {
-      const tasksPending = tasks.filter(task => task.status === 'pending');
+      const tasksPending = tasks?.filter(task => task.status === 'pending');
 
       return setTasksFiltered(tasksPending);
     }
     if (buttonSelected === 2) {
-      const tasksCompleted = tasks.filter(task => task.status === 'completed');
+      const tasksCompleted = tasks?.filter(task => task.status === 'completed');
 
       return setTasksFiltered(tasksCompleted);
     }
     return setTasksFiltered(tasks);
   }, [buttonSelected]);
-
-  /*========== FUNCTIONS ==========*/
 
   /*========== FRONT ==========*/
   return (
@@ -158,7 +162,7 @@ export function Home({navigation}) {
       </View>
 
       <ScrollView contentContainerStyle={styles.tasks}>
-        {tasksFiltered.map(task => {
+        {tasksFiltered?.map(task => {
           return (
             <TaskHome
               key={task.id}
@@ -169,7 +173,10 @@ export function Home({navigation}) {
           );
         })}
         <Pressable
-          onPress={() => navigate('AddNewTask', {id: tasks.length + 1})}
+          onPress={() => {
+            const taskID = tasks?.length ?? 0 
+            navigate('AddNewTask', {taskID: taskID + 1})
+          }}
           style={styles.addTaskButton}>
           <Text style={styles.addTaskText}>adicionar tarefa</Text>
         </Pressable>
