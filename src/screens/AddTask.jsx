@@ -1,3 +1,4 @@
+/*========== ROOT IMPORTS ==========*/
 import {
   View,
   Text,
@@ -6,24 +7,39 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import {useContext, useState} from 'react';
 
+/*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
-import {firebase} from '@react-native-firebase/auth';
-import {useState} from 'react';
+import auth from '@react-native-firebase/auth';
 
+/*========== LOCAL FILES & COMPONENTS ==========*/
+import {UpdateContext} from '../contexts/UpdateContext';
+
+/*========== COMPONENTS DECLARATION ==========*/
 export function AddNewTask({route, navigation}) {
+  /*========== DESTRUCTURING ==========*/
+  const {taskID} = route.params;
+  const {navigate} = navigation;
+
+  /*========== STATES ==========*/ 
   const [location, setLocation] = useState('');
 
-  const {id} = route.params;
+  /*========== CONTEXTS ==========*/
+  const {update, setUpdate} = useContext(UpdateContext)
 
+  /*========== FUNCTIONS ==========*/
   // adding new task when user click on add task button
   const handleAddNewTask = () => {
+    // getting current user id
+    const uid = auth().currentUser.uid;
+
     firestore()
       .collection('Tasks')
-      .doc('BdqLKrrejbVdGRryDtDppZtJ7mt1')
+      .doc(uid)
       .update({
         Task: firestore.FieldValue.arrayUnion({
-          id: id,
+          id: taskID,
           distance: 0,
           location: location,
           status: 'pending',
@@ -32,9 +48,33 @@ export function AddNewTask({route, navigation}) {
       .then(() => {
         console.log('task created!');
         setUpdate(!update);
+        navigate('Home');
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error)
+        
+        // if this user dont have a doc on firestore, this create a new doc
+        if (error.code === "firestore/not-found") {
+          firestore()
+            .collection('Tasks')
+            .doc(uid)
+            .set({
+              id: taskID,
+              distance: 0,
+              location: location,
+              status: 'pending',
+            })
+            .then(() => {
+              console.log('task created!');
+              setUpdate(!update);
+              navigate('Home');
+            })
+            .catch(error => console.log(error));
+        }
+      });
   };
+
+  /*========== FRONT ==========*/
   return (
     <View style={styles.container}>
       <StatusBar
