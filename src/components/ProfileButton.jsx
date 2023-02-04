@@ -12,7 +12,7 @@ export function ProfileButton({title, text}) {
       </Text>
     </Pressable>
   );
-};
+}
 
 const style = StyleSheet.create({
   btn: {
