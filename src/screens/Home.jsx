@@ -49,8 +49,8 @@ export function Home({navigation}) {
       .doc('BdqLKrrejbVdGRryDtDppZtJ7mt1')
       .get()
       .then(({_data}) => {
-        setTasks(_data.Task);
-        setTasksFiltered(_data.Task);
+        setTasks(_data?.Task);
+        setTasksFiltered(_data?.Task);
       });
   }, [update]);
 
