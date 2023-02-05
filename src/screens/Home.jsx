@@ -93,7 +93,10 @@ export function Home({navigation}) {
         </View>
 
         <View style={styles.icons}>
-          <TouchableOpacity activeOpacity={0.8} style={styles.icon}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigate('Profile')}
+            style={styles.icon}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -107,7 +110,10 @@ export function Home({navigation}) {
               />
             </Svg>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.8} style={styles.icon}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigate('Settings')}
+            style={styles.icon}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -207,7 +213,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 72,
+    marginTop: 64,
   },
   titleScreen: {
     fontFamily: 'ClashGrotesk-Medium',

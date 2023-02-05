@@ -1,12 +1,19 @@
 /*========== ROOT IMPORTS ==========*/
-import {StatusBar, StyleSheet, Text, View} from 'react-native';
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import {ProfileButton} from '../components/ProfileButton';
 
 import auth from '@react-native-firebase/auth';
 
-export function Profile() {
+export function Profile({navigation}) {
+  const {navigate} = navigation;
   const user = auth().currentUser;
 
   /*========== FRONT ==========*/
@@ -19,8 +26,18 @@ export function Profile() {
       />
 
       <View style={style.header}>
-        <Text style={style.titleScreen}>Perfil</Text>
-        <Text style={style.subTitleScreen}>Suas informações</Text>
+        <TouchableOpacity
+          onPress={() => navigate('Home')}
+          activeOpacity={0.8}
+          style={style.backContainer}>
+          <Text style={style.backText}>Voltar</Text>
+        </TouchableOpacity>
+        <View style={style.titleContainer}>
+          <Text style={style.titleText}>Perfil</Text>
+        </View>
+        <TouchableOpacity activeOpacity={0.8} style={style.editContainer}>
+          <Text style={style.editText}>Editar</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={style.content}>
@@ -47,7 +64,6 @@ export function Profile() {
             text="Entre em contato conosco para soolicitar um treinamento direto á sua equipe."
           />
         </View>
-        :
       </View>
     </View>
   );
@@ -59,18 +75,58 @@ const style = StyleSheet.create({
     backgroundColor: '#025248',
   },
   header: {
-    flex: 0.17,
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
-    paddingLeft: 30,
-    paddingBottom: 30,
-    justifyContent: 'flex-end',
+    marginTop: 36,
+    paddingHorizontal: 12,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  titleScreen: {
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 32,
+
+  backContainer: {
+    backgroundColor: '#006458',
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 10,
+    width: 100,
+    paddingHorizontal: 15,
+  },
+
+  backText: {
     color: '#FFFFFF',
+    fontSize: 16,
+    fontFamily: 'ClashGrotesk-Medium',
   },
+
+  titleContainer: {
+    borderRadius: 20,
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+
+  titleText: {
+    color: '#FFFFFF',
+    fontSize: 24,
+    fontFamily: 'ClashGrotesk-Medium',
+  },
+  editContainer: {
+    backgroundColor: '#006458',
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 10,
+    width: 100,
+    paddingHorizontal: 15,
+  },
+
+  editText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontFamily: 'ClashGrotesk-Medium',
+  },
+
   subTitleScreen: {
     color: '#FFFFFF',
     fontSize: 24,

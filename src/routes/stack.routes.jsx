@@ -10,6 +10,7 @@ import {Home} from '../screens/Home';
 import {Profile} from '../screens/Profile';
 import {Camera} from '../components/Camera';
 import {AddNewTask} from '../screens/AddTask';
+import {Settings} from '../screens/Settings';
 
 const config = {
   animation: 'spring',
@@ -83,6 +84,14 @@ export function StackRoutes() {
         }}
       />
       <Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerShown: false,
+          navigationBarColor: '#025248',
+        }}
+      />
+      <Screen
         name="Camera"
         component={Camera}
         options={{
@@ -91,4 +100,4 @@ export function StackRoutes() {
       />
     </Navigator>
   );
-};
+}
