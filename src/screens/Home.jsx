@@ -12,7 +12,7 @@ import Svg, {Defs, Path, ClipPath, Use} from 'react-native-svg';
 
 /*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
-import auth from "@react-native-firebase/auth";
+import auth from '@react-native-firebase/auth';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import {TaskHome} from '../components/TaskHome';
@@ -33,13 +33,13 @@ export function Home({navigation}) {
 
   /*========== CONTEXTS ==========*/
   const {user} = useContext(AuthContext); // getting user from AuthContext
-  const {update, setUpdate} = useContext(UpdateContext) // reload data when change
-  
+  const {update, setUpdate} = useContext(UpdateContext); // reload data when change
+
   /*========== LIFE CICLE ==========*/
   useEffect(() => {
     // checking if there is a user, if not, we send it to Login screen
     if (!user) navigate('Auth');
-    
+
     setUpdate(!update);
   }, []);
 
@@ -55,11 +55,15 @@ export function Home({navigation}) {
         setTasksFiltered(_data?.Task);
 
         // pending tasks
-        const tasksPending = _data?.Task.filter(task => task.status === 'pending');
+        const tasksPending = _data?.Task.filter(
+          task => task.status === 'pending',
+        );
         setPendingTasks(tasksPending);
 
         // completed tasks
-        const tasksCompleted = _data?.Task.filter(task => task.status === 'completed');
+        const tasksCompleted = _data?.Task.filter(
+          task => task.status === 'completed',
+        );
         setCompletedTasks(tasksCompleted);
       });
   }, [update]);
@@ -68,7 +72,7 @@ export function Home({navigation}) {
   useEffect(() => {
     if (buttonSelected === 1) return setTasksFiltered(pendingTasks);
     if (buttonSelected === 2) return setTasksFiltered(completedTasks);
-    
+
     return setTasksFiltered(tasks);
   }, [buttonSelected]);
 
@@ -177,8 +181,8 @@ export function Home({navigation}) {
         })}
         <Pressable
           onPress={() => {
-            const taskID = tasks?.length ?? 0 
-            navigate('AddNewTask', {taskID: taskID + 1})
+            const taskID = tasks?.length ?? 0;
+            navigate('AddNewTask', {taskID: taskID + 1});
           }}
           style={styles.addTaskButton}>
           <Text style={styles.addTaskText}>adicionar tarefa</Text>
@@ -249,9 +253,10 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     borderRadius: 5,
-    paddingHorizontal: 5,
-    top: -5,
-    right: -5,
+    width: 24,
+    textAlign: 'center',
+    top: -10,
+    right: -10,
   },
 
   btnNavSelected: {
@@ -269,7 +274,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'uppercase',
     fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 16,
+    fontSize: 14,
     color: '#00c4ac',
   },
 
@@ -277,7 +282,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'uppercase',
     fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 16,
+    fontSize: 14,
     color: '#FFFFFF',
   },
 

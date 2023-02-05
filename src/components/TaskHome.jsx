@@ -17,7 +17,7 @@ export function TaskHome({distance, location, status}) {
       </View>
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   task: {
@@ -26,13 +26,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginTop: 15,
-    height: 120,
+    height: 100,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
 
   textTask: {
-    fontSize: 24,
+    fontSize: 18,
     fontFamily: 'ClashGrotesk-Medium',
     color: '#FFFFFF',
     marginBottom: 10,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   textInfo: {
     fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 18,
+    fontSize: 12,
     color: '#FFFFFF',
   },
 });
