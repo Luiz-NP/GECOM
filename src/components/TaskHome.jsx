@@ -1,10 +1,16 @@
 /*========== ROOT IMPORTS ==========*/
-import {View, Text, Pressable, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 
 /*========== COMPONENT DECLARATION ==========*/
 export function TaskHome({distance, location, status}) {
   return (
-    <Pressable style={styles.task}>
+    <TouchableOpacity activeOpacity={0.8} style={styles.task}>
       <Text style={styles.textTask}>Fiscalização de Campo</Text>
 
       <View style={styles.contentInfo}>
@@ -15,7 +21,7 @@ export function TaskHome({distance, location, status}) {
           <Text style={styles.textInfo}>{location}</Text>
         </View>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 }
 
@@ -32,7 +38,7 @@ const styles = StyleSheet.create({
   },
 
   textTask: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'ClashGrotesk-Medium',
     color: '#FFFFFF',
     marginBottom: 10,
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
   },
   textInfo: {
     fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 12,
+    fontSize: 14,
     color: '#FFFFFF',
   },
 });

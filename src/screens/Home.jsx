@@ -6,9 +6,10 @@ import {
   StyleSheet,
   Pressable,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {useContext, useEffect, useState} from 'react';
-import Svg, {Defs, Path, ClipPath, Use} from 'react-native-svg';
+import Svg, {Path} from 'react-native-svg';
 
 /*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
@@ -92,7 +93,7 @@ export function Home({navigation}) {
         </View>
 
         <View style={styles.icons}>
-          <View style={styles.icon}>
+          <TouchableOpacity activeOpacity={0.8} style={styles.icon}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -105,8 +106,8 @@ export function Home({navigation}) {
                 fill="#fff"
               />
             </Svg>
-          </View>
-          <View style={styles.icon}>
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.8} style={styles.icon}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -119,12 +120,13 @@ export function Home({navigation}) {
                 fill="#fff"
               />
             </Svg>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.nav}>
-        <Pressable
+        <TouchableOpacity
+          activeOpacity={0.8}
           onPress={() => setButtonSelected(0)}
           style={buttonSelected === 0 ? styles.btnNavSelected : styles.btnNav}>
           <Text
@@ -135,9 +137,10 @@ export function Home({navigation}) {
             }>
             Todas
           </Text>
-        </Pressable>
+        </TouchableOpacity>
 
-        <Pressable
+        <TouchableOpacity
+          activeOpacity={0.8}
           style={buttonSelected === 1 ? styles.btnNavSelected : styles.btnNav}
           onPress={() => setButtonSelected(1)}>
           <Text style={styles.count}>{pendingTasks?.length ?? 0}</Text>
@@ -150,9 +153,10 @@ export function Home({navigation}) {
             }>
             Pendente
           </Text>
-        </Pressable>
+        </TouchableOpacity>
 
-        <Pressable
+        <TouchableOpacity
+          activeOpacity={0.8}
           style={buttonSelected === 2 ? styles.btnNavSelected : styles.btnNav}
           onPress={() => setButtonSelected(2)}>
           <Text style={styles.count}>{completedTasks?.length ?? 0}</Text>
@@ -165,7 +169,7 @@ export function Home({navigation}) {
             }>
             Concluídas
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
 
       <ScrollView contentContainerStyle={styles.tasks}>
@@ -257,6 +261,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     top: -10,
     right: -10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 24,
+    borderRadius: 100,
   },
 
   btnNavSelected: {
