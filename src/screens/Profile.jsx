@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from 'react-native';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
@@ -42,7 +43,7 @@ export function Profile({navigation}) {
 
       <View style={style.content}>
         <View style={style.user}>
-          <Text style={style.userPhoto}>{user?.photoURL}</Text>
+          <Image style={style.userPhoto} source={{uri: user?.photoURL}} />
           <Text style={style.userName}>{user?.displayName}</Text>
           <Text style={style.userDescription}>QuarkzPlace Ltd.</Text>
         </View>
