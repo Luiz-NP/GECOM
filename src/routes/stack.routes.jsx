@@ -28,12 +28,11 @@ const config = {
 export function StackRoutes() {
   return (
     <Navigator
-      // initialRouteName="AddNewTask"
+      initialRouteName="Camera"
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
-        headerShown: false,
       }}>
       <Screen
         name="Welcome"
