@@ -193,6 +193,9 @@ export function Home({navigation}) {
           onPress={() => {
             const taskID = tasks?.length ?? 0;
             navigate('AddNewTask', {taskID: taskID + 1});
+            
+            // set button selected as 0
+            setButtonSelected(0);
           }}
           style={styles.addTaskButton}>
           <Text style={styles.addTaskText}>adicionar tarefa</Text>
