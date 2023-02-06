@@ -3,26 +3,28 @@ import {
   PermissionsAndroid, 
   View, 
   Image, 
-  Button, 
+  Button,
+  BackHandler,
   Text, 
   Alert
 } from 'react-native';
-import { useEffect, useState, useContext } from 'react';
+import { useCallback, useEffect, useState, useContext } from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import Geolocation from '@react-native-community/geolocation';
 import RNFS from 'react-native-fs';
+import { useFocusEffect } from '@react-navigation/native';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import { CameraScreen } from 'react-native-camera-kit';
 import { DataContext } from "../contexts/DataContext";
 
 /*========== COMPONENT DECLARATION ==========*/
-export function Camera({/* navigation */}) {
+export function Camera({ navigation }) {
   
   /*========== DESTRUCTURING ==========*/
-  //const { navigate } = navigation;
+  const { navigate } = navigation;
 
   /*========== STATES ==========*/
   const [permissions, setPermissios] = useState(false);
@@ -58,6 +60,23 @@ export function Camera({/* navigation */}) {
       else setPermissios('denied');
     })();
   }, []);
+
+  // defining back button behavior
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        navigate('Home');
+        return true;
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, []),
+  );
 
   /*========== FUNCTIONS ==========*/
 

@@ -4,11 +4,15 @@ import {
   StatusBar,
   Text,
   StyleSheet,
+  BackHandler,
   Pressable,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
+
+/*========== LIBRARY IMPORTS ==========*/
+import {useFocusEffect} from '@react-navigation/native';
 import Svg, {Path} from 'react-native-svg';
 
 /*========== FIREBASE IMPORTS ==========*/
@@ -76,6 +80,23 @@ export function Home({navigation}) {
 
     return setTasksFiltered(tasks);
   }, [buttonSelected]);
+  
+  // defining back button behavior to block user back action
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        BackHandler.exitApp();
+        return true;
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, []),
+  );
 
   /*========== FRONT ==========*/
   return (
