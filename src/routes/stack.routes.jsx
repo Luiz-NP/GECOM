@@ -28,7 +28,7 @@ const config = {
 export function StackRoutes() {
   return (
     <Navigator
-      initialRouteName="Camera"
+      // initialRouteName="Camera"
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
