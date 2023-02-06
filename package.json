@@ -20,7 +20,7 @@
     "geolib": "^3.3.3",
     "lottie-react-native": "^5.1.4",
     "react": "18.2.0",
-    "react-native": "0.71.1",
+    "react-native": "0.71.2",
     "react-native-android-location-enabler": "^1.2.2",
     "react-native-camera-kit": "^13.0.0",
     "react-native-fs": "^2.20.0",
