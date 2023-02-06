@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useContext, useEffect} from 'react';
+import {useContext, useEffect, useState} from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
 import LottieView from 'lottie-react-native';
@@ -19,16 +19,39 @@ export function Welcome({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
 
+  /*========== STATES ==========*/
+  const [loading, setLoading] = useState(true);
+
   /*========== CONTEXTS ==========*/
   const {user} = useContext(AuthContext);
 
   /*========== USE EFFECTS ==========*/
   useEffect(() => {
+    setTimeout(() => setLoading(false), 1500);
     if (user) navigate('Home');
   }, [user]);
 
   /*========== FRONT ==========*/
+  // loads while verifying the user
+  if (loading) return (
+    <View style={styles.welcomeContainer}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      <LottieView
+        style={{width: '100%', height: '100%'}}
+        source={require('../assets/img/lines.json')}
+        loop
+        autoPlay
+      />
+    </View>
+
+  );
+
   return (
+    !loading &&
     <View style={styles.welcomeContainer}>
       <StatusBar
         barStyle="light-content"
