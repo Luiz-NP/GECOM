@@ -19,10 +19,10 @@ import { CameraScreen } from 'react-native-camera-kit';
 import { DataContext } from "../contexts/DataContext";
 
 /*========== COMPONENT DECLARATION ==========*/
-export function Camera({ navigation }) {
+export function Camera({/* navigation */}) {
   
   /*========== DESTRUCTURING ==========*/
-  const { navigate } = navigation;
+  //const { navigate } = navigation;
 
   /*========== STATES ==========*/
   const [permissions, setPermissios] = useState(false);
@@ -178,7 +178,7 @@ export function Camera({ navigation }) {
 
   /*========== FRONT ==========*/
   return (
-    permissions && (
+    permissions ? (
       <View style={{
           height: '100%',
           paddingBottom: 10,
@@ -186,7 +186,7 @@ export function Camera({ navigation }) {
         }}>
         <CameraScreen
           torchImageStyle={{
-            top: 10,
+            top: 20,
             left: 120,
           }}
           onBottomButtonPressed={(e) => takePic(e)}
@@ -199,6 +199,6 @@ export function Camera({ navigation }) {
           captureButtonImage={require('../assets/camera/capture-icon.png')} // optional, image capture button
         />
       </View>
-    )
+    ) : <Text>vdd</Text>
   ); 
 }
