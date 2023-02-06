@@ -194,8 +194,8 @@ export function Home({navigation}) {
             const taskID = tasks?.length ?? 0;
             navigate('AddNewTask', {taskID: taskID + 1});
             
-            // set button selected as 0
-            setButtonSelected(0);
+            // set button selected to 0
+            setTimeout(() => setButtonSelected(0), 1000);
           }}
           style={styles.addTaskButton}>
           <Text style={styles.addTaskText}>adicionar tarefa</Text>
