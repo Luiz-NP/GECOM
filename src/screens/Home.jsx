@@ -49,10 +49,12 @@ export function Home({navigation}) {
   }, []);
 
   useEffect(() => {
+    const uid = auth().currentUser.uid;
+
     // getting task data from firestore
     firestore()
       .collection('Tasks')
-      .doc('BdqLKrrejbVdGRryDtDppZtJ7mt1')
+      .doc(uid)
       .get()
       .then(({_data}) => {
         // all tasks
