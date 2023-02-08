@@ -142,7 +142,7 @@ export function AddNewTask({route, navigation}) {
       <TouchableOpacity onPress={() => handleAddNewTask('Home')} style={styles.addTaskButton}>
         <Text style={styles.addTaskText}>adicionar e voltar</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleAddNewTask('Camera')} style={styles.initTask}>
+      <TouchableOpacity onPress={() => handleAddNewTask('CameraView')} style={styles.initTask}>
         <Text style={styles.initTaskText}>iniciar inspeção</Text>
       </TouchableOpacity>
     </View>

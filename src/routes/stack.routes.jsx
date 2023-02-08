@@ -8,7 +8,7 @@ import {Auth} from '../screens/Auth';
 import {Register} from '../screens/Register';
 import {Home} from '../screens/Home';
 import {Profile} from '../screens/Profile';
-import {Camera} from '../components/Camera';
+import {CameraView} from '../components/CameraView';
 import {AddNewTask} from '../screens/AddTask';
 import {Settings} from '../screens/Settings';
 import {TaskInfo} from '../screens/TaskInfo';
@@ -92,8 +92,8 @@ export function StackRoutes() {
         }}
       />
       <Screen
-        name="Camera"
-        component={Camera}
+        name="CameraView"
+        component={CameraView}
         options={{
           headerShown: false,
         }}
