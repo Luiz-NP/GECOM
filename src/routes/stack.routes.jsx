@@ -11,6 +11,7 @@ import {Profile} from '../screens/Profile';
 import {Camera} from '../components/Camera';
 import {AddNewTask} from '../screens/AddTask';
 import {Settings} from '../screens/Settings';
+import {TaskInfo} from '../screens/TaskInfo';
 
 const config = {
   animation: 'spring',
@@ -28,7 +29,7 @@ const config = {
 export function StackRoutes() {
   return (
     <Navigator
-      // initialRouteName="Camera"
+      // initialRouteName="TaskInfo"
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
@@ -93,6 +94,13 @@ export function StackRoutes() {
       <Screen
         name="Camera"
         component={Camera}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="TaskInfo"
+        component={TaskInfo}
         options={{
           headerShown: false,
         }}

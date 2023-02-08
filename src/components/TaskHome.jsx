@@ -1,24 +1,25 @@
 /*========== ROOT IMPORTS ==========*/
-import {
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 /*========== COMPONENT DECLARATION ==========*/
-export function TaskHome({distance, location, status}) {
+export function TaskHome({data, navigate}) {
+  
   return (
-    <TouchableOpacity activeOpacity={0.8} style={styles.task}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={styles.task}
+      onPress={() => navigate("TaskInfo", {
+        data,
+      })}
+      >
       <Text style={styles.textTask}>Fiscalização de Campo</Text>
 
       <View style={styles.contentInfo}>
         <View style={styles.info}>
-          <Text style={styles.textInfo}>{distance}</Text>
+          <Text style={styles.textInfo}>{data.distance}</Text>
         </View>
         <View style={styles.info}>
-          <Text style={styles.textInfo}>{location}</Text>
+          <Text style={styles.textInfo}>{data.location}</Text>
         </View>
       </View>
     </TouchableOpacity>

@@ -206,9 +206,8 @@ export function Home({navigation}) {
           return (
             <TaskHome
               key={task.id}
-              distance={task.distance}
-              location={task.location}
-              status={task.status}
+              data={task}
+              navigate={navigate}
             />
           );
         })}
