@@ -13,7 +13,7 @@ import {useCallback, useContext, useEffect, useState} from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
 import {useFocusEffect} from '@react-navigation/native';
-import Svg, {Path} from 'react-native-svg';
+import Svg, {Image, Path} from 'react-native-svg';
 
 /*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
@@ -82,7 +82,7 @@ export function Home({navigation}) {
 
     return setTasksFiltered(tasks);
   }, [buttonSelected]);
-  
+
   // defining back button behavior to block user back action
   useFocusEffect(
     useCallback(() => {
@@ -110,8 +110,8 @@ export function Home({navigation}) {
       />
 
       <View style={styles.header}>
-        <View>
-          <Text style={styles.titleScreen}>Início</Text>
+        <View style={styles.userArea}>
+          <Image source={user?.photoURL} style={styles.userImage} />
           <Text style={styles.subTitleScreen}>Suas tarefas</Text>
         </View>
 
@@ -203,19 +203,13 @@ export function Home({navigation}) {
 
       <ScrollView contentContainerStyle={styles.tasks}>
         {tasksFiltered?.map(task => {
-          return (
-            <TaskHome
-              key={task.id}
-              data={task}
-              navigate={navigate}
-            />
-          );
+          return <TaskHome key={task.id} data={task} navigate={navigate} />;
         })}
         <Pressable
           onPress={() => {
             const taskID = tasks?.length ?? 0;
             navigate('AddNewTask', {taskID: taskID + 1});
-            
+
             // set button selected to 0
             setTimeout(() => setButtonSelected(0), 1000);
           }}
@@ -232,6 +226,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#025248',
     paddingHorizontal: 20,
+  },
+
+  userArea: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  userImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
   },
 
   header: {
