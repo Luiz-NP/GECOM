@@ -40,7 +40,7 @@ export function StackRoutes() {
         component={Welcome}
         options={{
           headerShown: false,
-          navigationBarColor: '#006458',
+          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -48,7 +48,7 @@ export function StackRoutes() {
         component={Register}
         options={{
           headerShown: false,
-          navigationBarColor: '#006458',
+          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -56,7 +56,7 @@ export function StackRoutes() {
         component={Auth}
         options={{
           headerShown: false,
-          navigationBarColor: '#006458',
+          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -64,7 +64,7 @@ export function StackRoutes() {
         component={Home}
         options={{
           headerShown: false,
-          navigationBarColor: '#025248',
+          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -72,7 +72,7 @@ export function StackRoutes() {
         component={AddNewTask}
         options={{
           headerShown: false,
-          navigationBarColor: 'white',
+          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -80,7 +80,7 @@ export function StackRoutes() {
         component={Profile}
         options={{
           headerShown: false,
-          navigationBarColor: '#025248',
+          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -88,7 +88,7 @@ export function StackRoutes() {
         component={Settings}
         options={{
           headerShown: false,
-          navigationBarColor: '#025248',
+          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -96,6 +96,7 @@ export function StackRoutes() {
         component={CameraView}
         options={{
           headerShown: false,
+          navigationBarColor: 'transparent',
         }}
       />
       <Screen
