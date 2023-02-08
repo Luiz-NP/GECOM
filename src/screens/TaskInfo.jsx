@@ -45,7 +45,7 @@ export function TaskInfo({route, navigation}) {
         </Text>
       </View>
 
-      <TouchableOpacity style={styles.btn} activeOpacity={0.8} onPress={() => navigate('Camera')}>
+      <TouchableOpacity style={styles.btn} activeOpacity={0.8} onPress={() => navigate('CameraView')}>
         <Text style={styles.contentTextBtn}>{data.distance > 0 ? 'Continuar' : 'Iniciar'}</Text>
       </TouchableOpacity>
     </View>
