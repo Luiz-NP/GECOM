@@ -33,58 +33,59 @@ export function Welcome({navigation}) {
 
   /*========== FRONT ==========*/
   // loads while verifying the user
-  if (loading) return (
-    <View style={styles.welcomeContainer}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      <LottieView
-        style={{width: '100%', height: '100%'}}
-        source={require('../assets/img/lines.json')}
-        loop
-        autoPlay
-      />
-    </View>
-
-  );
+  if (loading)
+    return (
+      <View style={styles.welcomeContainer}>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
+        <LottieView
+          style={{width: '100%', height: '100%'}}
+          source={require('../assets/img/lines.json')}
+          loop
+          autoPlay
+        />
+      </View>
+    );
 
   return (
-    !loading &&
-    <View style={styles.welcomeContainer}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      <LottieView
-        style={{width: '100%', height: '100%'}}
-        source={require('../assets/img/lines.json')}
-        loop
-        autoPlay
-      />
-      <View style={styles.bottomContainer}>
-        <View style={styles.textArea}>
-          <Text style={styles.title}>Vistoria Técnica</Text>
-          <Text style={styles.subTitle}>
-            Confiabilidade em seus processos, com a garantia de resultados
-          </Text>
+    !loading && (
+      <View style={styles.welcomeContainer}>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
+        <LottieView
+          style={{width: '100%', height: '100%'}}
+          source={require('../assets/img/lines.json')}
+          loop
+          autoPlay
+        />
+        <View style={styles.bottomContainer}>
+          <View style={styles.textArea}>
+            <Text style={styles.title}>Vistoria Técnica</Text>
+            <Text style={styles.subTitle}>
+              Confiabilidade em seus processos, com a garantia de resultados
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => navigate('Auth')}
+            style={styles.authBtn}
+            activeOpacity={0.8}>
+            <Text style={styles.authText}>Autenticar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigate('Register')}
+            style={styles.registerBtn}
+            activeOpacity={0.8}>
+            <Text style={styles.registerText}>Cadastrar-se</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => navigate('Auth')}
-          style={styles.authBtn}
-          activeOpacity={0.8}>
-          <Text style={styles.authText}>Autenticar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigate('Register')}
-          style={styles.registerBtn}
-          activeOpacity={0.8}>
-          <Text style={styles.registerText}>Cadastrar-se</Text>
-        </TouchableOpacity>
       </View>
-    </View>
+    )
   );
 }
 
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     width: '100%',
-    height: 450,
+    height: 'auto',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     padding: 24,
@@ -143,6 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 12,
+    marginBottom: 36,
   },
   registerText: {
     fontFamily: 'ClashGrotesk-Medium',

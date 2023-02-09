@@ -24,7 +24,6 @@ import {ForgotPasswordModal} from '../components/modals/ForgotPasswordModal';
 
 /*========== COMPONENT DECLARATION ==========*/
 export function Auth({navigation}) {
-
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
   const {alert} = Alert;
@@ -45,11 +44,11 @@ export function Auth({navigation}) {
         const user = auth().currentUser;
 
         user?.emailVerified
-        ? navigate('Home')
-        : alert(
-          'Verifique seu email',
-          'enviamos um link de verificação no seu email, veifique para continuar',
-        );
+          ? navigate('Home')
+          : alert(
+              'Verifique seu email',
+              'enviamos um link de verificação no seu email, veifique para continuar',
+            );
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -62,7 +61,7 @@ export function Auth({navigation}) {
 
         console.error(error);
       });
-  };
+  }
 
   // google sign-in function
   async function onGoogleButtonPress() {
@@ -77,7 +76,7 @@ export function Auth({navigation}) {
 
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
-  };
+  }
 
   /*========== FRONT ==========*/
   return (
@@ -193,7 +192,7 @@ export function Auth({navigation}) {
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   authContainer: {
@@ -224,7 +223,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     width: '100%',
-    height: 450,
+    height: 'auto',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     padding: 24,
@@ -277,6 +276,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     marginTop: 12,
+    paddingBottom: 36,
   },
   input: {
     width: '100%',
