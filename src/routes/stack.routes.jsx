@@ -13,18 +13,6 @@ import {AddNewTask} from '../screens/AddTask';
 import {Settings} from '../screens/Settings';
 import {TaskInfo} from '../screens/TaskInfo';
 
-const config = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-};
-
 // routes
 export function StackRoutes() {
   return (
@@ -81,6 +69,7 @@ export function StackRoutes() {
         options={{
           headerShown: false,
           navigationBarColor: 'transparent',
+          animation: 'slide_from_bottom',
         }}
       />
       <Screen
@@ -89,6 +78,7 @@ export function StackRoutes() {
         options={{
           headerShown: false,
           navigationBarColor: 'transparent',
+          animation: 'slide_from_bottom',
         }}
       />
       <Screen

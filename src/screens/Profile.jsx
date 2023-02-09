@@ -17,6 +17,8 @@ export function Profile({navigation}) {
   const {navigate} = navigation;
   const user = auth().currentUser;
 
+  const profileImage = user?.photoURL.replace('s96-c', 's400-c');
+
   /*========== FRONT ==========*/
   return (
     <View style={style.profileContainer}>
@@ -43,7 +45,7 @@ export function Profile({navigation}) {
 
       <View style={style.content}>
         <View style={style.user}>
-          <Image style={style.userPhoto} source={{uri: user?.photoURL}} />
+          <Image style={style.userPhoto} source={{uri: profileImage}} />
           <Text style={style.userName}>{user?.displayName}</Text>
           <Text style={style.userDescription}>QuarkzPlace Ltd.</Text>
         </View>

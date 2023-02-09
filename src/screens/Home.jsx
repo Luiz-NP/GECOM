@@ -8,12 +8,13 @@ import {
   Pressable,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import {useCallback, useContext, useEffect, useState} from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
 import {useFocusEffect} from '@react-navigation/native';
-import Svg, {Image, Path} from 'react-native-svg';
+import Svg, {Path} from 'react-native-svg';
 
 /*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
@@ -28,7 +29,6 @@ import {UpdateContext} from '../contexts/UpdateContext';
 export function Home({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
-
   /*========== STATES ==========*/
   const [tasks, setTasks] = useState([]);
   const [tasksFiltered, setTasksFiltered] = useState([]);
@@ -108,39 +108,29 @@ export function Home({navigation}) {
         backgroundColor="transparent"
         translucent
       />
-
       <View style={styles.header}>
         <View style={styles.userArea}>
-          <Image source={user?.photoURL} style={styles.userImage} />
-          <Text style={styles.subTitleScreen}>Suas tarefas</Text>
+          <TouchableOpacity
+            activeOpacity={1.0}
+            onPress={() => navigate('Profile')}>
+            <Image
+              style={styles.userImage}
+              source={{
+                uri: user?.photoURL,
+              }}></Image>
+          </TouchableOpacity>
+          <Text style={styles.titleScreen}>Suas tarefas</Text>
         </View>
 
         <View style={styles.icons}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigate('Profile')}
-            style={styles.icon}>
-            <Svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 20.996 20.995">
-              <Path
-                id="Account"
-                d="M13,14.049V14H4.253A2.249,2.249,0,0,0,2,16.248v.92a2.75,2.75,0,0,0,.51,1.6C4.056,20.928,6.579,22,10,22q.536,0,1.043-.035A2.518,2.518,0,0,1,11,21.5v-5A2.5,2.5,0,0,1,13,14.049ZM10,2A5,5,0,1,1,5,7,5,5,0,0,1,10,2Zm4,13h-.5A1.5,1.5,0,0,0,12,16.5v5A1.5,1.5,0,0,0,13.5,23h8A1.5,1.5,0,0,0,23,21.5v-5A1.5,1.5,0,0,0,21.5,15H21v-1.25A1.75,1.75,0,0,0,19.25,12h-3.5A1.75,1.75,0,0,0,14,13.749Zm1.5-1.25a.25.25,0,0,1,.25-.25h3.5a.25.25,0,0,1,.25.25V15h-4Z"
-                transform="translate(-2.004 -2.004)"
-                fill="#fff"
-              />
-            </Svg>
-          </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => navigate('Settings')}
             style={styles.icon}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
+              width="24"
+              height="24"
               viewBox="0 0 18.724 19.5">
               <Path
                 id="Settings"
@@ -234,10 +224,12 @@ const styles = StyleSheet.create({
   },
 
   userImage: {
-    width: 50,
-    height: 50,
+    width: 42,
+    height: 42,
     borderRadius: 25,
     marginRight: 10,
+    borderWidth: 2,
+    borderColor: 'white',
   },
 
   header: {
@@ -248,25 +240,8 @@ const styles = StyleSheet.create({
   },
   titleScreen: {
     fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 32,
+    fontSize: 24,
     color: '#FFFFFF',
-  },
-  subTitleScreen: {
-    color: '#FFFFFF',
-    fontSize: 32,
-    fontFamily: 'ClashGrotesk-Medium',
-  },
-  icons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '20%',
-  },
-
-  icon: {
-    width: 32,
-    height: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 
   nav: {
