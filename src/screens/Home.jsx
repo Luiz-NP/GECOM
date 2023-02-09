@@ -204,7 +204,11 @@ export function Home({navigation}) {
             // set button selected to 0
             setTimeout(() => setButtonSelected(0), 1000);
           }}
-          style={styles.addTaskButton}>
+          style={
+            buttonSelected === 1 || buttonSelected === 2
+              ? styles.buttonHidden
+              : styles.addTaskButton
+          }>
           <Svg
             width={32}
             height={32}
@@ -311,7 +315,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'uppercase',
     fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 16,
+    fontSize: 14,
     color: '#00c4ac',
   },
 
@@ -319,7 +323,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'uppercase',
     fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 16,
+    fontSize: 14,
     color: '#FFFFFF',
   },
 
@@ -337,5 +341,9 @@ const styles = StyleSheet.create({
     borderColor: '#00c4ac',
     marginTop: 24,
     marginBottom: 96,
+  },
+
+  buttonHidden: {
+    display: 'none',
   },
 });
