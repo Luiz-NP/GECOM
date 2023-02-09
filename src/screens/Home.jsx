@@ -195,7 +195,8 @@ export function Home({navigation}) {
         {tasksFiltered?.map(task => {
           return <TaskHome key={task.id} data={task} navigate={navigate} />;
         })}
-        <Pressable
+        <TouchableOpacity
+          activeOpacity={0.8}
           onPress={() => {
             const taskID = tasks?.length ?? 0;
             navigate('AddNewTask', {taskID: taskID + 1});
@@ -204,8 +205,18 @@ export function Home({navigation}) {
             setTimeout(() => setButtonSelected(0), 1000);
           }}
           style={styles.addTaskButton}>
-          <Text style={styles.addTaskText}>adicionar tarefa</Text>
-        </Pressable>
+          <Svg
+            width={32}
+            height={32}
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <Path
+              d="M11.883 3.007L12 3a1 1 0 01.993.883L13 4v7h7a1 1 0 01.993.883L21 12a1 1 0 01-.883.993L20 13h-7v7a1 1 0 01-.883.993L12 21a1 1 0 01-.993-.883L11 20v-7H4a1 1 0 01-.993-.883L3 12a1 1 0 01.883-.993L4 11h7V4a1 1 0 01.883-.993L12 3l-.117.007z"
+              fill="#00c4ac"
+            />
+          </Svg>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -321,14 +332,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     paddingVertical: 8,
     borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderColor: '#00c4ac',
     marginTop: 24,
     marginBottom: 96,
-  },
-
-  addTaskText: {
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    color: '#00c4ac',
   },
 });
