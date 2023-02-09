@@ -237,6 +237,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 64,
+    borderBottomWidth: 0.5,
+    paddingBottom: 12,
+    borderBottomColor: 'white',
   },
   titleScreen: {
     fontFamily: 'ClashGrotesk-Medium',
@@ -258,7 +261,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#00c4ac',
+    borderColor: '#00C4AC',
   },
 
   count: {
@@ -290,16 +293,14 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    backgroundColor: '#338f84',
-    borderColor: '#338f84',
+    backgroundColor: '#00C4AC',
   },
 
   textBtnNav: {
     textAlign: 'center',
     textTransform: 'uppercase',
     fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 14,
+    fontSize: 16,
     color: '#00c4ac',
   },
 
@@ -307,7 +308,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'uppercase',
     fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 14,
+    fontSize: 16,
     color: '#FFFFFF',
   },
 
