@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   View,
   Image,
+  ScrollView,
 } from 'react-native';
-
+import Svg, {Path} from 'react-native-svg';
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import {ProfileButton} from '../components/ProfileButton';
 
@@ -21,7 +22,7 @@ export function Profile({navigation}) {
 
   /*========== FRONT ==========*/
   return (
-    <View style={style.profileContainer}>
+    <ScrollView style={style.profileContainer}>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
@@ -33,13 +34,37 @@ export function Profile({navigation}) {
           onPress={() => navigate('Home')}
           activeOpacity={0.8}
           style={style.backContainer}>
-          <Text style={style.backText}>Voltar</Text>
+          <Svg
+            width={32}
+            height={32}
+            fill="white"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <Path d="M12 10.93l5.719-5.72a.749.749 0 111.062 1.062l-5.72 5.719 5.719 5.719a.75.75 0 11-1.061 1.062L12 13.053l-5.719 5.719A.75.75 0 015.22 17.71l5.719-5.719-5.72-5.719A.752.752 0 016.281 5.21z" />
+          </Svg>
         </TouchableOpacity>
         <View style={style.titleContainer}>
           <Text style={style.titleText}>Perfil</Text>
         </View>
-        <TouchableOpacity activeOpacity={0.8} style={style.editContainer}>
-          <Text style={style.editText}>Editar</Text>
+        <TouchableOpacity
+          onPress={() => {
+            auth()
+              .signOut()
+              .then(() => navigate('Welcome'));
+          }}
+          activeOpacity={0.8}
+          style={style.logOutContainer}>
+          <Svg
+            width={28}
+            height={28}
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <Path
+              d="M12.75 17.5a.75.75 0 000-1.5H6.5a2 2 0 01-2-2V6a2 2 0 012-2h6.25a.75.75 0 000-1.5H6.5A3.5 3.5 0 003 6v8a3.5 3.5 0 003.5 3.5h6.25zm.991-11.301a.75.75 0 011.06.042l3 3.25a.75.75 0 010 1.018l-3 3.25A.75.75 0 1113.7 12.74l1.838-1.991H7.75a.75.75 0 010-1.5h7.787l-1.838-1.991a.75.75 0 01.042-1.06z"
+              fill="white"
+            />
+          </Svg>
         </TouchableOpacity>
       </View>
 
@@ -68,7 +93,7 @@ export function Profile({navigation}) {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -88,12 +113,12 @@ const style = StyleSheet.create({
 
   backContainer: {
     backgroundColor: '#006458',
-    borderRadius: 20,
+    borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 10,
     width: 100,
-    paddingHorizontal: 15,
+    height: 42,
   },
 
   backText: {
@@ -114,20 +139,15 @@ const style = StyleSheet.create({
     fontSize: 24,
     fontFamily: 'ClashGrotesk-Medium',
   },
-  editContainer: {
+  logOutContainer: {
     backgroundColor: '#006458',
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 10,
     width: 100,
+    height: 42,
     paddingHorizontal: 15,
-  },
-
-  editText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontFamily: 'ClashGrotesk-Medium',
   },
 
   subTitleScreen: {
@@ -170,7 +190,7 @@ const style = StyleSheet.create({
   },
   titleSection: {
     fontFamily: 'ClashGrotesk-Medium',
-    borderRadius: 20,
+    borderRadius: 15,
     backgroundColor: '#006458',
     width: '60%',
     paddingVertical: 10,
@@ -178,7 +198,7 @@ const style = StyleSheet.create({
   textSecton: {
     textAlign: 'center',
     color: '#FFFFFF',
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'ClashGrotesk-Medium',
   },
 });
