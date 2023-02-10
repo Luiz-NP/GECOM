@@ -10,7 +10,6 @@ import {Home} from '../screens/Home';
 import {Profile} from '../screens/Profile';
 import {CameraView} from '../components/CameraView';
 import {AddNewTask} from '../screens/AddTask';
-import {Settings} from '../screens/Settings';
 import {TaskInfo} from '../screens/TaskInfo';
 
 // routes
@@ -22,6 +21,8 @@ export function StackRoutes() {
         gestureEnabled: false,
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
+        navigationBarColor: 'transparent',
+        statusBarColor: 'transparent',
       }}>
       <Screen
         name="Welcome"
@@ -66,15 +67,6 @@ export function StackRoutes() {
       <Screen
         name="Profile"
         component={Profile}
-        options={{
-          headerShown: false,
-          navigationBarColor: 'transparent',
-          animation: 'slide_from_bottom',
-        }}
-      />
-      <Screen
-        name="Settings"
-        component={Settings}
         options={{
           headerShown: false,
           navigationBarColor: 'transparent',

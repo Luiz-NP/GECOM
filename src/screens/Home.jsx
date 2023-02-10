@@ -24,6 +24,7 @@ import auth from '@react-native-firebase/auth';
 import {TaskHome} from '../components/TaskHome';
 import {AuthContext} from '../contexts/AuthContext';
 import {UpdateContext} from '../contexts/UpdateContext';
+import {Settings} from '../components/modals/Settings';
 
 /*========== COMPONENT DECLARATION ==========*/
 export function Home({navigation}) {
@@ -31,6 +32,7 @@ export function Home({navigation}) {
   const {navigate} = navigation;
   /*========== STATES ==========*/
   const [tasks, setTasks] = useState([]);
+  const [modal, setModal] = useState(false);
   const [tasksFiltered, setTasksFiltered] = useState([]);
   const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
   const [pendingTasks, setPendingTasks] = useState(0);
@@ -108,6 +110,7 @@ export function Home({navigation}) {
         backgroundColor="transparent"
         translucent
       />
+      <Settings modal={modal} setModal={setModal} />
       <View style={styles.header}>
         <View style={styles.userArea}>
           <TouchableOpacity
@@ -125,7 +128,7 @@ export function Home({navigation}) {
         <View style={styles.icons}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigate('Settings')}
+            onPress={() => setModal(true)}
             style={styles.icon}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"
