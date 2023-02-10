@@ -10,6 +10,7 @@ import {
 
 /*========== LIBRARY IMPORTS ==========*/
 import Svg, {Path} from 'react-native-svg';
+import {NotificationLocation} from '../components/NotificationLocation';
 
 export function TaskInfo({route, navigation}) {
   const {data} = route.params;
@@ -49,6 +50,7 @@ export function TaskInfo({route, navigation}) {
           <Text style={styles.titleScreen}>Fiscalização de Campo</Text>
         </View>
       </View>
+      <NotificationLocation />
       <View style={styles.infoContainer}>
         <View style={styles.infoBox}>
           <Image
@@ -126,9 +128,11 @@ export function TaskInfo({route, navigation}) {
           <Text style={styles.descText}>Tipos de cabos</Text>
         </View>
       </View>
-      <TouchableOpacity activeOpacity={0.8} style={styles.startBtn}>
-        <Text style={styles.startBtnText}>Iniciar tarefa</Text>
-      </TouchableOpacity>
+      <View style={styles.actionArea}>
+        <TouchableOpacity activeOpacity={0.8} style={styles.startBtn}>
+          <Text style={styles.startBtnText}>Iniciar tarefa</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -137,7 +141,6 @@ const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
     backgroundColor: '#121212',
-    paddingHorizontal: 20,
   },
 
   backBtn: {
@@ -165,10 +168,10 @@ const styles = StyleSheet.create({
 
   header: {
     flexDirection: 'row',
+    paddingHorizontal: 24,
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 64,
-    marginBottom: 24,
     borderBottomWidth: 0.5,
     paddingBottom: 12,
     borderBottomColor: 'white',
@@ -180,6 +183,7 @@ const styles = StyleSheet.create({
   },
 
   infoContainer: {
+    paddingHorizontal: 24,
     marginTop: 6,
     flexDirection: 'row',
     alignItems: 'center',
@@ -208,6 +212,12 @@ const styles = StyleSheet.create({
     color: '#ccc',
   },
 
+  actionArea: {
+    marginTop: 'auto',
+    marginBottom: 36,
+    paddingHorizontal: 24,
+  },
+
   startBtn: {
     width: '100%',
     height: 60,
@@ -215,8 +225,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 'auto',
-    marginBottom: 36,
   },
 
   startBtnText: {
