@@ -6,7 +6,9 @@ import {
   StatusBar,
   TouchableOpacity,
   TextInput,
+  Image,
   Alert,
+  ScrollView,
 } from 'react-native';
 import {useContext, useState} from 'react';
 
@@ -17,6 +19,7 @@ import auth from '@react-native-firebase/auth';
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import {UpdateContext} from '../contexts/UpdateContext';
 import {Path, Svg} from 'react-native-svg';
+import {NotificationLocation} from '../components/NotificationLocation';
 
 /*========== COMPONENTS DECLARATION ==========*/
 export function AddNewTask({route, navigation}) {
@@ -124,6 +127,51 @@ export function AddNewTask({route, navigation}) {
           <Text style={styles.titleScreen}>Nova tarefa</Text>
         </View>
       </View>
+      <NotificationLocation />
+      <ScrollView style={styles.form}>
+        <View style={[styles.inputArea, styles.spacer]}>
+          <View style={styles.localInput}>
+            <View>
+              <Text style={styles.label}>Local da Inspeção</Text>
+              <TextInput
+                style={styles.inputCity}
+                onChangeText={text => setLocation(text)}
+                placeholder="Cidade"
+              />
+            </View>
+            <View>
+              <TextInput
+                style={styles.inputState}
+                onChangeText={text => setLocation(text)}
+                placeholder="Estado"
+              />
+            </View>
+          </View>
+          <TextInput
+            style={styles.input}
+            keyboardType="numeric"
+            placeholder="Variedade de Cabos"
+            onChangeText={text => setCableCount(text)}
+            maxLength={1}
+          />
+          {Array.from({length: cableCount}).map((value, index) => (
+            <View key={index}>
+              <Text style={styles.label}>Tipo do Cabo {index + 1}</Text>
+              <TextInput
+                onChangeText={text => setCableType(text)}
+                onBlur={() =>
+                  setAllCables(prev => [
+                    ...prev,
+                    {id: index + 1, type: cableType},
+                  ])
+                }
+                style={styles.input}
+              />
+            </View>
+          ))}
+          <TextInput style={styles.input} placeholder="Quantidade de Postes" />
+        </View>
+      </ScrollView>
     </View>
     /* <View>
         <Text style={styles.label}>Local da Inspeção</Text>
@@ -186,6 +234,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#121212',
   },
 
+  spacer: {
+    marginTop: 24,
+  },
+
   backBtn: {
     width: 32,
     height: 32,
@@ -224,79 +276,39 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#FFFFFF',
   },
-  infoContainer: {
-    paddingHorizontal: 24,
-    marginTop: 6,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
 
-  infoBox: {
-    width: 180,
-    height: 180,
-    backgroundColor: '#1e1e1e',
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  subTitleScreen: {
-    color: '#FFFFFF',
-    fontSize: 24,
-    fontFamily: 'ClashGrotesk-Medium',
-  },
   form: {
-    marginVertical: 24,
+    paddingHorizontal: 24,
   },
-  label: {
-    marginLeft: 12,
-    fontFamily: 'ClashGrotesk-Medium',
-    color: '#fff',
-  },
+
   input: {
-    width: '100%',
-    height: 70,
-    borderWidth: 2,
-    borderColor: '#8af3cb',
-    padding: 12,
-    backgroundColor: 'transparent',
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 6,
-    marginBottom: 12,
+    backgroundColor: '#1e1e1e',
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     fontFamily: 'ClashGrotesk-Medium',
-    color: '#fff',
-    fontSize: 24,
+    fontSize: 16,
+    color: '#FFFFFF',
+    marginBottom: 16,
   },
-  addTaskButton: {
-    width: '100%',
-    borderRadius: 15,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: '#00c4ac',
-    marginTop: 12,
+  localInput: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
-  addTaskText: {
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    color: '#00c4ac',
+  inputCity: {
+    backgroundColor: '#1e1e1e',
+    borderRadius: 8,
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
+    color: '#FFFFFF',
   },
-
-  initTask: {
-    width: '100%',
-    borderRadius: 15,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: '#00c4ac',
-    backgroundColor: '#00c4ac',
-    marginTop: 24,
-  },
-
-  initTaskText: {
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    color: '#fff',
+  inputState: {
+    backgroundColor: '#1e1e1e',
+    borderRadius: 8,
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
+    color: '#FFFFFF',
   },
 });

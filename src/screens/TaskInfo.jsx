@@ -51,7 +51,7 @@ export function TaskInfo({route, navigation}) {
         </View>
       </View>
       <NotificationLocation />
-      <View style={styles.infoContainer}>
+      <View style={[styles.infoContainer, styles.spacer]}>
         <View style={styles.infoBox}>
           <Image
             source={{
@@ -142,7 +142,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#121212',
   },
-
+  spacer: {
+    marginTop: 24,
+  },
   backBtn: {
     width: 32,
     height: 32,
