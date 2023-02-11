@@ -32,7 +32,7 @@ export function AddNewTask({route, navigation}) {
   const [cableCount, setCableCount] = useState(0);
   const [cableType, setCableType] = useState('');
   const [allCables, setAllCables] = useState([]);
-  const [poles, setPoles] = useState('0');
+  const [poles, setPoles] = useState(0);
 
   /*========== CONTEXTS ==========*/
   const {update, setUpdate} = useContext(UpdateContext);
@@ -144,7 +144,7 @@ export function AddNewTask({route, navigation}) {
               <Text style={styles.label}>Estado</Text>
               <TextInput
                 style={styles.inputState}
-                onChangeText={text => setLocation(text)}
+                onChangeText={text => setLocation(prev => `${prev} - ${text}`)}
                 placeholder="MG"
                 placeholderTextColor={'#444'}
               />
@@ -181,6 +181,7 @@ export function AddNewTask({route, navigation}) {
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Quantidade de Postes</Text>
             <TextInput
+              onChangeText={setPoles}
               style={styles.input}
               placeholderTextColor={'#444'}
               keyboardType="numeric"
