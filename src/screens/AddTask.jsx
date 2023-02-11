@@ -131,33 +131,42 @@ export function AddNewTask({route, navigation}) {
       <ScrollView style={styles.form}>
         <View style={[styles.inputArea, styles.spacer]}>
           <View style={styles.localInput}>
-            <View>
-              <Text style={styles.label}>Local da Inspeção</Text>
+            <View style={styles.dividedContainer}>
+              <Text style={styles.label}>Cidade</Text>
               <TextInput
                 style={styles.inputCity}
                 onChangeText={text => setLocation(text)}
-                placeholder="Cidade"
+                placeholder="Uberaba"
+                placeholderTextColor={'#444'}
               />
             </View>
-            <View>
+            <View style={styles.dividedContainer}>
+              <Text style={styles.label}>Estado</Text>
               <TextInput
                 style={styles.inputState}
                 onChangeText={text => setLocation(text)}
-                placeholder="Estado"
+                placeholder="MG"
+                placeholderTextColor={'#444'}
               />
             </View>
           </View>
-          <TextInput
-            style={styles.input}
-            keyboardType="numeric"
-            placeholder="Variedade de Cabos"
-            onChangeText={text => setCableCount(text)}
-            maxLength={1}
-          />
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Variedade de Cabos</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              placeholder="8"
+              placeholderTextColor={'#444'}
+              onChangeText={text => setCableCount(text)}
+              maxLength={1}
+            />
+          </View>
           {Array.from({length: cableCount}).map((value, index) => (
             <View key={index}>
               <Text style={styles.label}>Tipo do Cabo {index + 1}</Text>
               <TextInput
+                placeholderTextColor={'#444'}
+                placeholder="Fibras Ópticas"
                 onChangeText={text => setCableType(text)}
                 onBlur={() =>
                   setAllCables(prev => [
@@ -169,62 +178,34 @@ export function AddNewTask({route, navigation}) {
               />
             </View>
           ))}
-          <TextInput style={styles.input} placeholder="Quantidade de Postes" />
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Quantidade de Postes</Text>
+            <TextInput
+              style={styles.input}
+              placeholderTextColor={'#444'}
+              keyboardType="numeric"
+              placeholder="25"
+            />
+          </View>
+        </View>
+        <View style={styles.actionArea}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => handleAddNewTask('Home')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Adicionar</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => handleAddNewTask('Home')}>
+            <View style={styles.buttonHighlight}>
+              <Text style={styles.buttonText}>Iniciar inspeção</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
-    /* <View>
-        <Text style={styles.label}>Local da Inspeção</Text>
-        <TextInput
-          onChangeText={text => setLocation(text)}
-          style={styles.input}
-          placeholder="Ex: São Paulo - SP"
-        />
-        <Text style={styles.label}>Variedade de Cabos</Text>
-        <TextInput
-          onChangeText={text => setCableCount(text)}
-          style={styles.input}
-          keyboardType="numeric"
-          maxLength={1}
-          placeholder="Ex: 2"
-        />
-        {Array.from({length: cableCount}).map((value, index) => (
-          <View key={index}>
-            <Text style={styles.label}>Tipo do Cabo {index + 1}</Text>
-            <TextInput
-              onChangeText={text => setCableType(text)}
-              onBlur={() =>
-                setAllCables(prev => [
-                  ...prev,
-                  {id: index + 1, type: cableType},
-                ])
-              }
-              style={styles.input}
-              placeholder="Ex: Cat5e"
-            />
-          </View>
-        ))}
-        <Text style={styles.label}>Quantidade de Postes</Text>
-        <TextInput
-          onChangeText={text => setPoles(text)}
-          style={styles.input}
-          keyboardType="numeric"
-          maxLength={2}
-          placeholder="Ex: 4"
-        />
-      </View>
-
-      <TouchableOpacity
-        onPress={() => handleAddNewTask('Home')}
-        style={styles.addTaskButton}>
-        <Text style={styles.addTaskText}>adicionar e voltar</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => handleAddNewTask('CameraView')}
-        style={styles.initTask}>
-        <Text style={styles.initTaskText}>iniciar inspeção</Text>
-      </TouchableOpacity>
-    </View> */
   );
 }
 
@@ -284,13 +265,24 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#1e1e1e',
     borderRadius: 8,
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingVertical: 12,
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 16,
     color: '#FFFFFF',
     marginBottom: 16,
   },
+  dividedContainer: {
+    width: '50%',
+    marginBottom: 16,
+  },
+  label: {
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
+    color: '#FFFFFF',
+    marginBottom: 6,
+  },
+
   localInput: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -300,9 +292,12 @@ const styles = StyleSheet.create({
   inputCity: {
     backgroundColor: '#1e1e1e',
     borderRadius: 8,
+    marginRight: 6,
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 16,
     color: '#FFFFFF',
+    paddingHorizontal: 12,
+    paddingVertical: 12,
   },
   inputState: {
     backgroundColor: '#1e1e1e',
@@ -310,5 +305,34 @@ const styles = StyleSheet.create({
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 16,
     color: '#FFFFFF',
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+  },
+  actionArea: {
+    marginTop: 12,
+    marginBottom: 36,
+  },
+  button: {
+    width: '100%',
+    height: 60,
+    backgroundColor: '#1e1e1e',
+    borderRadius: 15,
+    marginVertical: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonHighlight: {
+    width: '100%',
+    height: 60,
+    backgroundColor: '#025248',
+    borderRadius: 15,
+    marginVertical: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
+    color: 'white',
   },
 });
