@@ -29,6 +29,7 @@ export function AddNewTask({route, navigation}) {
 
   /*========== STATES ==========*/
   const [location, setLocation] = useState('');
+  const [region, setRegion] = useState('');
   const [cableCount, setCableCount] = useState(0);
   const [cableType, setCableType] = useState('');
   const [allCables, setAllCables] = useState([]);
@@ -54,7 +55,7 @@ export function AddNewTask({route, navigation}) {
         Task: firestore.FieldValue.arrayUnion({
           id: taskID,
           distance: 0,
-          location: location,
+          location: `${location} - ${region}`,
           cables: allCables,
           poles: poles,
           status: 'pending',
@@ -144,7 +145,7 @@ export function AddNewTask({route, navigation}) {
               <Text style={styles.label}>Estado</Text>
               <TextInput
                 style={styles.inputState}
-                onChangeText={text => setLocation(prev => `${prev} - ${text}`)}
+                onChangeText={text => setRegion(text)}
                 placeholder="MG"
                 placeholderTextColor={'#444'}
               />
