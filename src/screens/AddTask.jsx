@@ -79,7 +79,7 @@ export function AddNewTask({route, navigation}) {
                 {
                   id: taskID,
                   distance: 0,
-                  location: location,
+                  location: `${location} - ${region}`,
                   cables: allCables,
                   poles: poles,
                   status: 'pending',
