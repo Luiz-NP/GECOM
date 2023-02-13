@@ -129,7 +129,7 @@ export function AddNewTask({route, navigation}) {
         </View>
       </View>
       <NotificationLocation />
-      <ScrollView style={styles.form}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.form}>
         <View style={[styles.inputArea, styles.spacer]}>
           <View style={styles.localInput}>
             <View style={styles.dividedContainer}>

@@ -194,7 +194,9 @@ export function Home({navigation}) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={styles.tasks}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.tasks}>
         {tasksFiltered?.map(task => {
           return <TaskHome key={task.id} data={task} navigate={navigate} />;
         })}

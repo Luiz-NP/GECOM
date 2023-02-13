@@ -22,7 +22,9 @@ export function Profile({navigation}) {
 
   /*========== FRONT ==========*/
   return (
-    <ScrollView style={style.profileContainer}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={style.profileContainer}>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
