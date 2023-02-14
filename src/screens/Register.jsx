@@ -8,18 +8,17 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import { useState } from 'react';
+import {useState} from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
 import Svg, {Defs, Path, ClipPath} from 'react-native-svg';
 import LottieView from 'lottie-react-native';
 
 /*========== FIREBASE IMPORTS ==========*/
-import auth from "@react-native-firebase/auth";
+import auth from '@react-native-firebase/auth';
 
 /*========== COMPONENT DECLARATION ==========*/
 export function Register({navigation}) {
-  
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
   const {alert} = Alert;
@@ -31,7 +30,7 @@ export function Register({navigation}) {
   const [password, setPassword] = useState('');
 
   /*========== FUNCTIONS ==========*/
-  
+
   // sign-up function
   async function handleSignUp() {
     // Capitalize name
@@ -42,9 +41,10 @@ export function Register({navigation}) {
         return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
       })
       .join(' ');
-    
-    await auth().createUserWithEmailAndPassword(email, password)
-      .then(async ({user}) => {   
+
+    await auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(async ({user}) => {
         // update user info
         await user.updateProfile({
           displayName: formatted,
@@ -53,12 +53,18 @@ export function Register({navigation}) {
         // get newUser and send email verification
         const newUser = auth().currentUser;
 
-        newUser?.sendEmailVerification()
-          .then(() => alert("Verifique seu email", "enviamos um link de verificação no seu email, veifique para continuar"))
+        newUser
+          ?.sendEmailVerification()
+          .then(() =>
+            alert(
+              'Verifique seu email',
+              'enviamos um link de verificação no seu email, veifique para continuar',
+            ),
+          )
           .catch(error => console.log(error));
       })
       .catch(error => console.error(error));
-  };
+  }
 
   /*========== FRONT ==========*/
   return (
@@ -121,9 +127,9 @@ export function Register({navigation}) {
           maxLength={8}
           style={styles.input}></TextInput>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={handleSignUp}
-            style={styles.registerBtn} 
+            style={styles.registerBtn}
             activeOpacity={0.8}>
             <Text style={styles.registerText}>Finalizar registro</Text>
           </TouchableOpacity>
@@ -131,7 +137,7 @@ export function Register({navigation}) {
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   registerContainer: {

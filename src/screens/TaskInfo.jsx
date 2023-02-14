@@ -14,10 +14,17 @@ import {NotificationLocation} from '../components/NotificationLocation';
 
 export function TaskInfo({route, navigation}) {
   const {data} = route.params;
-
   const {navigate} = navigation;
 
   console.log(data);
+
+  if (data.status === 'pending') {
+    taskStatus = 'Tarefa pendente';
+  } else if (data.status === 'running') {
+    taskStatus = 'Tarefa em andamento';
+  } else if (data.status === 'concluded') {
+    taskStatus = 'Tarefa concluída';
+  }
 
   return (
     <View style={styles.homeContainer}>
@@ -52,7 +59,7 @@ export function TaskInfo({route, navigation}) {
       </View>
       <NotificationLocation />
       <View style={[styles.infoContainer, styles.spacer]}>
-        <View style={styles.infoBox}>
+        <TouchableOpacity activeOpacity={0.8} style={styles.infoBox}>
           <Image
             source={{
               uri: 'https://snazzy-maps-cdn.azureedge.net/assets/38-shades-of-grey.png?v=20170626083726',
@@ -77,7 +84,7 @@ export function TaskInfo({route, navigation}) {
             />
           </Svg>
           <Text style={styles.infoText}>{data.location}</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.infoBox}>
           <Svg
             width={32}
@@ -91,7 +98,7 @@ export function TaskInfo({route, navigation}) {
             />
           </Svg>
           <Text style={styles.infoText}>{data.distance} km</Text>
-          <Text style={styles.descText}>de distância</Text>
+          <Text style={styles.descText}>de retirada</Text>
         </View>
       </View>
       <View style={styles.infoContainer}>
@@ -127,6 +134,9 @@ export function TaskInfo({route, navigation}) {
           <Text style={styles.infoText}>1</Text>
           <Text style={styles.descText}>Tipos de cabos</Text>
         </View>
+      </View>
+      <View style={styles.taskStatus}>
+        <Text style={styles.taskStatusText}>{taskStatus}</Text>
       </View>
       <View style={styles.actionArea}>
         <TouchableOpacity activeOpacity={0.8} style={styles.startBtn}>
@@ -212,6 +222,24 @@ const styles = StyleSheet.create({
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 12,
     color: '#ccc',
+  },
+
+  taskStatus: {
+    marginTop: 24,
+    paddingHorizontal: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  taskStatusText: {
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
+    color: '#00c4ac',
+    borderWidth: 1,
+    borderColor: '#00c4ac',
+    borderRadius: 15,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
   },
 
   actionArea: {

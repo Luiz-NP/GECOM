@@ -6,11 +6,10 @@ import {
   StatusBar,
   TouchableOpacity,
   TextInput,
-  Image,
-  Alert,
   ScrollView,
 } from 'react-native';
 import {useContext, useState} from 'react';
+import Toast from 'react-native-simple-toast';
 
 /*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
@@ -45,7 +44,10 @@ export function AddNewTask({route, navigation}) {
     const uid = auth().currentUser.uid;
 
     if (location === '' || cableCount === '' || cableType === '' || poles < 1)
-      return Alert.alert('Preencha todos os campos, de forma válida');
+      return Toast.show(
+        'Você não preencheu todos os campos corretamente',
+        Toast.LONG,
+      );
 
     console.log(allCables);
     firestore()

@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  Alert,
 } from 'react-native';
 import {useState} from 'react';
+import Toast from 'react-native-simple-toast';
 
 /*========== LIBRARY IMPORTS ==========*/
 import Svg, {Defs, Path, ClipPath, Use} from 'react-native-svg';
@@ -26,7 +26,6 @@ import {ForgotPasswordModal} from '../components/modals/ForgotPasswordModal';
 export function Auth({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
-  const {alert} = Alert;
 
   /*========== STATES ==========*/
   const [email, setEmail] = useState('');
@@ -45,9 +44,9 @@ export function Auth({navigation}) {
 
         user?.emailVerified
           ? navigate('Home')
-          : alert(
-              'Verifique seu email',
-              'enviamos um link de verificação no seu email, veifique para continuar',
+          : Toast.show(
+              'Enviado um link de verificação para seu email',
+              Toast.LONG,
             );
       })
       .catch(error => {
