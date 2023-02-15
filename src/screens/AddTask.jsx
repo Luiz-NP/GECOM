@@ -202,7 +202,7 @@ export function AddNewTask({route, navigation}) {
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => handleAddNewTask('Home')}>
+            onPress={() => handleAddNewTask('CameraView')}>
             <View style={styles.buttonHighlight}>
               <Text style={styles.buttonText}>Iniciar inspeção</Text>
             </View>
