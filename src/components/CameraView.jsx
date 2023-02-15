@@ -1,9 +1,5 @@
-import {
-  Camera,
-  useCameraDevices,
-  TakePhotoOptions,
-} from 'react-native-vision-camera';
-import {Image, Pressable, Text, View} from 'react-native';
+import {Camera, useCameraDevices} from 'react-native-vision-camera';
+import {Image, Pressable, View} from 'react-native';
 import {useEffect, useRef, useState} from 'react';
 
 import iconCamera from '../assets/camera/capture-icon.png';
