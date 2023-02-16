@@ -11,6 +11,7 @@ import {
   Image,
 } from 'react-native';
 import {useCallback, useContext, useEffect, useState} from 'react';
+import LottieView from 'lottie-react-native';
 
 /*========== LIBRARY IMPORTS ==========*/
 import {useFocusEffect} from '@react-navigation/native';
@@ -200,6 +201,22 @@ export function Home({navigation}) {
         {tasksFiltered?.map(task => {
           return <TaskHome key={task.id} data={task} navigate={navigate} />;
         })}
+        <View
+          style={
+            tasksFiltered?.length === 0
+              ? styles.notFoundTask
+              : styles.notFoundTaskHidden
+          }>
+          <LottieView
+            style={{width: '100%'}}
+            source={require('../assets/img/not_found.json')}
+            autoPlay
+            loop
+          />
+          <Text style={styles.notFoundTaskText}>
+            {tasksFiltered?.length === 0 ? 'Nenhuma tarefa encontrada' : ''}
+          </Text>
+        </View>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
@@ -350,5 +367,17 @@ const styles = StyleSheet.create({
 
   buttonHidden: {
     display: 'none',
+  },
+  notFoundTask: {
+    marginTop: 24,
+    alignItems: 'center',
+  },
+  notFoundTaskHidden: {
+    display: 'none',
+  },
+  notFoundTaskText: {
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
+    color: '#FFFFFF',
   },
 });
