@@ -1,14 +1,29 @@
-import { createContext, useState } from "react";
+import {createContext, useEffect, useState} from 'react';
+import {getDistance} from 'geolib';
 
 export const DataContext = createContext();
 
-export const DataProvider = ({ children }) => {
+export const DataProvider = ({children}) => {
   const [data, setData] = useState([]);
   const [distance, setDistance] = useState(0);
-  
+
+  useEffect(() => {
+    console.log(data.length);
+
+    if (data.length >= 2) {
+      let meters = 0;
+
+      for (let count = 0; count <= data.length - 2; count++) {
+        meters += getDistance(data[count].location, data[count + 1].location);
+      }
+
+      setDistance(meters);
+    }
+  }, [data]);
+
   return (
-    <DataContext.Provider value={{ data, setData, distance, setDistance }}>
-      { children }
+    <DataContext.Provider value={{data, setData, distance, setDistance}}>
+      {children}
     </DataContext.Provider>
   );
 };
