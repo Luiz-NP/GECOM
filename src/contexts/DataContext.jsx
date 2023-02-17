@@ -1,5 +1,5 @@
 import {createContext, useEffect, useState} from 'react';
-import {getDistance} from 'geolib';
+import {getPreciseDistance} from 'geolib';
 
 export const DataContext = createContext();
 
@@ -14,7 +14,10 @@ export const DataProvider = ({children}) => {
       let meters = 0;
 
       for (let count = 0; count <= data.length - 2; count++) {
-        meters += getDistance(data[count].location, data[count + 1].location);
+        meters += getPreciseDistance(
+          data[count].location,
+          data[count + 1].location,
+        );
       }
 
       setDistance(meters);
