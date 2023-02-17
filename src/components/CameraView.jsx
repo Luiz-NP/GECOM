@@ -34,7 +34,7 @@ export function CameraView() {
     (async () => {
       const newCameraPermission = await Camera.requestCameraPermission();
 
-      PermissionsAndroid.request(
+      await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       );
 
@@ -51,8 +51,8 @@ export function CameraView() {
     Geolocation.getCurrentPosition(
       info => {
         const coordinates = {
-          latitude: info.coords.latitude,
-          longitude: info.coords.longitude,
+          latitude: parseFloat(info.coords.latitude),
+          longitude: parseFloat(info.coords.longitude),
         };
 
         console.log(coordinates);
