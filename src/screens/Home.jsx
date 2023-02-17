@@ -34,6 +34,7 @@ export function Home({navigation}) {
   /*========== STATES ==========*/
   const [tasks, setTasks] = useState([]);
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [tasksFiltered, setTasksFiltered] = useState([]);
   const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
   const [pendingTasks, setPendingTasks] = useState(0);
@@ -52,6 +53,7 @@ export function Home({navigation}) {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const uid = auth().currentUser.uid;
 
     // getting task data from firestore
@@ -60,6 +62,7 @@ export function Home({navigation}) {
       .doc(uid)
       .get()
       .then(({_data}) => {
+        setLoading(false);
         // all tasks
         setTasks(_data?.Task);
         setTasksFiltered(_data?.Task);
@@ -226,11 +229,12 @@ export function Home({navigation}) {
             // set button selected to 0
             setTimeout(() => setButtonSelected(0), 1000);
           }}
-          style={
+          style={[
             buttonSelected === 1 || buttonSelected === 2
               ? styles.buttonHidden
-              : styles.addTaskButton
-          }>
+              : styles.addTaskButton,
+            loading === true ? styles.buttonHidden : null,
+          ]}>
           <Svg
             width={32}
             height={32}
