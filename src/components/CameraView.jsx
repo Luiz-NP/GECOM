@@ -13,9 +13,10 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import iconCamera from '../assets/camera/capture-icon.png';
 
 import {DataContext} from '../contexts/DataContext';
-import Geolocation from '@react-native-community/geolocation';
 
 import RNFS from 'react-native-fs';
+
+import { NativeModules } from 'react-native';
 
 export function CameraView() {
   const [device, setDevice] = useState();
@@ -27,6 +28,8 @@ export function CameraView() {
   const {setData, distance} = useContext(DataContext);
 
   const camera = useRef();
+
+  const {GetLocation} = NativeModules
 
   useEffect(() => {
     setDevice(devices.back);
@@ -47,32 +50,18 @@ export function CameraView() {
     })();
   }, [devices]);
 
-  const getLocation = async () => {
-    Geolocation.getCurrentPosition(
-      info => {
-        const coordinates = {
-          latitude: parseFloat(info.coords.latitude),
-          longitude: parseFloat(info.coords.longitude),
-        };
-
-        console.log(coordinates);
-        setLocation(coordinates);
-        setLoading(false);
-      },
-      error => {
-        console.log(error);
-      },
-      {enableHighAccuracy: false, timeout: 200000, maximumAge: 1000},
-    );
-  };
-
   const takePhoto = async () => {
     const photo = await camera.current.takePhoto({
-      flash: 'on',
+      // flash: 'on',
     });
-
     setLoading(true);
-    await getLocation();
+
+    await GetLocation.getUserLocation().then(res => {
+      console.log(res);
+      setLoading(false)
+
+      setLocation(res)
+    })
 
     const pic = await RNFS.readFile(photo.path, 'base64').then(res => {
       return res;
