@@ -21,7 +21,7 @@ export function StackRoutes() {
         gestureEnabled: false,
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
-        navigationBarColor: 'transparent',
+        navigationBarColor: 'rgba(0,0,0,0.01))',
         statusBarColor: 'transparent',
       }}>
       <Screen
@@ -29,7 +29,6 @@ export function StackRoutes() {
         component={Welcome}
         options={{
           headerShown: false,
-          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -37,7 +36,6 @@ export function StackRoutes() {
         component={Register}
         options={{
           headerShown: false,
-          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -45,7 +43,6 @@ export function StackRoutes() {
         component={Auth}
         options={{
           headerShown: false,
-          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -53,7 +50,6 @@ export function StackRoutes() {
         component={Home}
         options={{
           headerShown: false,
-          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -61,7 +57,6 @@ export function StackRoutes() {
         component={AddNewTask}
         options={{
           headerShown: false,
-          navigationBarColor: 'transparent',
         }}
       />
       <Screen
@@ -69,7 +64,6 @@ export function StackRoutes() {
         component={Profile}
         options={{
           headerShown: false,
-          navigationBarColor: 'transparent',
           animation: 'slide_from_bottom',
         }}
       />
@@ -78,7 +72,6 @@ export function StackRoutes() {
         component={CameraView}
         options={{
           headerShown: false,
-          navigationBarColor: 'transparent',
         }}
       />
       <Screen

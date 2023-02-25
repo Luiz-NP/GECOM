@@ -19,15 +19,18 @@ export function Welcome({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
 
+  setTimeout(() => setSpeed(0), 2800);
+
   /*========== STATES ==========*/
   const [loading, setLoading] = useState(true);
+  const [speed, setSpeed] = useState(1);
 
   /*========== CONTEXTS ==========*/
   const {user} = useContext(AuthContext);
 
   /*========== USE EFFECTS ==========*/
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1500);
+    setTimeout(() => setLoading(false), 2800);
     if (user) navigate('Home');
   }, [user]);
 
@@ -42,10 +45,10 @@ export function Welcome({navigation}) {
           translucent
         />
         <LottieView
-          style={{width: '100%', height: '100%'}}
-          source={require('../assets/img/lines.json')}
-          loop
-          autoPlay
+          style={{}}
+          source={require('../assets/img/checklist.json')}        
+          autoPlay 
+          speed={speed}
         />
       </View>
     );
