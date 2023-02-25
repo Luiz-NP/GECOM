@@ -217,7 +217,7 @@ export function Home({navigation}) {
             loop
           />
           <Text style={styles.notFoundTaskText}>
-            {tasksFiltered?.length === 0 ? 'Nenhuma tarefa encontrada' : ''}
+            {tasksFiltered?.length === 0 && loading === true ? 'Procurando suas tarefas' : ''}
           </Text>
         </View>
         <TouchableOpacity
