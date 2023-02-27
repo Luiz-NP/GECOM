@@ -19,7 +19,7 @@ export function Welcome({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
 
-  setTimeout(() => setSpeed(0), 2800);
+  setTimeout(() => setSpeed(0), 2700);
 
   /*========== STATES ==========*/
   const [loading, setLoading] = useState(true);
@@ -52,6 +52,8 @@ export function Welcome({navigation}) {
         />
       </View>
     );
+
+    console.log(lottieView.current)
 
   return (
     !loading && (
