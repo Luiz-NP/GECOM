@@ -53,7 +53,6 @@ export function Welcome({navigation}) {
       </View>
     );
 
-    console.log(lottieView.current)
 
   return (
     !loading && (
