@@ -30,9 +30,9 @@ import {UpdateContext} from '../contexts/UpdateContext';
 export function Home({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
+  const darkMode = false;
   /*========== STATES ==========*/
   const [tasks, setTasks] = useState([]);
-  const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [tasksFiltered, setTasksFiltered] = useState([]);
   const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
@@ -107,7 +107,7 @@ export function Home({navigation}) {
 
   /*========== FRONT ==========*/
   return (
-    <View style={styles.homeContainer}>
+    <View style={darkMode ? dark.homeContainer : styles.homeContainer}>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
@@ -381,5 +381,13 @@ const styles = StyleSheet.create({
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 16,
     color: '#FFFFFF',
+  },
+});
+
+const dark = StyleSheet.create({
+  homeContainer: {
+    flex: 1,
+    backgroundColor: '#121212',
+    paddingHorizontal: 20,
   },
 });

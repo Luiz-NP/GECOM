@@ -19,7 +19,7 @@ export function Welcome({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
 
-  setTimeout(() => setSpeed(0), 2700);
+  setTimeout(() => setSpeed(0), 2680);
 
   /*========== STATES ==========*/
   const [loading, setLoading] = useState(true);
