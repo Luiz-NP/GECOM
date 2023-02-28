@@ -25,7 +25,6 @@ import auth from '@react-native-firebase/auth';
 import {TaskHome} from '../components/TaskHome';
 import {AuthContext} from '../contexts/AuthContext';
 import {UpdateContext} from '../contexts/UpdateContext';
-import {Settings} from '../components/modals/Settings';
 
 /*========== COMPONENT DECLARATION ==========*/
 export function Home({navigation}) {
@@ -114,7 +113,6 @@ export function Home({navigation}) {
         backgroundColor="transparent"
         translucent
       />
-      <Settings modal={modal} setModal={setModal} />
       <View style={styles.header}>
         <View style={styles.userArea}>
           <TouchableOpacity
@@ -132,7 +130,7 @@ export function Home({navigation}) {
         <View style={styles.icons}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => setModal(true)}
+            onPress={() => navigate('Settings')}
             style={styles.icon}>
             <Svg
               xmlns="http://www.w3.org/2000/svg"

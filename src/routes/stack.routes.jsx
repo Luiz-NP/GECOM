@@ -11,6 +11,7 @@ import {Profile} from '../screens/Profile';
 import {CameraView} from '../components/CameraView';
 import {AddNewTask} from '../screens/AddTask';
 import {TaskInfo} from '../screens/TaskInfo';
+import {Setitngs} from '../screens/Settings';
 
 // routes
 export function StackRoutes() {
@@ -65,6 +66,13 @@ export function StackRoutes() {
         options={{
           headerShown: false,
           animation: 'slide_from_bottom',
+        }}
+      />
+      <Screen
+        name="Settings"
+        component={Setitngs}
+        options={{
+          headerShown: false,
         }}
       />
       <Screen
