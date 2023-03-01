@@ -17,6 +17,7 @@ import auth from '@react-native-firebase/auth';
 export function Profile({navigation}) {
   const {navigate} = navigation;
   const user = auth().currentUser;
+  const darkMode = true;
 
   const profileImage = user?.photoURL.replace('s96-c', 's400-c');
 
@@ -24,7 +25,7 @@ export function Profile({navigation}) {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      style={style.profileContainer}>
+      style={darkMode ? dark.profileContainer : style.profileContainer}>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
@@ -35,7 +36,7 @@ export function Profile({navigation}) {
         <TouchableOpacity
           onPress={() => navigate('Home')}
           activeOpacity={0.8}
-          style={style.backContainer}>
+          style={darkMode? dark.backContainer : style.backContainer}>
           <Svg
             width={32}
             height={32}
@@ -55,7 +56,7 @@ export function Profile({navigation}) {
               .then(() => navigate('Welcome'));
           }}
           activeOpacity={0.8}
-          style={style.logOutContainer}>
+          style={darkMode ? dark.logOutContainer : style.logOutContainer}>
           <Svg
             width={28}
             height={28}
@@ -77,7 +78,7 @@ export function Profile({navigation}) {
           <Text style={style.userDescription}>QuarkzPlace Ltd.</Text>
         </View>
         <View style={style.functions}>
-          <View style={style.titleSection}>
+          <View style={darkMode ? dark.titleSection : style.titleSection}>
             <Text style={style.textSecton}>Como podemos te ajudar?</Text>
           </View>
 
@@ -114,13 +115,9 @@ const style = StyleSheet.create({
   },
 
   backContainer: {
-    backgroundColor: '#006458',
-    borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 10,
-    width: 100,
-    height: 42,
+    paddingHorizontal: 15,
   },
 
   backText: {
@@ -142,13 +139,8 @@ const style = StyleSheet.create({
     fontFamily: 'ClashGrotesk-Medium',
   },
   logOutContainer: {
-    backgroundColor: '#006458',
-    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 10,
-    width: 100,
-    height: 42,
     paddingHorizontal: 15,
   },
 
@@ -202,5 +194,35 @@ const style = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontFamily: 'ClashGrotesk-Medium',
+  },
+});
+
+const dark = StyleSheet.create({
+  profileContainer: {
+    flex: 1,
+    backgroundColor: '#121212',
+  },
+  backContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#1E1E1E',
+    borderRadius: 100,
+    width: 40,
+    height: 40,
+  },
+  logOutContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#1E1E1E',
+    borderRadius: 100,
+    width: 40,
+    height: 40,
+  },
+  titleSection: {
+    fontFamily: 'ClashGrotesk-Medium',
+    borderRadius: 15,
+    backgroundColor: '#1E1E1E',
+    width: '60%',
+    paddingVertical: 10,
   },
 });

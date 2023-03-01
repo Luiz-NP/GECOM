@@ -1,10 +1,10 @@
 /*========== ROOT IMPORTS ==========*/
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-
+const darkMode = true;
 /*========== COMPONENT DECLARATION ==========*/
 export function ProfileButton({title, text}) {
   return (
-    <Pressable style={style.btn}>
+    <Pressable style={darkMode ? dark.btn : style.btn}>
       <View style={style.icon}></View>
       <Text style={style.contentTextBtn}>
         {title} {'\n'}
@@ -26,7 +26,6 @@ const style = StyleSheet.create({
     paddingHorizontal: 10,
   },
   icon: {
-    backgroundColor: '#025248',
     width: '15%',
     height: 45,
   },
@@ -40,5 +39,18 @@ const style = StyleSheet.create({
   descriptionText: {
     fontFamily: 'ClashGrotesk-Light',
     fontSize: 16,
+  },
+});
+
+const dark = StyleSheet.create({
+  btn: {
+    borderRadius: 25,
+    backgroundColor: '#1e1e1e',
+    width: '90%',
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 15,
+    paddingHorizontal: 10,
   },
 });

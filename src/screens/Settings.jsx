@@ -75,8 +75,8 @@ export function Setitngs({navigation}) {
           </View>
           <View style={style.switchArea}>
             <Switch
-              trackColor={{false: '#767577', true: '#018c7b'}}
-              thumbColor={isEnabled ? '#00c4ac' : '#025248'}
+              trackColor={{false: '#025248', true: '#018c7b'}}
+              thumbColor={isEnabled ? '#00c4ac' : '#00c4ac'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
               value={isEnabled}
@@ -93,8 +93,8 @@ export function Setitngs({navigation}) {
           </View>
           <View style={style.switchArea}>
             <Switch
-              trackColor={{false: '#767577', true: '#018c7b'}}
-              thumbColor={isEnabled ? '#00c4ac' : '#025248'}
+              trackColor={{false: '#025248', true: '#018c7b'}}
+              thumbColor={isEnabled ? '#00c4ac' : '#00c4ac'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
               value={isEnabled}
@@ -113,8 +113,8 @@ export function Setitngs({navigation}) {
           </View>
           <View style={style.switchArea}>
             <Switch
-              trackColor={{false: '#767577', true: '#018c7b'}}
-              thumbColor={darkMode ? '#00c4ac' : '#025248'}
+              trackColor={{false: '#025248', true: '#018c7b'}}
+              thumbColor={isEnabled ? '#00c4ac' : '#00c4ac'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleDarkMode}
               value={darkMode}
