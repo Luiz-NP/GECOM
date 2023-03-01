@@ -1,17 +1,5 @@
 package com.gecom;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -19,6 +7,15 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
 public class GetLocation extends ReactContextBaseJavaModule {
@@ -41,6 +38,7 @@ public class GetLocation extends ReactContextBaseJavaModule {
                     map.putDouble("latitude", latitude);
                     map.putDouble("longitude", longitude);
                     sendEvent(getReactApplicationContext(), "onLocationChanged", map);
+                    mLocationManager.removeUpdates(mLocationListener); // remove updates after getting location
                 }
             }
 
@@ -81,29 +79,27 @@ public class GetLocation extends ReactContextBaseJavaModule {
                     REQUEST_LOCATION_PERMISSION);
             promise.reject("GetLocationError", "Location permission not granted");
         } else {
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
-            promise.resolve(getLastKnownLocation());
-        }
-    }
-
-    private WritableMap getLastKnownLocation() {
-        Location lastKnownLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (lastKnownLocation == null) {
-            return null;
-        }
-
+            // specify GPS provider only
+            String provider = LocationManager.GPS_PROVIDER;
+        Location lastKnownLocation = mLocationManager.getLastKnownLocation(provider);
+        if (lastKnownLocation != null) {
         double latitude = lastKnownLocation.getLatitude();
         double longitude = lastKnownLocation.getLongitude();
         WritableMap map = Arguments.createMap();
         map.putDouble("latitude", latitude);
         map.putDouble("longitude", longitude);
-        return map;
-    }
+        promise.resolve(map);
+        } else {
+        // no last known location, request for location updates
+        mLocationManager.requestLocationUpdates(provider, 0, 0, mLocationListener);
+        }
+        }
+        }
 
-    private void sendEvent(ReactApplicationContext reactContext,
-                           String eventName,
-                           Object params) {
-        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit(eventName, params);
-    }
+        private void sendEvent(ReactApplicationContext reactContext,
+                            String eventName,
+                            Object params) {
+            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                    .emit(eventName, params);
+        }
 }
