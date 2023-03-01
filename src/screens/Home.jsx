@@ -11,8 +11,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {useCallback, useContext, useEffect, useState} from 'react';
-import LottieView from 'lottie-react-native';
+import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
 import {useFocusEffect} from '@react-navigation/native';
@@ -32,6 +31,7 @@ export function Home({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
   const darkMode = true;
+
   /*========== STATES ==========*/
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);

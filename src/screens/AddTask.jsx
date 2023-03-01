@@ -181,16 +181,6 @@ export function AddNewTask({route, navigation}) {
               />
             </View>
           ))}
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Quantidade de Postes</Text>
-            <TextInput
-              onChangeText={setPoles}
-              style={styles.input}
-              placeholderTextColor={'#444'}
-              keyboardType="numeric"
-              placeholder="25"
-            />
-          </View>
         </View>
         <View style={styles.actionArea}>
           <TouchableOpacity
