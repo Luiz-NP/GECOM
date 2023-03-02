@@ -30,8 +30,7 @@ import {UpdateContext} from '../contexts/UpdateContext';
 export function Home({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
-  const darkMode = true;
-
+  const darkMode = false;
   /*========== STATES ==========*/
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);

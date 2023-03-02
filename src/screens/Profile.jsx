@@ -17,7 +17,7 @@ import auth from '@react-native-firebase/auth';
 export function Profile({navigation}) {
   const {navigate} = navigation;
   const user = auth().currentUser;
-  const darkMode = true;
+  const darkMode = false;
 
   const profileImage = user?.photoURL.replace('s96-c', 's400-c');
 
@@ -36,7 +36,7 @@ export function Profile({navigation}) {
         <TouchableOpacity
           onPress={() => navigate('Home')}
           activeOpacity={0.8}
-          style={darkMode? dark.backContainer : style.backContainer}>
+          style={darkMode ? dark.backContainer : style.backContainer}>
           <Svg
             width={32}
             height={32}
@@ -117,7 +117,10 @@ const style = StyleSheet.create({
   backContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 15,
+    backgroundColor: '#006458',
+    borderRadius: 100,
+    width: 40,
+    height: 40,
   },
 
   backText: {
@@ -141,7 +144,10 @@ const style = StyleSheet.create({
   logOutContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 15,
+    backgroundColor: '#006458',
+    borderRadius: 100,
+    width: 40,
+    height: 40,
   },
 
   subTitleScreen: {

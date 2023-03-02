@@ -1,6 +1,6 @@
 /*========== ROOT IMPORTS ==========*/
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-const darkMode = true;
+const darkMode = false;
 /*========== COMPONENT DECLARATION ==========*/
 export function ProfileButton({title, text}) {
   return (

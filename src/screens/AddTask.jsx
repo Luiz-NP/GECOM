@@ -127,7 +127,7 @@ export function AddNewTask({route, navigation}) {
           <TouchableOpacity
             activeOpacity={1.0}
             onPress={() => navigate('Profile')}></TouchableOpacity>
-          <Text style={styles.titleScreen}>Nova tarefa</Text>
+          <Text style={styles.titleScreen}>Importar O.S</Text>
         </View>
       </View>
       <NotificationLocation />
@@ -181,6 +181,16 @@ export function AddNewTask({route, navigation}) {
               />
             </View>
           ))}
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Quantidade de Postes</Text>
+            <TextInput
+              onChangeText={setPoles}
+              style={styles.input}
+              placeholderTextColor={'#444'}
+              keyboardType="numeric"
+              placeholder="25"
+            />
+          </View>
         </View>
         <View style={styles.actionArea}>
           <TouchableOpacity
