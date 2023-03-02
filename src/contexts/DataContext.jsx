@@ -11,14 +11,16 @@ export const DataProvider = ({children}) => {
     console.log(data.length);
 
     if (data.length >= 2) {
-      let meters = 0
-      
+      let meters = 0;
+
       for (let count = 0; count <= data.length - 2; count++) {
         meters += getPreciseDistance(
           data[count].location,
-          data[count + 1].location
+          data[count + 1].location,
         );
       }
+
+      console.log(meters);
 
       setDistance(meters);
     }
