@@ -82,6 +82,9 @@ export function TaskInfo({route, navigation}) {
               <Text style={styles.cableType}>CTP APL 1000P</Text>
             </View>
           </View>
+        <TouchableOpacity onPress={() => navigate("CameraView")} style={styles.initTaskButton}>
+          <Text style={styles.initTaskButtontext}>Iniciar Task</Text>
+        </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -203,4 +206,22 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#FFFFFF',
   },
+
+  initTaskButton: {
+    width: '80%',
+    borderRadius: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#00c4ac',
+    marginTop: 24,
+    marginBottom: 48,
+  },
+
+  initTaskButtontext: {
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 24,
+    color: '#FFFFFF',
+  }
 });
