@@ -12,7 +12,6 @@ import {CameraView} from '../components/CameraView';
 import {AddNewTask} from '../screens/AddTask';
 import {TaskInfo} from '../screens/TaskInfo';
 import {Setitngs} from '../screens/Settings';
-import {ConfirmTask} from '../screens/ConfirmTask';
 import {FinishTask} from '../screens/FinishTask';
 
 // routes
@@ -78,13 +77,6 @@ export function StackRoutes() {
         }}
       />
       <Screen
-        name="CameraView"
-        component={CameraView}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Screen
         name="TaskInfo"
         component={TaskInfo}
         options={{
@@ -92,8 +84,8 @@ export function StackRoutes() {
         }}
       />
       <Screen
-        name="ConfirmTask"
-        component={ConfirmTask}
+        name="CameraView"
+        component={CameraView}
         options={{
           headerShown: false,
         }}

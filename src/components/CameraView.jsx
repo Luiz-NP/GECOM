@@ -6,6 +6,8 @@ import {
   Button,
   PermissionsAndroid,
   Text,
+  TouchableOpacity,
+  StyleSheet
 } from 'react-native';
 import {useEffect, useRef, useState, useContext} from 'react';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
@@ -26,6 +28,8 @@ export function CameraView({navigation}) {
     latitude: 64.9631,
     longitude: 19.0208,
   };
+
+  const {navigate} = navigation;
 
   const [device, setDevice] = useState();
   const [photo, setPhoto] = useState(null);
@@ -138,28 +142,35 @@ export function CameraView({navigation}) {
 
   if (photo && location) {
     return (
-      <View>
+      <View style={{padding: 20, backgroundColor: "#025248"}}>
         <Image
-          style={{width: '100%', height: '93%'}}
+          style={{width: '100%', height: '100%', borderRadius: 24}}
           source={{uri: 'data:image/jpeg;base64,' + photo}}
         />
-        <Button
-          onPress={() => {
-            const data = {
-              photo: photo,
-              location: location,
-            };
+        <TouchableOpacity style={styles.continueButton} onPress={() => {
+          const data = {
+            photo: photo,
+            location: location,
+          };
 
-            setData(prev => [...prev, data]);
-            setLocation(null);
-            setPhoto(null);
-            navigation.navigate('ConfirmTask');
-          }}
-          title="continuar"
-        />
+          setData(prev => [...prev, data]);
+          setLocation(null);
+          setPhoto(null);
+          // navigation.navigate('ConfirmTask');
+        }}>
+          <Text style={styles.buttonsText}>continuar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.repeatButton} onPress={() => {
+          setLocation(null);
+          setPhoto(null);
+        }}>
+          <Text style={styles.buttonsText}>repetir</Text>
+        </TouchableOpacity>
       </View>
     );
   }
+
+  console.log(data.length)
 
   return (
     <View
@@ -167,6 +178,18 @@ export function CameraView({navigation}) {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
+        <TouchableOpacity style={styles.backHomeButton} onPress={() => {
+          navigate("Home");
+        }}>
+          <Text style={styles.buttonsText}>Voltar</Text>
+        </TouchableOpacity>
+      {data.length > 1 ? (
+        <TouchableOpacity style={styles.finishButton} onPress={() => {
+          navigate("FinishTask");
+        }}>
+          <Text style={styles.buttonsText}>Finalizar</Text>
+        </TouchableOpacity>
+      ) : null}
       {device ? (
         <Camera
           style={{
@@ -191,4 +214,78 @@ export function CameraView({navigation}) {
       </Pressable>
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  repeatButton: {
+    position: "absolute", 
+    bottom: 0, 
+    left: 0, 
+    marginBottom: 72, 
+    marginLeft: 32,
+    width: 120,
+    borderRadius: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#025248',
+    backgroundColor: "#025248",
+  },
+
+  continueButton: {
+    position: "absolute", 
+    bottom: 0, 
+    right: 0, 
+    marginBottom: 72, 
+    marginRight: 32,
+    width: 120,
+    borderRadius: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#025248',
+    backgroundColor: "#025248",
+  },
+
+  finishButton: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    marginTop: 72, 
+    marginRight: 18,
+    width: 120,
+    borderRadius: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#025248',
+    backgroundColor: "#025248",
+    zIndex: 1,
+  },
+
+  backHomeButton: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    marginTop: 72, 
+    marginLeft: 18,
+    width: 120,
+    borderRadius: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#025248',
+    backgroundColor: "#025248",
+    zIndex: 1,
+  },
+
+  buttonsText: {
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 20,
+    color: '#FFFFFF',
+  }
+});
