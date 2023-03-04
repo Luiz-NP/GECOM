@@ -35,7 +35,7 @@ export function CameraView({navigation}) {
   const [loading, setLoading] = useState(false);
 
   const devices = useCameraDevices('wide-angle-camera');
-  const {data, setData, distance} = useContext(DataContext);
+  const {data, setData} = useContext(DataContext);
 
   const camera = useRef();
 
@@ -140,7 +140,7 @@ export function CameraView({navigation}) {
     return (
       <View>
         <Image
-          style={{width: '100%', height: '92%'}}
+          style={{width: '100%', height: '93%'}}
           source={{uri: 'data:image/jpeg;base64,' + photo}}
         />
         <Button
@@ -167,15 +167,6 @@ export function CameraView({navigation}) {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Text
-        style={{
-          position: 'absolute',
-          top: 100,
-          zIndex: 3,
-          backgroundColor: 'black',
-        }}>
-        {distance} metros percorridos
-      </Text>
       {device ? (
         <Camera
           style={{
