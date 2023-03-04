@@ -13,6 +13,7 @@ import {AddNewTask} from '../screens/AddTask';
 import {TaskInfo} from '../screens/TaskInfo';
 import {Setitngs} from '../screens/Settings';
 import {ConfirmTask} from '../screens/ConfirmTask';
+import {FinishTask} from '../screens/FinishTask';
 
 // routes
 export function StackRoutes() {
@@ -93,6 +94,13 @@ export function StackRoutes() {
       <Screen
         name="ConfirmTask"
         component={ConfirmTask}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="FinishTask"
+        component={FinishTask}
         options={{
           headerShown: false,
         }}
