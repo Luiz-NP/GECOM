@@ -1,8 +1,24 @@
 /*========== ROOT IMPORTS ==========*/
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Svg, {Path} from 'react-native-svg';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 /*========== COMPONENT DECLARATION ==========*/
-export function TaskHome({data, navigate}) {
+export function TaskHome({ data, navigate }) {
+
+  const deleteTask = async () => {
+    const taskToDelete = data.id
+
+    const { uid } = auth().currentUser
+    const tasksRef = firestore().collection("Tasks").doc(uid)
+    const tasksData = (await tasksRef.get()).data()
+
+    const tasksUpdated = tasksData.Task.filter(task => task.id !== taskToDelete)
+
+    tasksData.Task = tasksUpdated
+    await tasksRef.update(tasksData)
+  }
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -23,7 +39,7 @@ export function TaskHome({data, navigate}) {
           <Text style={styles.textInfo}>{data.location}</Text>
         </View>
       </View>
-      <TouchableOpacity activeOpacity={0.8} style={styles.deleteTask}>
+      <TouchableOpacity activeOpacity={0.8} style={styles.deleteTask} onPress={deleteTask}>
         <Svg
           width={24}
           height={24}
