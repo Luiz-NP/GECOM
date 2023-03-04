@@ -11,7 +11,8 @@ export function ConfirmTask({navigation}) {
         onPress={() => navigation.navigate('CameraView')}
         title="Tirar outra foto"
       />
-      {data.length > 1 ? <Button title="Finalizar" /> : ''}
+      <View style={styles.space}></View>
+      {data.length > 1 ? <Button onPress={() => navigation.navigate("FinishTask")} title="Finalizar" /> : ''}
     </View>
   );
 }
@@ -22,5 +23,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  space: {
+    marginVertical: 24,
   },
 });
