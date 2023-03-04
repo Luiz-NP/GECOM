@@ -19,7 +19,7 @@ import auth from '@react-native-firebase/auth';
 import {UpdateContext} from '../contexts/UpdateContext';
 import {Path, Svg} from 'react-native-svg';
 import {NotificationLocation} from '../components/NotificationLocation';
-import { DropDown } from '../components/DropDown';
+import {DropDown} from '../components/DropDown';
 
 /*========== COMPONENTS DECLARATION ==========*/
 export function AddNewTask({route, navigation}) {
@@ -30,7 +30,7 @@ export function AddNewTask({route, navigation}) {
   // dropdown options
   const options = {
     varietyOfCables: [1, 2, 3, 4],
-    cableType: ["Cat5", "Fibra", "Cobre"],
+    cableType: ['Cat5', 'Fibra', 'Cobre'],
   };
 
   /*========== STATES ==========*/
@@ -46,7 +46,7 @@ export function AddNewTask({route, navigation}) {
     // getting current user id
     const uid = auth().currentUser.uid;
 
-    if (cableCount === null || allCables.length < cableCount)
+    if (location === '' || cableCount === '' || cableType === '')
       return Toast.show(
         'Você não preencheu todos os campos corretamente',
         Toast.LONG,
@@ -60,7 +60,7 @@ export function AddNewTask({route, navigation}) {
         Task: firestore.FieldValue.arrayUnion({
           id: taskID,
           distance: 0,
-          location: `${"Uberaba"} - ${"MG"}`,
+          location: `${'Uberaba'} - ${'MG'}`,
           cables: allCables,
           status: 'pending',
         }),
@@ -83,7 +83,7 @@ export function AddNewTask({route, navigation}) {
                 {
                   id: taskID,
                   distance: 0,
-                  location: `${"Uberaba"} - ${"MG"}`,
+                  location: `${'Uberaba'} - ${'MG'}`,
                   cables: allCables,
                   status: 'pending',
                 },
@@ -128,22 +128,30 @@ export function AddNewTask({route, navigation}) {
           <TouchableOpacity
             activeOpacity={1.0}
             onPress={() => navigate('Profile')}></TouchableOpacity>
-          <Text style={styles.titleScreen}>Importar O.S</Text>
+          <Text style={styles.titleScreen}>Adicionar tarefa</Text>
         </View>
       </View>
       <NotificationLocation />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.form}>
         <View style={[styles.inputArea, styles.spacer]}>
-          <View style={styles.localInput}>
-          </View>
+          <View style={styles.localInput}></View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Variedade de Cabos</Text>
-            <DropDown options={options.varietyOfCables} value={cableCount} setValue={setCableCount} />
+            <DropDown
+              options={options.varietyOfCables}
+              value={cableCount}
+              setValue={setCableCount}
+            />
           </View>
           {Array.from({length: cableCount}).map((value, index) => (
             <View key={index}>
               <Text style={styles.label}>Tipo do Cabo {index + 1}</Text>
-              <DropDown options={options.cableType} value={allCables[index]} setValue={setAllCables} id={index+1} />
+              <DropDown
+                options={options.cableType}
+                value={allCables[index]}
+                setValue={setAllCables}
+                id={index + 1}
+              />
             </View>
           ))}
         </View>

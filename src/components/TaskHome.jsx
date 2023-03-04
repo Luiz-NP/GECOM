@@ -1,36 +1,32 @@
 /*========== ROOT IMPORTS ==========*/
-import { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import Svg, {Path} from 'react-native-svg';
 
-/*========== FIREBASE ==========*/
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
-
-/*========== LOCAL FILES & COMPONENTS ==========*/
-import { UpdateContext } from '../contexts/UpdateContext';
+const taskOwner = 'Algar Telecom';
+const taskType = 'Fiscalização de Campo';
 
 /*========== COMPONENT DECLARATION ==========*/
-export function TaskHome({ data, navigate }) {
-
+export function TaskHome({data, navigate}) {
   const {alert} = Alert;
 
   // update context
-  const { update, setUpdate } = useContext(UpdateContext);
+  const {update, setUpdate} = useContext(UpdateContext);
 
   const deleteTask = async () => {
     const taskToDelete = data.id;
 
-    const { uid } = auth().currentUser;
-    const tasksRef = firestore().collection("Tasks").doc(uid);
+    const {uid} = auth().currentUser;
+    const tasksRef = firestore().collection('Tasks').doc(uid);
     const tasksData = (await tasksRef.get()).data();
 
-    const tasksUpdated = tasksData.Task.filter(task => task.id !== taskToDelete);
+    const tasksUpdated = tasksData.Task.filter(
+      task => task.id !== taskToDelete,
+    );
 
     tasksData.Task = tasksUpdated;
     await tasksRef.update(tasksData);
     setUpdate(!update);
-  }
+  };
 
   return (
     <TouchableOpacity
@@ -41,8 +37,8 @@ export function TaskHome({ data, navigate }) {
           data,
         })
       }>
-      <Text style={styles.ownerTask}>Algar Telecom</Text>
-      <Text style={styles.textTask}>Fiscalização de Campo</Text>
+      <Text style={styles.ownerTask}>{taskOwner}</Text>
+      <Text style={styles.textTask}>{taskType}</Text>
 
       <View style={styles.contentInfo}>
         <View style={styles.info}>
@@ -52,19 +48,22 @@ export function TaskHome({ data, navigate }) {
           <Text style={styles.textInfo}>{data.location}</Text>
         </View>
       </View>
-      <TouchableOpacity activeOpacity={0.8} style={styles.deleteTask} onPress={() => {
-        alert("Apagar Task?", "Tem certeza de que deseja apagar?", [
-          {
-            text: 'nao',
-            onPress: () => '',
-            style: 'cancel',
-          },
-          {
-            text: 'sim',
-            onPress: deleteTask,
-          }
-        ]);
-      }}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        style={styles.deleteTask}
+        onPress={() => {
+          alert('Apagar Task?', 'Tem certeza de que deseja apagar?', [
+            {
+              text: 'nao',
+              onPress: () => '',
+              style: 'cancel',
+            },
+            {
+              text: 'sim',
+              onPress: deleteTask,
+            },
+          ]);
+        }}>
         <Svg
           width={32}
           height={32}
@@ -129,7 +128,7 @@ const styles = StyleSheet.create({
   deleteTask: {
     position: 'absolute',
     right: 0,
-    height: "100%",
+    height: '100%',
     paddingTop: 24,
     paddingBottom: 24,
     paddingLeft: 24,

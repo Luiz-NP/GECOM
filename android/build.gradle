@@ -23,3 +23,10 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
+
+allprojects {
+    repositories {
+    // Leave any existing entries in place, add the below entry as a new repository.
+        maven { url "https://storage.googleapis.com/logrocket-maven/" }
+  }
+}
