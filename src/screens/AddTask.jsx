@@ -46,7 +46,7 @@ export function AddNewTask({route, navigation}) {
     // getting current user id
     const uid = auth().currentUser.uid;
 
-    if (location === '' || cableCount === '' || cableType === '')
+    if (cableCount === '' || allCables === '')
       return Toast.show(
         'Você não preencheu todos os campos corretamente',
         Toast.LONG,

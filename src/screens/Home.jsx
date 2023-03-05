@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
 
   notFoundTask: {
     alignItems: 'center',
-    backgroundColor: 'red',
+    flex: 1,
     justifyContent: 'center',
   },
 
@@ -307,6 +307,7 @@ const styles = StyleSheet.create({
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 16,
     color: '#FFFFFF',
+    top: -20,
   },
 });
 
