@@ -1,6 +1,6 @@
 /*========== ROOT IMPORTS ==========*/
 import { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 /*========== FIREBASE ==========*/
@@ -12,6 +12,8 @@ import { UpdateContext } from '../contexts/UpdateContext';
 
 /*========== COMPONENT DECLARATION ==========*/
 export function TaskHome({ data, navigate }) {
+
+  const {alert} = Alert;
 
   // update context
   const { update, setUpdate } = useContext(UpdateContext);
@@ -50,10 +52,22 @@ export function TaskHome({ data, navigate }) {
           <Text style={styles.textInfo}>{data.location}</Text>
         </View>
       </View>
-      <TouchableOpacity activeOpacity={0.8} style={styles.deleteTask} onPress={deleteTask}>
+      <TouchableOpacity activeOpacity={0.8} style={styles.deleteTask} onPress={() => {
+        alert("Apagar Task?", "Tem certeza de que deseja apagar?", [
+          {
+            text: 'nao',
+            onPress: () => '',
+            style: 'cancel',
+          },
+          {
+            text: 'sim',
+            onPress: deleteTask,
+          }
+        ]);
+      }}>
         <Svg
-          width={24}
-          height={24}
+          width={32}
+          height={32}
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg">
@@ -114,7 +128,12 @@ const styles = StyleSheet.create({
 
   deleteTask: {
     position: 'absolute',
-    right: '5%',
-    top: '20%',
+    right: 0,
+    height: "100%",
+    paddingTop: 24,
+    paddingBottom: 24,
+    paddingLeft: 24,
+    paddingRight: 16,
+    borderRadius: 50,
   },
 });

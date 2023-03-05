@@ -5,8 +5,6 @@ import {
   Text,
   StyleSheet,
   BackHandler,
-  Pressable,
-  ScrollView,
   FlatList,
   TouchableOpacity,
   Image,
@@ -118,11 +116,9 @@ export function Home({navigation}) {
           <TouchableOpacity
             activeOpacity={1.0}
             onPress={() => navigate('Profile')}>
-            <Image
-              style={styles.userImage}
-              source={{
-                uri: user?.photoURL,
-              }}></Image>
+            {user?.photoURL ? 
+            <Image style={styles.userImage} source={{uri: user?.photoURL}} /> 
+            : ''} 
           </TouchableOpacity>
           <Text style={styles.titleScreen}>Suas tarefas</Text>
         </View>
@@ -223,12 +219,7 @@ export function Home({navigation}) {
           // set button selected to 0
           setTimeout(() => setButtonSelected(0), 1000);
         }}
-        style={[
-          buttonSelected === 1 || buttonSelected === 2
-            ? styles.buttonHidden
-            : styles.addTaskButton,
-          loading === true ? styles.buttonHidden : null,
-        ]}>
+        style={styles.addTaskButton}>
         <Svg
           width={32}
           height={32}
