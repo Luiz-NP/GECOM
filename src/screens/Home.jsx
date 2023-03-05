@@ -9,25 +9,25 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
-import {useFocusEffect} from '@react-navigation/native';
-import Svg, {Path} from 'react-native-svg';
+import { useFocusEffect } from '@react-navigation/native';
+import Svg, { Path } from 'react-native-svg';
 
 /*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
-import {TaskHome} from '../components/TaskHome';
-import {AuthContext} from '../contexts/AuthContext';
-import {UpdateContext} from '../contexts/UpdateContext';
+import { TaskHome } from '../components/TaskHome';
+import { AuthContext } from '../contexts/AuthContext';
+import { UpdateContext } from '../contexts/UpdateContext';
 
 /*========== COMPONENT DECLARATION ==========*/
-export function Home({navigation}) {
+export function Home({ navigation }) {
   /*========== DESTRUCTURING ==========*/
-  const {navigate} = navigation;
+  const { navigate } = navigation;
   const darkMode = false;
   /*========== STATES ==========*/
   const [tasks, setTasks] = useState([]);
@@ -38,8 +38,8 @@ export function Home({navigation}) {
   const [completedTasks, setCompletedTasks] = useState(0);
 
   /*========== CONTEXTS ==========*/
-  const {user} = useContext(AuthContext); // getting user from AuthContext
-  const {update, setUpdate} = useContext(UpdateContext); // reload data when change
+  const { user } = useContext(AuthContext); // getting user from AuthContext
+  const { update, setUpdate } = useContext(UpdateContext); // reload data when change
 
   /*========== LIFE CICLE ==========*/
   useEffect(() => {
@@ -58,7 +58,7 @@ export function Home({navigation}) {
       .collection('Tasks')
       .doc(uid)
       .get()
-      .then(({_data}) => {
+      .then(({ _data }) => {
         setLoading(false);
         // all tasks
         setTasks(_data?.Task);
@@ -116,9 +116,9 @@ export function Home({navigation}) {
           <TouchableOpacity
             activeOpacity={1.0}
             onPress={() => navigate('Profile')}>
-            {user?.photoURL ? 
-            <Image style={styles.userImage} source={{uri: user?.photoURL}} /> 
-            : ''} 
+            {user?.photoURL ?
+              <Image style={styles.userImage} source={{ uri: user?.photoURL }} />
+              : ''}
           </TouchableOpacity>
           <Text style={styles.titleScreen}>Suas tarefas</Text>
         </View>
@@ -192,29 +192,39 @@ export function Home({navigation}) {
         </TouchableOpacity>
       </View>
 
-      <FlatList
-        data={
-          buttonSelected === 0
-            ? tasks
-            : buttonSelected === 1
-            ? pendingTasks
-            : completedTasks
-        }
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <TaskHome
-            data={item}
-            key={item.id}
-            navigate={navigate}
-            onPress={() => navigate('TaskInfo', {item})}
-          />
-        )}
-      />
+
+      {
+        tasks ?
+          (
+            <FlatList
+              data={
+                buttonSelected === 0
+                  ? tasks
+                  : buttonSelected === 1
+                    ? pendingTasks
+                    : completedTasks
+              }
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                <TaskHome
+                  data={item}
+                  key={item.id}
+                  navigate={navigate}
+                  onPress={() => navigate('TaskInfo', { item })}
+                />
+              )}
+            />
+          ) :
+          <View style={styles.notFoundTask}>
+            <Text style={styles.notFoundTaskText}>Nenhuma Task</Text>
+          </View>
+
+      }
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
           const taskID = tasks?.length ?? 0;
-          navigate('AddNewTask', {taskID: taskID + 1});
+          navigate('AddNewTask', { taskID: taskID + 1 });
 
           // set button selected to 0
           setTimeout(() => setButtonSelected(0), 1000);
@@ -359,6 +369,8 @@ const styles = StyleSheet.create({
   notFoundTask: {
     marginTop: 24,
     alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center'
   },
   notFoundTaskHidden: {
     display: 'none',
