@@ -5,8 +5,6 @@ import {
   Text,
   StyleSheet,
   BackHandler,
-  Pressable,
-  ScrollView,
   FlatList,
   TouchableOpacity,
   Image,
@@ -223,12 +221,7 @@ export function Home({navigation}) {
           // set button selected to 0
           setTimeout(() => setButtonSelected(0), 1000);
         }}
-        style={[
-          buttonSelected === 1 || buttonSelected === 2
-            ? styles.buttonHidden
-            : styles.addTaskButton,
-          loading === true ? styles.buttonHidden : null,
-        ]}>
+        style={styles.addTaskButton}>
         <Svg
           width={32}
           height={32}
