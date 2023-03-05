@@ -160,14 +160,14 @@ export function AddNewTask({route, navigation}) {
             activeOpacity={0.8}
             onPress={() => handleAddNewTask('Home')}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Adicionar e Voltar</Text>
+              <Text style={styles.buttonText}>Adicionar tarefa</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => handleAddNewTask('CameraView')}>
             <View style={styles.buttonHighlight}>
-              <Text style={styles.buttonText}>Adicionar e Iniciar</Text>
+              <Text style={styles.buttonText}>Iniciar inspeção</Text>
             </View>
           </TouchableOpacity>
         </View>
