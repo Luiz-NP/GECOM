@@ -3,8 +3,10 @@ import {useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 import {UpdateContext} from '../contexts/UpdateContext';
+
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+
 const taskOwner = 'Algar Telecom';
 const taskType = 'Fiscalização de Campo';
 
