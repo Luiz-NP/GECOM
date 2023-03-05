@@ -1,22 +1,33 @@
 /*========== ROOT IMPORTS ==========*/
+import { useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+
+/*========== FIREBASE ==========*/
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+
+/*========== LOCAL FILES & COMPONENTS ==========*/
+import { UpdateContext } from '../contexts/UpdateContext';
+
 /*========== COMPONENT DECLARATION ==========*/
 export function TaskHome({ data, navigate }) {
 
+  // update context
+  const { update, setUpdate } = useContext(UpdateContext);
+
   const deleteTask = async () => {
-    const taskToDelete = data.id
+    const taskToDelete = data.id;
 
-    const { uid } = auth().currentUser
-    const tasksRef = firestore().collection("Tasks").doc(uid)
-    const tasksData = (await tasksRef.get()).data()
+    const { uid } = auth().currentUser;
+    const tasksRef = firestore().collection("Tasks").doc(uid);
+    const tasksData = (await tasksRef.get()).data();
 
-    const tasksUpdated = tasksData.Task.filter(task => task.id !== taskToDelete)
+    const tasksUpdated = tasksData.Task.filter(task => task.id !== taskToDelete);
 
-    tasksData.Task = tasksUpdated
-    await tasksRef.update(tasksData)
+    tasksData.Task = tasksUpdated;
+    await tasksRef.update(tasksData);
+    setUpdate(!update);
   }
 
   return (
