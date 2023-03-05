@@ -4,42 +4,42 @@ import {
   StatusBar,
   Text,
   StyleSheet,
-  BackHandler,
   FlatList,
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
-import {useFocusEffect} from '@react-navigation/native';
-import Svg, {Path} from 'react-native-svg';
-
-/*========== FIREBASE IMPORTS ==========*/
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
+import { useFocusEffect } from '@react-navigation/native';
+import Svg, { Path } from 'react-native-svg';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
-import {TaskHome} from '../components/TaskHome';
-import {AuthContext} from '../contexts/AuthContext';
-import {UpdateContext} from '../contexts/UpdateContext';
+import { TaskHome } from '../components/TaskHome';
+import { ButtonNavHome } from '../components/ButtonNavHome';
+
+import { AuthContext } from '../contexts/AuthContext';
+import { UpdateContext } from '../contexts/UpdateContext';
+
+import { getTasks } from '../services/getTasks';
+
+import { backButtonHome } from '../utils/backButtonHome';
+import { addTask } from '../utils/addTask';
 
 /*========== COMPONENT DECLARATION ==========*/
-export function Home({navigation}) {
+export function Home({ navigation }) {
   /*========== DESTRUCTURING ==========*/
-  const {navigate} = navigation;
+  const { navigate } = navigation;
   const darkMode = false;
   /*========== STATES ==========*/
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [tasksFiltered, setTasksFiltered] = useState([]);
   const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
+  const [tasks, setTasks] = useState([]);
   const [pendingTasks, setPendingTasks] = useState(0);
   const [completedTasks, setCompletedTasks] = useState(0);
 
   /*========== CONTEXTS ==========*/
-  const {user} = useContext(AuthContext); // getting user from AuthContext
-  const {update, setUpdate} = useContext(UpdateContext); // reload data when change
+  const { user } = useContext(AuthContext); // getting user from AuthContext
+  const { update, setUpdate } = useContext(UpdateContext); // reload data when change
 
   /*========== LIFE CICLE ==========*/
   useEffect(() => {
@@ -50,57 +50,18 @@ export function Home({navigation}) {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
-    const uid = auth().currentUser.uid;
 
-    // getting task data from firestore
-    firestore()
-      .collection('Tasks')
-      .doc(uid)
-      .get()
-      .then(({_data}) => {
-        setLoading(false);
-        // all tasks
-        setTasks(_data?.Task);
-        setTasksFiltered(_data?.Task);
-
-        // pending tasks
-        const tasksPending = _data?.Task.filter(
-          task => task.status === 'pending',
-        );
-        setPendingTasks(tasksPending);
-
-        // completed tasks
-        const tasksCompleted = _data?.Task.filter(
-          task => task.status === 'completed',
-        );
-        setCompletedTasks(tasksCompleted);
-      });
+    // function to get users's tasks
+    getTasks(
+      setTasks,
+      setPendingTasks,
+      setCompletedTasks
+    )
   }, [update]);
-
-  // filtering tasks when user click on buttons
-  useEffect(() => {
-    if (buttonSelected === 1) return setTasksFiltered(pendingTasks);
-    if (buttonSelected === 2) return setTasksFiltered(completedTasks);
-
-    return setTasksFiltered(tasks);
-  }, [buttonSelected]);
 
   // defining back button behavior to block user back action
   useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        BackHandler.exitApp();
-        return true;
-      };
-
-      const subscription = BackHandler.addEventListener(
-        'hardwareBackPress',
-        onBackPress,
-      );
-
-      return () => subscription.remove();
-    }, []),
+    useCallback(backButtonHome, []),
   );
 
   /*========== FRONT ==========*/
@@ -116,9 +77,10 @@ export function Home({navigation}) {
           <TouchableOpacity
             activeOpacity={1.0}
             onPress={() => navigate('Profile')}>
-            {user?.photoURL ? 
-            <Image style={styles.userImage} source={{uri: user?.photoURL}} /> 
-            : ''} 
+            {
+              user?.photoURL &&
+              <Image style={styles.userImage} source={{ uri: user?.photoURL }} />
+            }
           </TouchableOpacity>
           <Text style={styles.titleScreen}>Suas tarefas</Text>
         </View>
@@ -145,79 +107,66 @@ export function Home({navigation}) {
       </View>
 
       <View style={styles.nav}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => setButtonSelected(0)}
-          style={buttonSelected === 0 ? styles.btnNavSelected : styles.btnNav}>
-          <Text
-            style={
-              buttonSelected === 0
-                ? styles.textBtnNavSelected
-                : styles.textBtnNav
-            }>
-            Todas
-          </Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={buttonSelected === 1 ? styles.btnNavSelected : styles.btnNav}
-          onPress={() => setButtonSelected(1)}>
-          <Text style={styles.count}>{pendingTasks?.length ?? 0}</Text>
+        <ButtonNavHome
+          buttonSelected={buttonSelected}
+          setButtonSelected={setButtonSelected}
+          tasks={tasks}
+          number={0}
+          text={"Todas"}
+          isToShowCount={false}
+        />
 
-          <Text
-            style={
-              buttonSelected === 1
-                ? styles.textBtnNavSelected
-                : styles.textBtnNav
-            }>
-            Pendente
-          </Text>
-        </TouchableOpacity>
+        <ButtonNavHome
+          buttonSelected={buttonSelected}
+          setButtonSelected={setButtonSelected}
+          tasks={pendingTasks}
+          number={1}
+          text={"Pendentes"}
+          isToShowCount={true}
+        />
 
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={buttonSelected === 2 ? styles.btnNavSelected : styles.btnNav}
-          onPress={() => setButtonSelected(2)}>
-          <Text style={styles.count}>{completedTasks?.length ?? 0}</Text>
-
-          <Text
-            style={
-              buttonSelected === 2
-                ? styles.textBtnNavSelected
-                : styles.textBtnNav
-            }>
-            Concluídas
-          </Text>
-        </TouchableOpacity>
+        <ButtonNavHome
+          buttonSelected={buttonSelected}
+          setButtonSelected={setButtonSelected}
+          tasks={completedTasks}
+          number={2}
+          text={"Concluídas"}
+          isToShowCount={true}
+        />
       </View>
 
-      <FlatList
-        data={
-          buttonSelected === 0
-            ? tasks
-            : buttonSelected === 1
-            ? pendingTasks
-            : completedTasks
-        }
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <TaskHome
-            data={item}
-            key={item.id}
-            navigate={navigate}
-            onPress={() => navigate('TaskInfo', {item})}
-          />
-        )}
-      />
+      {
+        tasks ?
+          (
+            <FlatList
+              data={
+                buttonSelected === 0
+                  ? tasks
+                  : buttonSelected === 1
+                    ? pendingTasks
+                    : completedTasks
+              }
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                <TaskHome
+                  data={item}
+                  key={item.id}
+                  navigate={navigate}
+                  onPress={() => navigate('TaskInfo', { item })}
+                />
+              )}
+            />
+          ) :
+          <View style={styles.notFoundTask}>
+            <Text style={styles.notFoundTaskText}>Nenhuma Task</Text>
+          </View>
+
+      }
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          const taskID = tasks?.length ?? 0;
-          navigate('AddNewTask', {taskID: taskID + 1});
-
-          // set button selected to 0
-          setTimeout(() => setButtonSelected(0), 1000);
+          addTask(tasks, navigate, setButtonSelected)
         }}
         style={styles.addTaskButton}>
         <Svg
@@ -337,10 +286,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
 
-  tasks: {
-    marginTop: 10,
-  },
-
   addTaskButton: {
     width: '100%',
     borderRadius: 15,
@@ -353,16 +298,13 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
 
-  buttonHidden: {
-    display: 'none',
-  },
   notFoundTask: {
     marginTop: 24,
     alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center'
   },
-  notFoundTaskHidden: {
-    display: 'none',
-  },
+
   notFoundTaskText: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 16,
