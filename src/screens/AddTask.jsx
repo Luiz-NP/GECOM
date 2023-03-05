@@ -19,6 +19,7 @@ import auth from '@react-native-firebase/auth';
 import {UpdateContext} from '../contexts/UpdateContext';
 import {Path, Svg} from 'react-native-svg';
 import {NotificationLocation} from '../components/NotificationLocation';
+import { DropDown } from '../components/DropDown';
 
 /*========== COMPONENTS DECLARATION ==========*/
 export function AddNewTask({route, navigation}) {
@@ -26,13 +27,15 @@ export function AddNewTask({route, navigation}) {
   const {taskID} = route.params;
   const {navigate} = navigation;
 
+  // dropdown options
+  const options = {
+    varietyOfCables: [1, 2, 3, 4],
+    cableType: ["Cat5", "Fibra", "Cobre"],
+  };
+
   /*========== STATES ==========*/
-  const [location, setLocation] = useState('');
-  const [region, setRegion] = useState('');
-  const [cableCount, setCableCount] = useState(0);
-  const [cableType, setCableType] = useState('');
+  const [cableCount, setCableCount] = useState(null);
   const [allCables, setAllCables] = useState([]);
-  const [poles, setPoles] = useState(0);
 
   /*========== CONTEXTS ==========*/
   const {update, setUpdate} = useContext(UpdateContext);
@@ -43,7 +46,7 @@ export function AddNewTask({route, navigation}) {
     // getting current user id
     const uid = auth().currentUser.uid;
 
-    if (location === '' || cableCount === '' || cableType === '' || poles < 1)
+    if (cableCount === null || allCables.length < cableCount)
       return Toast.show(
         'Você não preencheu todos os campos corretamente',
         Toast.LONG,
@@ -57,9 +60,8 @@ export function AddNewTask({route, navigation}) {
         Task: firestore.FieldValue.arrayUnion({
           id: taskID,
           distance: 0,
-          location: `${location} - ${region}`,
+          location: `${"Uberaba"} - ${"MG"}`,
           cables: allCables,
-          poles: poles,
           status: 'pending',
         }),
       })
@@ -81,9 +83,8 @@ export function AddNewTask({route, navigation}) {
                 {
                   id: taskID,
                   distance: 0,
-                  location: `${location} - ${region}`,
+                  location: `${"Uberaba"} - ${"MG"}`,
                   cables: allCables,
-                  poles: poles,
                   status: 'pending',
                 },
               ],
@@ -134,77 +135,31 @@ export function AddNewTask({route, navigation}) {
       <ScrollView showsVerticalScrollIndicator={false} style={styles.form}>
         <View style={[styles.inputArea, styles.spacer]}>
           <View style={styles.localInput}>
-            <View style={styles.dividedContainer}>
-              <Text style={styles.label}>Cidade</Text>
-              <TextInput
-                style={styles.inputCity}
-                onChangeText={text => setLocation(text)}
-                placeholder="Uberaba"
-                placeholderTextColor={'#444'}
-              />
-            </View>
-            <View style={styles.dividedContainer}>
-              <Text style={styles.label}>Estado</Text>
-              <TextInput
-                style={styles.inputState}
-                onChangeText={text => setRegion(text)}
-                placeholder="MG"
-                placeholderTextColor={'#444'}
-              />
-            </View>
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Variedade de Cabos</Text>
-            <TextInput
-              style={styles.input}
-              keyboardType="numeric"
-              placeholder="8"
-              placeholderTextColor={'#444'}
-              onChangeText={text => setCableCount(text)}
-              maxLength={1}
-            />
+            <DropDown options={options.varietyOfCables} value={cableCount} setValue={setCableCount} />
           </View>
           {Array.from({length: cableCount}).map((value, index) => (
             <View key={index}>
               <Text style={styles.label}>Tipo do Cabo {index + 1}</Text>
-              <TextInput
-                placeholderTextColor={'#444'}
-                placeholder="Fibras Ópticas"
-                onChangeText={text => setCableType(text)}
-                onBlur={() =>
-                  setAllCables(prev => [
-                    ...prev,
-                    {id: index + 1, type: cableType},
-                  ])
-                }
-                style={styles.input}
-              />
+              <DropDown options={options.cableType} value={allCables[index]} setValue={setAllCables} id={index+1} />
             </View>
           ))}
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Quantidade de Postes</Text>
-            <TextInput
-              onChangeText={setPoles}
-              style={styles.input}
-              placeholderTextColor={'#444'}
-              keyboardType="numeric"
-              placeholder="25"
-            />
-          </View>
         </View>
         <View style={styles.actionArea}>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => handleAddNewTask('Home')}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Adicionar</Text>
+              <Text style={styles.buttonText}>Adicionar e Voltar</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => handleAddNewTask('CameraView')}>
             <View style={styles.buttonHighlight}>
-              <Text style={styles.buttonText}>Iniciar inspeção</Text>
+              <Text style={styles.buttonText}>Adicionar e Iniciar</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -266,16 +221,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
 
-  input: {
-    backgroundColor: '#1e1e1e',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 16,
-    color: '#FFFFFF',
-    marginBottom: 16,
-  },
   dividedContainer: {
     width: '50%',
     marginBottom: 16,
@@ -285,6 +230,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     marginBottom: 6,
+    marginTop: 12,
   },
 
   localInput: {
@@ -321,7 +267,7 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: '#1e1e1e',
     borderRadius: 15,
-    marginVertical: 2,
+    marginVertical: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
