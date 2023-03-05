@@ -13,6 +13,7 @@ import Svg, {Path} from 'react-native-svg';
 import {ProfileButton} from '../components/ProfileButton';
 
 import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 export function Profile({navigation}) {
   const {navigate} = navigation;
@@ -54,6 +55,8 @@ export function Profile({navigation}) {
             auth()
               .signOut()
               .then(() => navigate('Welcome'));
+
+            GoogleSignin.signOut();
           }}
           activeOpacity={0.8}
           style={darkMode ? dark.logOutContainer : style.logOutContainer}>

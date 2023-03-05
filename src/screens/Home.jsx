@@ -116,11 +116,9 @@ export function Home({navigation}) {
           <TouchableOpacity
             activeOpacity={1.0}
             onPress={() => navigate('Profile')}>
-            <Image
-              style={styles.userImage}
-              source={{
-                uri: user?.photoURL,
-              }}></Image>
+            {user?.photoURL ? 
+            <Image style={styles.userImage} source={{uri: user?.photoURL}} /> 
+            : ''} 
           </TouchableOpacity>
           <Text style={styles.titleScreen}>Suas tarefas</Text>
         </View>
