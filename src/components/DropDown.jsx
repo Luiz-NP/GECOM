@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import {useState} from 'react';
+import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 
 export const DropDown = ({options, value, setValue, id}) => {
   const [dropdown, setDropdown] = useState(false);
@@ -8,31 +8,44 @@ export const DropDown = ({options, value, setValue, id}) => {
 
   return (
     <>
-      <TouchableOpacity onPress={() => setDropdown(!dropdown)} style={styles.select}>
-        <Text style={value ? '' : styles.placeholder}>{value ?? "Selecione"}</Text>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => setDropdown(!dropdown)}
+        style={styles.select}>
+        <Text style={value ? styles.optionText : styles.optionText}>
+          {value ?? 'Selecione'}
+        </Text>
       </TouchableOpacity>
 
-      {dropdown && id && (
+      {dropdown &&
+        id &&
         options.map((value, index) => (
-          <TouchableOpacity key={index} onPress={() => {
-            setDropdown(!dropdown);
-            setValue(prev => [...prev, value]);
-          }} style={styles.option}>
-            <Text>{value}</Text>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            key={index}
+            onPress={() => {
+              setDropdown(!dropdown);
+              setValue(prev => [...prev, value]);
+            }}
+            style={styles.option}>
+            <Text style={styles.optionText}>{value}</Text>
           </TouchableOpacity>
-        ))
-      )}
-      
-      {dropdown && !id && (
+        ))}
+
+      {dropdown &&
+        !id &&
         options.map((value, index) => (
-          <TouchableOpacity key={index} onPress={() => {
-            setDropdown(!dropdown);
-            setValue(value);
-          }} style={styles.option}>
-            <Text>{value}</Text>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            key={index}
+            onPress={() => {
+              setDropdown(!dropdown);
+              setValue(value);
+            }}
+            style={styles.option}>
+            <Text style={styles.optionText}>{value}</Text>
           </TouchableOpacity>
-        ))
-      )}
+        ))}
     </>
   );
 };
@@ -43,20 +56,19 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 12,
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 16,
   },
 
-  placeholder: {
-    color: "#444"
+  optionText: {
+    color: '#ccc',
+    fontSize: 16,
+    fontFamily: 'ClashGrotesk-Medium',
   },
 
   option: {
     backgroundColor: '#1e1e1e',
     paddingHorizontal: 12,
     paddingVertical: 12,
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 16,
     borderWidth: 1,
+    borderColor: '#2e2e2e',
   },
 });

@@ -11,6 +11,7 @@ import {
 import {useCallback, useContext, useEffect, useState} from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
+import LottieView from 'lottie-react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import Svg, {Path} from 'react-native-svg';
 
@@ -148,7 +149,17 @@ export function Home({navigation}) {
         />
       ) : (
         <View style={styles.notFoundTask}>
-          <Text style={styles.notFoundTaskText}>Nenhuma Task</Text>
+          <LottieView
+            style={{
+              width: 200,
+              height: 200,
+              alignSelf: 'center',
+            }}
+            source={require('../assets/img/not_found.json')}
+            loop
+            autoPlay
+          />
+          <Text style={styles.notFoundTaskText}>Nenhuma tarefa encontrada</Text>
         </View>
       )}
       <TouchableOpacity
@@ -287,9 +298,8 @@ const styles = StyleSheet.create({
   },
 
   notFoundTask: {
-    marginTop: 24,
     alignItems: 'center',
-    flex: 1,
+    backgroundColor: 'red',
     justifyContent: 'center',
   },
 
