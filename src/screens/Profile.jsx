@@ -22,7 +22,7 @@ export function Profile({ navigation }) {
   const user = auth().currentUser;
   const darkMode = false;
 
-  const profileImage = user?.photoURL.replace('s96-c', 's400-c');
+  const profileImage = user?.photoURL?.replace('s96-c', 's400-c');
 
   /*========== FRONT ==========*/
   return (
