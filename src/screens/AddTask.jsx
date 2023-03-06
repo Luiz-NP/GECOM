@@ -5,27 +5,22 @@ import {
   StyleSheet,
   StatusBar,
   TouchableOpacity,
-  TextInput,
   ScrollView,
 } from 'react-native';
-import {useContext, useState} from 'react';
-import Toast from 'react-native-simple-toast';
-
-/*========== FIREBASE IMPORTS ==========*/
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
+import { useContext, useState } from 'react';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
-import {UpdateContext} from '../contexts/UpdateContext';
-import {Path, Svg} from 'react-native-svg';
-import {NotificationLocation} from '../components/NotificationLocation';
-import {DropDown} from '../components/DropDown';
+import { UpdateContext } from '../contexts/UpdateContext';
+import { Path, Svg } from 'react-native-svg';
+import { NotificationLocation } from '../components/NotificationLocation';
+import { DropDown } from '../components/DropDown';
+import { addNewTask } from '../services/addNewTask';
 
 /*========== COMPONENTS DECLARATION ==========*/
-export function AddNewTask({route, navigation}) {
+export function AddNewTask({ route, navigation }) {
   /*========== DESTRUCTURING ==========*/
-  const {taskID} = route.params;
-  const {navigate} = navigation;
+  const { taskID } = route.params;
+  const { navigate } = navigation;
 
   // dropdown options
   const options = {
@@ -38,66 +33,7 @@ export function AddNewTask({route, navigation}) {
   const [allCables, setAllCables] = useState([]);
 
   /*========== CONTEXTS ==========*/
-  const {update, setUpdate} = useContext(UpdateContext);
-
-  /*========== FUNCTIONS ==========*/
-  // adding new task when user click on add task button
-  function handleAddNewTask(target) {
-    // getting current user id
-    const uid = auth().currentUser.uid;
-
-    if (cableCount === '' || allCables === '')
-      return Toast.show(
-        'Você não preencheu todos os campos corretamente',
-        Toast.LONG,
-      );
-
-    console.log(allCables);
-    firestore()
-      .collection('Tasks')
-      .doc(uid)
-      .update({
-        Task: firestore.FieldValue.arrayUnion({
-          id: taskID,
-          distance: 0,
-          location: `${'Uberaba'} - ${'MG'}`,
-          cables: allCables,
-          status: 'pending',
-        }),
-      })
-      .then(() => {
-        console.log('task created!');
-        setUpdate(!update);
-        navigate(target);
-      })
-      .catch(error => {
-        console.log(error);
-
-        // if this user dont have a doc on firestore, this create a new doc
-        if (error.code === 'firestore/not-found') {
-          firestore()
-            .collection('Tasks')
-            .doc(uid)
-            .set({
-              Task: [
-                {
-                  id: taskID,
-                  distance: 0,
-                  location: `${'Uberaba'} - ${'MG'}`,
-                  cables: allCables,
-                  status: 'pending',
-                },
-              ],
-            })
-            .then(() => {
-              console.log('task created!');
-              setUpdate(!update);
-              navigate(target);
-            })
-            .catch(error => console.log(error));
-        }
-      });
-  }
+  const { update, setUpdate } = useContext(UpdateContext);
 
   /*========== FRONT ==========*/
   return (
@@ -143,7 +79,7 @@ export function AddNewTask({route, navigation}) {
               setValue={setCableCount}
             />
           </View>
-          {Array.from({length: cableCount}).map((value, index) => (
+          {Array.from({ length: cableCount }).map((value, index) => (
             <View key={index}>
               <Text style={styles.label}>Tipo do Cabo {index + 1}</Text>
               <DropDown
@@ -158,14 +94,32 @@ export function AddNewTask({route, navigation}) {
         <View style={styles.actionArea}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => handleAddNewTask('Home')}>
+            onPress={() =>
+              addNewTask(
+                'Home',
+                cableCount,
+                allCables,
+                setUpdate,
+                update,
+                navigate,
+                taskID
+              )}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Adicionar tarefa</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => handleAddNewTask('CameraView')}>
+            onPress={() =>
+              addNewTask(
+                'CameraView',
+                cableCount,
+                allCables,
+                setUpdate,
+                update,
+                navigate,
+                taskID
+              )}>
             <View style={styles.buttonHighlight}>
               <Text style={styles.buttonText}>Iniciar inspeção</Text>
             </View>
@@ -229,10 +183,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
 
-  dividedContainer: {
-    width: '50%',
-    marginBottom: 16,
-  },
   label: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 16,
@@ -245,26 +195,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-
-  inputCity: {
-    backgroundColor: '#1e1e1e',
-    borderRadius: 8,
-    marginRight: 6,
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 16,
-    color: '#FFFFFF',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-  },
-  inputState: {
-    backgroundColor: '#1e1e1e',
-    borderRadius: 8,
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 16,
-    color: '#FFFFFF',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
   },
   actionArea: {
     marginTop: 12,
