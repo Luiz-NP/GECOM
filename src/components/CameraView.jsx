@@ -1,4 +1,4 @@
-import {Camera, useCameraDevices} from 'react-native-vision-camera';
+import { Camera, useCameraDevices } from 'react-native-vision-camera';
 import {
   Image,
   Pressable,
@@ -9,27 +9,27 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
-import {useEffect, useRef, useState, useContext} from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import Geolocation from '@react-native-community/geolocation';
-import {getPreciseDistance} from 'geolib';
+import { getPreciseDistance } from 'geolib';
 
 import iconCamera from '../assets/camera/capture-icon.png';
 
-import {DataContext} from '../contexts/DataContext';
-import {useInterval} from '../hooks/useInterval';
+import { DataContext } from '../contexts/DataContext';
+import { useInterval } from '../hooks/useInterval';
 
 import RNFS from 'react-native-fs';
 
-import {NativeModules} from 'react-native';
+import storage from '@react-native-firebase/storage';
 
-export function CameraView({navigation}) {
+export function CameraView({ navigation }) {
   const iceland = {
     latitude: 64.9631,
     longitude: 19.0208,
   };
 
-  const {navigate} = navigation;
+  const { navigate } = navigation;
 
   const [device, setDevice] = useState();
   const [photo, setPhoto] = useState(null);
@@ -39,11 +39,9 @@ export function CameraView({navigation}) {
   const [loading, setLoading] = useState(false);
 
   const devices = useCameraDevices('wide-angle-camera');
-  const {data, setData} = useContext(DataContext);
+  const { data, setData } = useContext(DataContext);
 
   const camera = useRef();
-
-  const {GetLocation} = NativeModules;
 
   useEffect(() => {
     setDevice(devices.back);
@@ -99,7 +97,7 @@ export function CameraView({navigation}) {
         console.log(error.code, error.message);
         setError(true);
       },
-      {enableHighAccuracy: false, timeout: 15000, maximumAge: 10000},
+      { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 },
     );
 
   // using custom hook
@@ -112,17 +110,20 @@ export function CameraView({navigation}) {
     setDelay(3000);
     setLoading(true);
 
-    // await GetLocation.getUserLocation().then(res => {
-    //   console.log(res);
-    //   setLoading(false);
-
-    //   setLocation(res);
-    // });
-
     const pic = await RNFS.readFile(photo.path, 'base64').then(res => {
       return res;
     });
     setPhoto(pic);
+
+    const storageRef = storage().ref('photos/imageTest.jpg')
+
+    storageRef.putString(pic, 'base64')
+      .then(snapshot => {
+        console.log('Image uploaded successfully!');
+      })
+      .catch(error => {
+        console.log('Error uploading image:', error);
+      });
   };
 
   // loading state
@@ -135,17 +136,17 @@ export function CameraView({navigation}) {
           justifyContent: 'center',
           backgroundColor: 'black',
         }}>
-        <Text style={{color: 'white'}}>Carregando...</Text>
+        <Text style={{ color: 'white' }}>Carregando...</Text>
       </View>
     );
   }
 
   if (photo && location) {
     return (
-      <View style={{padding: 20, backgroundColor: "#025248"}}>
+      <View style={{ padding: 20, backgroundColor: "#025248" }}>
         <Image
-          style={{width: '100%', height: '100%', borderRadius: 24}}
-          source={{uri: 'data:image/jpeg;base64,' + photo}}
+          style={{ width: '100%', height: '100%', borderRadius: 24 }}
+          source={{ uri: 'data:image/jpeg;base64,' + photo }}
         />
         <TouchableOpacity style={styles.continueButton} onPress={() => {
           const data = {
@@ -178,11 +179,11 @@ export function CameraView({navigation}) {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        <TouchableOpacity style={styles.backHomeButton} onPress={() => {
-          navigate("Home");
-        }}>
-          <Text style={styles.buttonsText}>Voltar</Text>
-        </TouchableOpacity>
+      <TouchableOpacity style={styles.backHomeButton} onPress={() => {
+        navigate("Home");
+      }}>
+        <Text style={styles.buttonsText}>Voltar</Text>
+      </TouchableOpacity>
       {data.length > 1 ? (
         <TouchableOpacity style={styles.finishButton} onPress={() => {
           navigate("FinishTask");
@@ -218,10 +219,10 @@ export function CameraView({navigation}) {
 
 const styles = StyleSheet.create({
   repeatButton: {
-    position: "absolute", 
-    bottom: 0, 
-    left: 0, 
-    marginBottom: 72, 
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    marginBottom: 72,
     marginLeft: 32,
     width: 120,
     borderRadius: 15,
@@ -234,10 +235,10 @@ const styles = StyleSheet.create({
   },
 
   continueButton: {
-    position: "absolute", 
-    bottom: 0, 
-    right: 0, 
-    marginBottom: 72, 
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    marginBottom: 72,
     marginRight: 32,
     width: 120,
     borderRadius: 15,
@@ -253,7 +254,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     right: 0,
-    marginTop: 72, 
+    marginTop: 72,
     marginRight: 18,
     width: 120,
     borderRadius: 15,
@@ -270,7 +271,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    marginTop: 72, 
+    marginTop: 72,
     marginLeft: 18,
     width: 120,
     borderRadius: 15,
