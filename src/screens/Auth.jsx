@@ -7,25 +7,23 @@ import {
   View,
   TextInput,
 } from 'react-native';
-import {useState} from 'react';
-import Toast from 'react-native-simple-toast';
+import { useState } from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
-import Svg, {Defs, Path, ClipPath, Use} from 'react-native-svg';
 import LottieView from 'lottie-react-native';
 
-/*========== FIREBASE IMPORTS ==========*/
-import auth from '@react-native-firebase/auth';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import '../configs/google.config';
-
 /*========== LOCAL FILES & COMPONENTS ==========*/
-import {ForgotPasswordModal} from '../components/modals/ForgotPasswordModal';
+import { ForgotPasswordModal } from '../components/modals/ForgotPasswordModal';
+import { signInWithEmailAndPassword } from '../functions/signInWithEmailAndPassword';
+import { signInWithGoogle } from '../functions/signInWithGoogle';
+
+import { GoogleIcon } from '../assets/icons/GoogleIcon';
+import { ComeBackAuthIcon } from '../assets/icons/ComeBackAuthIcon';
 
 /*========== COMPONENT DECLARATION ==========*/
-export function Auth({navigation}) {
+export function Auth({ navigation }) {
   /*========== DESTRUCTURING ==========*/
-  const {navigate} = navigation;
+  const { navigate } = navigation;
 
   /*========== STATES ==========*/
   const [email, setEmail] = useState('');
@@ -33,48 +31,13 @@ export function Auth({navigation}) {
   const [modal, setModal] = useState(false); // sets modal visibility
 
   /*========== FUNCTIONS ==========*/
-
-  // email/password sign-in function
-  async function handleSignIn() {
-    await auth()
-      .signInWithEmailAndPassword(email, password)
+  const handleSignInWithGoogle = () => {
+    signInWithGoogle()
       .then(() => {
-        // get currentUser and checking if the email was verified
-        const user = auth().currentUser;
-
-        user?.emailVerified
-          ? navigate('Home')
-          : Toast.show(
-              'Enviado um link de verificação para seu email',
-              Toast.LONG,
-            );
+        console.log('Signed in with Google!');
+        navigate('Home');
       })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-
-        console.error(error);
-      });
-  }
-
-  // google sign-in function
-  async function onGoogleButtonPress() {
-    // Check if your device supports Google Play
-    await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-
-    // Get the users ID token
-    const {idToken} = await GoogleSignin.signIn();
-
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
+      .catch(err => console.log(err))
   }
 
   /*========== FRONT ==========*/
@@ -86,7 +49,7 @@ export function Auth({navigation}) {
         translucent
       />
       <LottieView
-        style={{width: '100%', height: '100%'}}
+        style={{ width: '100%', height: '100%' }}
         source={require('../assets/img/lines.json')}
         loop
         autoPlay
@@ -98,19 +61,9 @@ export function Auth({navigation}) {
         style={styles.backBtn}
         activeOpacity={1}
         onPress={() => navigate('Welcome')}>
-        <Svg width={48} height={48} viewBox="0 0 24 24" fill="none">
-          <Defs>
-            <ClipPath id="prefix__clip0">
-              <Path fill="#fff" d="M0 0h24v24H0z" />
-            </ClipPath>
-          </Defs>
-          <Path
-            d="M20.5 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20.5v-2z"
-            fill="#8af3cb"
-            clipPath="url(#prefix__clip0)"
-          />
-        </Svg>
+        <ComeBackAuthIcon />
       </TouchableOpacity>
+
       <View style={styles.bottomContainer}>
         <View style={styles.textArea}>
           <Text style={styles.title}>Autenticação</Text>
@@ -118,77 +71,41 @@ export function Auth({navigation}) {
             Informe seus dados para realizar a autenticação de seu usuário.
           </Text>
         </View>
+
         <TextInput
           onChangeText={setEmail}
           placeholder="E-mail"
           placeholderTextColor={'#8af3cb'}
-          style={styles.input}></TextInput>
+          style={styles.input} />
         <TextInput
           onChangeText={setPassword}
           placeholder="Senha"
           placeholderTextColor={'#8af3cb'}
           secureTextEntry={true}
           maxLength={8}
-          style={styles.input}></TextInput>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          style={styles.input} />
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity
-            onPress={() =>
-              onGoogleButtonPress()
-                .then(() => {
-                  console.log('Signed in with Google!');
-                  navigate('Home');
-                })
-                .catch(err => console.log(err))
-            }
+            onPress={handleSignInWithGoogle}
             style={styles.googleBtn}
             activeOpacity={0.8}>
-            <Svg viewBox="0 0 32 32" width={36} height={36}>
-              <Defs>
-                <Path
-                  id="a"
-                  d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"
-                />
-              </Defs>
-              <ClipPath id="b">
-                <Use xlinkHref="#a" />
-              </ClipPath>
-              <Path
-                d="M0 37V11l17 13z"
-                clipPath="url(#b)"
-                fill="#006458"
-                transform="matrix(.72727 0 0 .72727 -.955 -1.455)"
-              />
-              <Path
-                d="M0 11l17 13 7-6.1L48 14V0H0z"
-                clipPath="url(#b)"
-                fill="#006458"
-                transform="matrix(.72727 0 0 .72727 -.955 -1.455)"
-              />
-              <Path
-                d="M0 37l30-23 7.9 1L48 0v48H0z"
-                clipPath="url(#b)"
-                fill="#006448"
-                transform="matrix(.72727 0 0 .72727 -.955 -1.455)"
-              />
-              <Path
-                d="M48 48L17 24l-4-3 35-10z"
-                clipPath="url(#b)"
-                fill="#006458"
-                transform="matrix(.72727 0 0 .72727 -.955 -1.455)"
-              />
-            </Svg>
+            <GoogleIcon />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={handleSignIn}
+            onPress={() => signInWithEmailAndPassword(email, password, navigate)}
             style={styles.authBtn}
             activeOpacity={0.8}>
             <Text style={styles.authText}>Autenticar</Text>
           </TouchableOpacity>
         </View>
+
         <TouchableOpacity activeOpacity={0.8} onPress={() => setModal(true)}>
           <Text style={styles.forgotText}>Esqueceu sua senha?</Text>
         </TouchableOpacity>
+
       </View>
+
     </View>
   );
 }
