@@ -53,7 +53,7 @@ export const DropDown = ({options, value, setValue, id}) => {
 const styles = StyleSheet.create({
   select: {
     backgroundColor: '#1e1e1e',
-    borderRadius: 8,
+    borderRadius: 10,
     paddingHorizontal: 12,
     paddingVertical: 12,
   },
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
 
   option: {
     backgroundColor: '#1e1e1e',
+    borderRadius: 10,
     paddingHorizontal: 12,
     paddingVertical: 12,
     borderWidth: 1,

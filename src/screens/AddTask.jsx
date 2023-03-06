@@ -25,7 +25,27 @@ export function AddNewTask({ route, navigation }) {
   // dropdown options
   const options = {
     varietyOfCables: [1, 2, 3, 4],
-    cableType: ['Cat5', 'Fibra', 'Cobre'],
+    cableType: [
+      'CTP-APL 40X10 P',
+      'CTP-APL 20P',
+      'CTP-APL XSDL 40X20 P',
+      'CTP-APL 40X30 P',
+      'CTP-APL XSDL 40X30 P',
+      'CTP-APL 40X40 P',
+      'CTP-APL 40X50 P',
+      'CTP-APL XSDL 50P',
+      'CTP-APL 40X100 P',
+      'CTP-APL XSDL 100 P',
+      'CTP-APL 200 P',
+      'CTP-APL XSDL 40X200 P',
+      'CTP-APL 300 P',
+      'CTP-APL XSDL 40X300 P',
+      'CTP-APL XSDL 40X400 P',
+      'CTS-APL-G 40C600 P',
+      'CTP-APL 40X1200 P',
+      'CTP-APL 40X1800 P',
+      'CTP-APL 40X2400 P',
+    ],
   };
 
   /*========== STATES ==========*/
