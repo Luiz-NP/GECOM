@@ -64,7 +64,7 @@ export function TaskInfo({route, navigation}) {
             </View>
           </View>
           <TouchableOpacity
-            onPress={() => navigate('CameraView')}
+            onPress={() => navigate('CameraView', {taskId: data.id})}
             style={styles.initTaskButton}>
             <Text style={styles.initTaskButtontext}>Iniciar Task</Text>
           </TouchableOpacity>

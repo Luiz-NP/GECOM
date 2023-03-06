@@ -3,7 +3,6 @@ import {
   Image,
   Pressable,
   View,
-  Button,
   PermissionsAndroid,
   Text,
   TouchableOpacity,
@@ -22,14 +21,16 @@ import { useInterval } from '../hooks/useInterval';
 import RNFS from 'react-native-fs';
 
 import storage from '@react-native-firebase/storage';
+import auth from '@react-native-firebase/auth';
 
-export function CameraView({ navigation }) {
+export function CameraView({ navigation, route }) {
   const iceland = {
     latitude: 64.9631,
     longitude: 19.0208,
   };
 
   const { navigate } = navigation;
+  const { taskId } = route.params
 
   const [device, setDevice] = useState();
   const [photo, setPhoto] = useState(null);
@@ -40,6 +41,8 @@ export function CameraView({ navigation }) {
 
   const devices = useCameraDevices('wide-angle-camera');
   const { data, setData } = useContext(DataContext);
+
+  const user = auth().currentUser
 
   const camera = useRef();
 
@@ -114,17 +117,30 @@ export function CameraView({ navigation }) {
       return res;
     });
     setPhoto(pic);
-
-    const storageRef = storage().ref('photos/imageTest.jpg')
-
-    storageRef.putString(pic, 'base64')
-      .then(snapshot => {
-        console.log('Image uploaded successfully!');
-      })
-      .catch(error => {
-        console.log('Error uploading image:', error);
-      });
   };
+
+  const handleContinue = () => {
+    const data = {
+      photo: photo,
+      location: location,
+    };
+
+    setData(prev => [...prev, data]);
+    setLocation(null);
+    setPhoto(null);
+
+    const pastaRef = storage().ref(`${user.uid}/task${taskId}/`);
+
+    pastaRef.listAll()
+      .then((result) => {
+        const items = result.items;
+        const numFotos = items.length + 1;
+
+        const storageRef = storage().ref(`${user.uid}/task${taskId}/img${numFotos}.jpg`)
+
+        storageRef.putString(photo, 'base64').then((res) => console.log("IMG UPLOAD"))
+      })
+  }
 
   // loading state
   if (loading) {
@@ -148,17 +164,7 @@ export function CameraView({ navigation }) {
           style={{ width: '100%', height: '100%', borderRadius: 24 }}
           source={{ uri: 'data:image/jpeg;base64,' + photo }}
         />
-        <TouchableOpacity style={styles.continueButton} onPress={() => {
-          const data = {
-            photo: photo,
-            location: location,
-          };
-
-          setData(prev => [...prev, data]);
-          setLocation(null);
-          setPhoto(null);
-          // navigation.navigate('ConfirmTask');
-        }}>
+        <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
           <Text style={styles.buttonsText}>continuar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.repeatButton} onPress={() => {
@@ -170,8 +176,6 @@ export function CameraView({ navigation }) {
       </View>
     );
   }
-
-  console.log(data.length)
 
   return (
     <View
