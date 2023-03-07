@@ -3,25 +3,23 @@ import {
   Image,
   Pressable,
   View,
-  PermissionsAndroid,
   Text,
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
 import { useEffect, useRef, useState, useContext } from 'react';
-import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
-import Geolocation from '@react-native-community/geolocation';
-import { getPreciseDistance } from 'geolib';
 
 import iconCamera from '../assets/camera/capture-icon.png';
 
 import { DataContext } from '../contexts/DataContext';
 import { useInterval } from '../hooks/useInterval';
 
-import RNFS from 'react-native-fs';
+import { getCurrentPosition } from '../functions/getCurrentPosition';
+import { takePhoto } from '../functions/takePhoto';
+import { continueAndSendPhoto } from '../services/continueAndSendPhoto';
+import { requestPermission } from '../utils/requestPermission';
 
-import storage from '@react-native-firebase/storage';
-import auth from '@react-native-firebase/auth';
+import { LoadingIndicator } from './LoadingIndicator';
 
 export function CameraView({ navigation, route }) {
   const iceland = {
@@ -42,120 +40,20 @@ export function CameraView({ navigation, route }) {
   const devices = useCameraDevices('wide-angle-camera');
   const { data, setData } = useContext(DataContext);
 
-  const user = auth().currentUser
-
   const camera = useRef();
 
   useEffect(() => {
     setDevice(devices.back);
 
-    (async () => {
-      const cameraPermission = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-      );
-
-      const locationPermission = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      );
-
-      await RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
-        interval: 10000,
-        fastInterval: 5000,
-      });
-
-      console.log('camera:', cameraPermission);
-      console.log('location:', locationPermission);
-    })();
+    // request the camera and location permissions
+    requestPermission()
   }, [devices]);
 
-  const getCurrentPosition = () =>
-    Geolocation.getCurrentPosition(
-      position => {
-        const coordinates = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        };
+  // using custom hook to get the location of user
+  useInterval(() => getCurrentPosition(lastLocation, setLastLocation, setLocation, setDelay, setLoading, data), delay);
 
-        const diference = getPreciseDistance(lastLocation, coordinates);
-
-        setLastLocation(coordinates);
-
-        console.log('diference:', diference);
-
-        if (
-          diference < 1 &&
-          !data.some(
-            x =>
-              coordinates.latitude === x.location.latitude &&
-              coordinates.longitude === x.location.longitude,
-          )
-        ) {
-          setLocation(coordinates);
-          setDelay(null);
-          setLoading(false);
-        }
-      },
-      error => {
-        // See error code charts below.
-        console.log(error.code, error.message);
-        setError(true);
-      },
-      { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 },
-    );
-
-  // using custom hook
-  useInterval(() => getCurrentPosition(), delay);
-
-  const takePhoto = async () => {
-    const photo = await camera.current.takePhoto({
-      // flash: 'on',
-    });
-    setDelay(3000);
-    setLoading(true);
-
-    const pic = await RNFS.readFile(photo.path, 'base64').then(res => {
-      return res;
-    });
-    setPhoto(pic);
-  };
-
-  const handleContinue = () => {
-    const data = {
-      photo: photo,
-      location: location,
-    };
-
-    setData(prev => [...prev, data]);
-    setLocation(null);
-    setPhoto(null);
-
-    const pastaRef = storage().ref(`${user.uid}/task${taskId}/`);
-
-    pastaRef.listAll()
-      .then((result) => {
-        const items = result.items;
-        const numFotos = items.length + 1;
-
-        const storageRef = storage().ref(`${user.uid}/task${taskId}/img${numFotos}.jpg`)
-
-        storageRef.putString(photo, 'base64').then((res) => console.log("IMG UPLOAD"))
-      })
-  }
-
-  // loading state
-  if (loading) {
-    return (
-      <View
-        style={{
-          height: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'black',
-        }}>
-        <Text style={{ color: 'white' }}>Carregando...</Text>
-      </View>
-    );
-  }
+  // while data is loading a loading indicator is shown
+  if (loading) return <LoadingIndicator />;
 
   if (photo && location) {
     return (
@@ -164,7 +62,7 @@ export function CameraView({ navigation, route }) {
           style={{ width: '100%', height: '100%', borderRadius: 24 }}
           source={{ uri: 'data:image/jpeg;base64,' + photo }}
         />
-        <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
+        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(setData, setLocation, location, setPhoto, photo, taskId)}>
           <Text style={styles.buttonsText}>continuar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.repeatButton} onPress={() => {
@@ -179,23 +77,20 @@ export function CameraView({ navigation, route }) {
 
   return (
     <View
-      style={{
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
+      style={styles.container}>
       <TouchableOpacity style={styles.backHomeButton} onPress={() => {
         navigate("Home");
       }}>
         <Text style={styles.buttonsText}>Voltar</Text>
       </TouchableOpacity>
-      {data.length > 1 ? (
+      {data.length > 1 && (
         <TouchableOpacity style={styles.finishButton} onPress={() => {
           navigate("FinishTask");
         }}>
           <Text style={styles.buttonsText}>Finalizar</Text>
         </TouchableOpacity>
-      ) : null}
-      {device ? (
+      )}
+      {device && (
         <Camera
           style={{
             width: '100%',
@@ -207,14 +102,14 @@ export function CameraView({ navigation, route }) {
           photo={true}
           enableZoomGesture
         />
-      ) : null}
+      )}
 
       <Pressable
         style={{
           bottom: 60,
           position: 'absolute',
         }}
-        onPress={takePhoto}>
+        onPress={() => takePhoto(camera, setDelay, setLoading, setPhoto)}>
         <Image source={iconCamera} />
       </Pressable>
     </View>
@@ -222,6 +117,10 @@ export function CameraView({ navigation, route }) {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   repeatButton: {
     position: "absolute",
     bottom: 0,
