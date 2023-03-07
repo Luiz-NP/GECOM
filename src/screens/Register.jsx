@@ -83,7 +83,7 @@ export function Register({ navigation }) {
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity
-            onPress={() => signUp(firstName, lastName, email, password)}
+            onPress={() => signUp(firstName, lastName, email, password, navigate)}
             style={styles.registerBtn}
             activeOpacity={0.8}>
             <Text style={styles.registerText}>Finalizar registro</Text>

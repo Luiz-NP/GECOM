@@ -6,7 +6,8 @@ export const signUp = async (
     firstName,
     lastName,
     email,
-    password
+    password,
+    navigate
 ) => {
     const { alert } = Alert;
 
@@ -24,25 +25,26 @@ export const signUp = async (
             })
             .join(' ');
 
-        const { user } = await auth().createUserWithEmailAndPassword(email, password)
+        const { user } = await auth().createUserWithEmailAndPassword(email, password);
         await user.updateProfile({
             displayName: formattedName
         })
 
-        const newUser = auth().currentUser
-        await newUser.sendEmailVerification()
+        const newUser = auth().currentUser;
+        await newUser.sendEmailVerification();
 
         alert(
             'Verifique seu email',
             'enviamos um link de verificação no seu email, veifique para continuar',
-        )
+        );
 
+        navigate("Welcome");
     } catch (error) {
         if (error.message == 'Empty fields') {
             alert(
                 'Campos vazios',
                 'Por favor preencha todos os campos'
-            )
+            );
         }
     }
 }
