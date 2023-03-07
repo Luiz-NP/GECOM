@@ -8,6 +8,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import { Svg, Path } from 'react-native-svg';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import {ProfileButton} from '../components/ProfileButton';
@@ -63,7 +64,21 @@ export function Profile({navigation}) {
 
       <View style={style.content}>
         <View style={style.user}>
-          <Image style={style.userPhoto} source={{uri: profileImage}} />
+          {profileImage ? (
+            <Image style={style.userPhoto} source={{ uri: profileImage }} />
+          ) : (
+            <Svg
+              style={style.userPhoto}
+              fill="none" 
+              viewBox="0 0 24 24" 
+              xmlns="http://www.w3.org/2000/svg">
+              <Path clip-rule="evenodd" d="m1.25 12c0-5.93706 4.81294-10.75 10.75-10.75 5.9371 0 10.75 4.81294 10.75 10.75 0 3.0485-1.2699 5.8016-3.3075 7.7571-1.9308 1.8529-4.5543 2.9929-7.4425 2.9929-2.88818 0-5.51167-1.14-7.44249-2.9929-2.03762-1.9555-3.30751-4.7086-3.30751-7.7571zm16.8331 6.9685c-.431-1.2893-1.6492-2.2185-3.0831-2.2185h-6c-1.43387 0-2.65209.9292-3.08313 2.2185 1.62665 1.4213 3.75375 2.2815 6.08313 2.2815 2.3294 0 4.4565-.8602 6.0831-2.2815zm-6.0831-14.7185c-2.62335 0-4.75 2.12665-4.75 4.75 0 2.6234 2.12665 4.75 4.75 4.75 2.6234 0 4.75-2.1266 4.75-4.75 0-2.62335-2.1266-4.75-4.75-4.75z" 
+                fill="rgb(255,255,255)" 
+                fill-rule="evenodd" 
+                style="fill: rgb(255, 255, 255);" 
+              />
+            </Svg>
+          )}
           <Text style={style.userName}>{user?.displayName}</Text>
           <Text style={style.userDescription}>QuarkzPlace Ltd.</Text>
         </View>
