@@ -18,7 +18,7 @@ import {FinishTask} from '../screens/FinishTask';
 export function StackRoutes() {
   return (
     <Navigator
-      // initialRouteName="TaskInfo"
+      // initialRouteName="FinishTask"
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
