@@ -45,14 +45,12 @@ export function Welcome({navigation}) {
           translucent
         />
         <LottieView
-          style={{}}
-          source={require('../assets/img/checklist.json')}        
-          autoPlay 
+          source={require('../assets/img/checklist.json')}
+          autoPlay
           speed={speed}
         />
       </View>
     );
-
 
   return (
     !loading && (
