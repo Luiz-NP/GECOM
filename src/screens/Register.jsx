@@ -64,7 +64,7 @@ export function Register({ navigation }) {
           placeholderTextColor={'#8af3cb'}
           style={styles.input} />
         <TextInput
-          onChange={setLastName}
+          onChangeText={setLastName}
           placeholder="Sobrenome"
           placeholderTextColor={'#8af3cb'}
           style={styles.input} />
