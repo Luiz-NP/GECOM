@@ -29,8 +29,6 @@ export function Profile({navigation}) {
     profileImage = 'https://i.imgur.com/yWia8IK.png';
   }
 
-  console.log(JSON.stringify(user.displayName));
-
   /*========== FRONT ==========*/
   return (
     <ScrollView
