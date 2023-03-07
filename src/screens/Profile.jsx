@@ -10,19 +10,25 @@ import {
 } from 'react-native';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
-import { ProfileButton } from '../components/ProfileButton';
-import { CloseIconProfile } from '../assets/icons/CloseIconProfile';
-import { LogOutIconProfile } from '../assets/icons/LogOutIconProfile';
+import {ProfileButton} from '../components/ProfileButton';
+import {CloseIconProfile} from '../assets/icons/CloseIconProfile';
+import {LogOutIconProfile} from '../assets/icons/LogOutIconProfile';
 
 import auth from '@react-native-firebase/auth';
-import { logOut } from '../functions/logOut';
+import {logOut} from '../functions/logOut';
 
-export function Profile({ navigation }) {
-  const { navigate } = navigation;
+export function Profile({navigation}) {
+  const {navigate} = navigation;
   const user = auth().currentUser;
   const darkMode = false;
 
-  const profileImage = user?.photoURL?.replace('s96-c', 's400-c');
+  let profileImage = user?.photoURL?.replace('s96-c', 's400-c');
+
+  if (profileImage === null || profileImage === undefined) {
+    profileImage = 'https://i.imgur.com/yWia8IK.png';
+  }
+
+  console.log(JSON.stringify(user.displayName));
 
   /*========== FRONT ==========*/
   return (
@@ -36,7 +42,6 @@ export function Profile({ navigation }) {
       />
 
       <View style={style.header}>
-
         <TouchableOpacity
           onPress={() => navigate('Home')}
           activeOpacity={0.8}
@@ -54,13 +59,11 @@ export function Profile({ navigation }) {
           style={darkMode ? dark.logOutContainer : style.logOutContainer}>
           <LogOutIconProfile />
         </TouchableOpacity>
-
       </View>
 
       <View style={style.content}>
-
         <View style={style.user}>
-          <Image style={style.userPhoto} source={{ uri: profileImage }} />
+          <Image style={style.userPhoto} source={{uri: profileImage}} />
           <Text style={style.userName}>{user?.displayName}</Text>
           <Text style={style.userDescription}>QuarkzPlace Ltd.</Text>
         </View>
@@ -86,9 +89,7 @@ export function Profile({ navigation }) {
             }
           />
         </View>
-
       </View>
-
     </ScrollView>
   );
 }
