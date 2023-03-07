@@ -11,7 +11,7 @@ export const signInWithEmailAndPassword = async (email, password, navigate) => {
         user?.emailVerified ?
             navigate('Home') :
             (Toast.show(
-                'Enviado um link de verificação para seu email',
+                'Por favor, verifique seu email para continuar',
                 Toast.LONG)
             );
 
