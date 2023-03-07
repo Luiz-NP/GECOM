@@ -8,29 +8,29 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
 import LottieView from 'lottie-react-native';
-import { useFocusEffect } from '@react-navigation/native';
-import Svg, { Path } from 'react-native-svg';
+import {useFocusEffect} from '@react-navigation/native';
+import Svg, {Path} from 'react-native-svg';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
-import { TaskHome } from '../components/TaskHome';
-import { ButtonNavHome } from '../components/ButtonNavHome';
+import {TaskHome} from '../components/TaskHome';
+import {ButtonNavHome} from '../components/ButtonNavHome';
 
-import { AuthContext } from '../contexts/AuthContext';
-import { UpdateContext } from '../contexts/UpdateContext';
+import {AuthContext} from '../contexts/AuthContext';
+import {UpdateContext} from '../contexts/UpdateContext';
 
-import { getTasks } from '../services/getTasks';
+import {getTasks} from '../services/getTasks';
 
-import { backButtonHome } from '../utils/backButtonHome';
-import { addTask } from '../utils/addTask';
+import {backButtonHome} from '../utils/backButtonHome';
+import {addTask} from '../utils/addTask';
 
 /*========== COMPONENT DECLARATION ==========*/
-export function Home({ navigation }) {
+export function Home({navigation}) {
   /*========== DESTRUCTURING ==========*/
-  const { navigate } = navigation;
+  const {navigate} = navigation;
   const darkMode = false;
   /*========== STATES ==========*/
   const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
@@ -39,8 +39,15 @@ export function Home({ navigation }) {
   const [completedTasks, setCompletedTasks] = useState(0);
 
   /*========== CONTEXTS ==========*/
-  const { user } = useContext(AuthContext); // getting user from AuthContext
-  const { update, setUpdate } = useContext(UpdateContext); // reload data when change
+  const {user} = useContext(AuthContext); // getting user from AuthContext
+  const {update, setUpdate} = useContext(UpdateContext); // reload data when change
+
+  /*========= WORKAROUNDS =========*/
+  let profileImage = user?.photoURL?.replace('s96-c', 's400-c');
+
+  if (profileImage === null || profileImage === undefined) {
+    profileImage = 'https://i.imgur.com/yWia8IK.png';
+  }
 
   /*========== LIFE CICLE ==========*/
   useEffect(() => {
@@ -72,7 +79,7 @@ export function Home({ navigation }) {
             activeOpacity={1.0}
             onPress={() => navigate('Profile')}>
             {user?.photoURL ? (
-              <Image style={styles.userImage} source={{ uri: user?.photoURL }} />
+              <Image style={styles.userImage} source={{uri: profileImage}} />
             ) : <Svg
                   style={styles.userImage}
                   fill="none" 
@@ -144,16 +151,16 @@ export function Home({ navigation }) {
             buttonSelected === 0
               ? tasks
               : buttonSelected === 1
-                ? pendingTasks
-                : completedTasks
+              ? pendingTasks
+              : completedTasks
           }
           keyExtractor={item => item.id}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <TaskHome
               data={item}
               key={item.id}
               navigate={navigate}
-              onPress={() => navigate('TaskInfo', { item })}
+              onPress={() => navigate('TaskInfo', {item})}
             />
           )}
         />
