@@ -40,10 +40,17 @@ export const signUp = async (
 
         navigate("Welcome");
     } catch (error) {
+        console.log(error.code)
         if (error.message == 'Empty fields') {
             alert(
                 'Campos vazios',
                 'Por favor preencha todos os campos'
+            );
+        }
+        if (error.code == 'auth/email-already-in-use') {
+            alert(
+                'Email em uso',
+                'Este email já está em uso'
             );
         }
     }
