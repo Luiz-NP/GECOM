@@ -6,7 +6,6 @@ import {
   StatusBar,
   TouchableOpacity,
   ScrollView,
-  TextInput,
 } from 'react-native';
 import { useContext, useState } from 'react';
 
@@ -18,18 +17,40 @@ import { DropDown } from '../components/DropDown';
 import { addNewTask } from '../services/addNewTask';
 
 /*========== COMPONENTS DECLARATION ==========*/
-export function AddNewTask({ navigation }) {
+export function DataPoint({ route, navigation }) {
   /*========== DESTRUCTURING ==========*/
+  const { taskID } = route.params;
   const { navigate } = navigation;
 
   // dropdown options
   const options = {
-    company: ['Algar', 'Claro', 'Tim', 'Vivo', 'Ctbc'],
+    varietyOfCables: [1, 2, 3, 4],
+    cableType: [
+      'CTP-APL 40X10 P',
+      'CTP-APL 20P',
+      'CTP-APL XSDL 40X20 P',
+      'CTP-APL 40X30 P',
+      'CTP-APL XSDL 40X30 P',
+      'CTP-APL 40X40 P',
+      'CTP-APL 40X50 P',
+      'CTP-APL XSDL 50P',
+      'CTP-APL 40X100 P',
+      'CTP-APL XSDL 100 P',
+      'CTP-APL 200 P',
+      'CTP-APL XSDL 40X200 P',
+      'CTP-APL 300 P',
+      'CTP-APL XSDL 40X300 P',
+      'CTP-APL XSDL 40X400 P',
+      'CTS-APL-G 40C600 P',
+      'CTP-APL 40X1200 P',
+      'CTP-APL 40X1800 P',
+      'CTP-APL 40X2400 P',
+    ],
   };
 
   /*========== STATES ==========*/
-  const [company, setCompany] = useState(null);
-  const [OSNumber, setOSNumber] = useState(null);
+  const [cableCount, setCableCount] = useState(null);
+  const [allCables, setAllCables] = useState([]);
 
   /*========== CONTEXTS ==========*/
   const { update, setUpdate } = useContext(UpdateContext);
@@ -71,22 +92,24 @@ export function AddNewTask({ navigation }) {
         <View style={[styles.inputArea, styles.spacer]}>
           <View style={styles.localInput}></View>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Adicionar OS (opcional)</Text>
-            <TextInput
-              style={styles.input}
-              keyboardType="numeric"
-              placeholder="Numero da OS"
-              placeholderTextColor={'#444'}
-              onChangeText={text => setOSNumber(text)}
-              maxLength={1}
-            />
-            <Text style={styles.label}>Empresa</Text>
+            <Text style={styles.label}>Variedade de Cabos</Text>
             <DropDown
-              options={options.company}
-              value={company}
-              setValue={setCompany}
+              options={options.varietyOfCables}
+              value={cableCount}
+              setValue={setCableCount}
             />
           </View>
+          {Array.from({ length: cableCount }).map((value, index) => (
+            <View key={index}>
+              <Text style={styles.label}>Tipo do Cabo {index + 1}</Text>
+              <DropDown
+                options={options.cableType}
+                value={allCables[index]}
+                setValue={setAllCables}
+                id={index + 1}
+              />
+            </View>
+          ))}
         </View>
         <View style={styles.actionArea}>
           <TouchableOpacity
@@ -94,11 +117,12 @@ export function AddNewTask({ navigation }) {
             onPress={() =>
               addNewTask(
                 'Home',
-                company,
-                OSNumber,
+                cableCount,
+                allCables,
                 setUpdate,
                 update,
-                navigate
+                navigate,
+                taskID
               )}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Adicionar tarefa</Text>
@@ -109,11 +133,12 @@ export function AddNewTask({ navigation }) {
             onPress={() =>
               addNewTask(
                 'CameraView',
-                company,
-                OSNumber,
+                cableCount,
+                allCables,
                 setUpdate,
                 update,
-                navigate
+                navigate,
+                taskID
               )}>
             <View style={styles.buttonHighlight}>
               <Text style={styles.buttonText}>Iniciar inspeção</Text>
@@ -184,17 +209,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 6,
     marginTop: 12,
-  },
-
-  input: {
-    backgroundColor: '#1e1e1e',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 16,
-    color: '#FFFFFF',
-    marginBottom: 16,
   },
 
   localInput: {
