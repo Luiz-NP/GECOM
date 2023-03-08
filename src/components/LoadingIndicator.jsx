@@ -1,5 +1,5 @@
 import LottieView from 'lottie-react-native';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 export const LoadingIndicator = () => {
   return (

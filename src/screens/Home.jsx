@@ -27,6 +27,8 @@ import {getTasks} from '../services/getTasks';
 import {backButtonHome} from '../utils/backButtonHome';
 import {addTask} from '../utils/addTask';
 
+import {ConfirmModal} from '../components/modals/ConfirmModal';
+
 /*========== COMPONENT DECLARATION ==========*/
 export function Home({navigation}) {
   /*========== DESTRUCTURING ==========*/
@@ -41,6 +43,7 @@ export function Home({navigation}) {
   /*========== CONTEXTS ==========*/
   const {user} = useContext(AuthContext); // getting user from AuthContext
   const {update, setUpdate} = useContext(UpdateContext); // reload data when change
+  const [modal, setModal] = useState(false);
 
   /*========= WORKAROUNDS =========*/
   let profileImage = user?.photoURL?.replace('s96-c', 's400-c');
@@ -66,6 +69,7 @@ export function Home({navigation}) {
   /*========== FRONT ==========*/
   return (
     <View style={darkMode ? dark.homeContainer : styles.homeContainer}>
+      <ConfirmModal modal={modal} setModal={setModal} />
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
@@ -145,6 +149,7 @@ export function Home({navigation}) {
               data={item}
               key={item.id}
               navigate={navigate}
+              setModal={setModal}
               onPress={() => navigate('TaskInfo', {item})}
             />
           )}
