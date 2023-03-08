@@ -1,10 +1,8 @@
 import {useState} from 'react';
 import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 
-export const DropDown = ({options, value, setValue, id}) => {
+export const DropDown = ({options, value, setValue}) => {
   const [dropdown, setDropdown] = useState(false);
-
-  console.log(value);
 
   return (
     <>
@@ -12,12 +10,12 @@ export const DropDown = ({options, value, setValue, id}) => {
         activeOpacity={0.8}
         onPress={() => setDropdown(!dropdown)}
         style={styles.select}>
-        <Text style={value ? styles.optionText : styles.optionText}>
+        <Text style={styles.optionText}>
           {value ?? 'Selecione'}
         </Text>
       </TouchableOpacity>
 
-      {dropdown &&
+      {/* {dropdown &&
         id &&
         options.map((value, index) => (
           <TouchableOpacity
@@ -30,11 +28,9 @@ export const DropDown = ({options, value, setValue, id}) => {
             style={styles.option}>
             <Text style={styles.optionText}>{value}</Text>
           </TouchableOpacity>
-        ))}
+        ))} */}
 
-      {dropdown &&
-        !id &&
-        options.map((value, index) => (
+      {dropdown && options.map((value, index) => (
           <TouchableOpacity
             activeOpacity={0.8}
             key={index}
@@ -45,7 +41,8 @@ export const DropDown = ({options, value, setValue, id}) => {
             style={styles.option}>
             <Text style={styles.optionText}>{value}</Text>
           </TouchableOpacity>
-        ))}
+        )
+      )}
     </>
   );
 };
