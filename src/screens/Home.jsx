@@ -172,7 +172,7 @@ export function Home({navigation}) {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          addTask(tasks, navigate, setButtonSelected);
+          addTask(navigate, setButtonSelected);
         }}
         style={styles.addTaskButton}>
         <Svg
