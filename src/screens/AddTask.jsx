@@ -6,6 +6,7 @@ import {
   StatusBar,
   TouchableOpacity,
   ScrollView,
+  TextInput,
 } from 'react-native';
 import { useContext, useState } from 'react';
 
@@ -24,7 +25,7 @@ export function AddNewTask({ route, navigation }) {
 
   // dropdown options
   const options = {
-    varietyOfCables: [1, 2, 3, 4],
+    company: ['Algar', 'Claro', 'Tim', 'Vivo', 'Ctbc'],
     cableType: [
       'CTP-APL 40X10 P',
       'CTP-APL 20P',
@@ -49,8 +50,8 @@ export function AddNewTask({ route, navigation }) {
   };
 
   /*========== STATES ==========*/
-  const [cableCount, setCableCount] = useState(null);
-  const [allCables, setAllCables] = useState([]);
+  const [company, setCompany] = useState(null);
+  const [OSNumber, setOSNumber] = useState(null);
 
   /*========== CONTEXTS ==========*/
   const { update, setUpdate } = useContext(UpdateContext);
@@ -92,24 +93,22 @@ export function AddNewTask({ route, navigation }) {
         <View style={[styles.inputArea, styles.spacer]}>
           <View style={styles.localInput}></View>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Variedade de Cabos</Text>
+            <Text style={styles.label}>Adicionar OS (opcional)</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              placeholder="Numero da OS"
+              placeholderTextColor={'#444'}
+              onChangeText={text => setCableCount(text)}
+              maxLength={1}
+            />
+            <Text style={styles.label}>Empresa</Text>
             <DropDown
-              options={options.varietyOfCables}
-              value={cableCount}
-              setValue={setCableCount}
+              options={options.company}
+              value={company}
+              setValue={setCompany}
             />
           </View>
-          {Array.from({ length: cableCount }).map((value, index) => (
-            <View key={index}>
-              <Text style={styles.label}>Tipo do Cabo {index + 1}</Text>
-              <DropDown
-                options={options.cableType}
-                value={allCables[index]}
-                setValue={setAllCables}
-                id={index + 1}
-              />
-            </View>
-          ))}
         </View>
         <View style={styles.actionArea}>
           <TouchableOpacity
@@ -117,8 +116,8 @@ export function AddNewTask({ route, navigation }) {
             onPress={() =>
               addNewTask(
                 'Home',
-                cableCount,
-                allCables,
+                company,
+                OSNumber,
                 setUpdate,
                 update,
                 navigate,
@@ -133,8 +132,8 @@ export function AddNewTask({ route, navigation }) {
             onPress={() =>
               addNewTask(
                 'CameraView',
-                cableCount,
-                allCables,
+                company,
+                OSNumber,
                 setUpdate,
                 update,
                 navigate,
@@ -209,6 +208,17 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 6,
     marginTop: 12,
+  },
+
+  input: {
+    backgroundColor: '#1e1e1e',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
+    color: '#FFFFFF',
+    marginBottom: 16,
   },
 
   localInput: {

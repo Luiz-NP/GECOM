@@ -6,8 +6,8 @@ import auth from '@react-native-firebase/auth';
 
 export const addNewTask = async (
     target,
-    cableCount,
-    allCables,
+    company,
+    OSNumber,
     setUpdate,
     update,
     navigate,
@@ -15,9 +15,9 @@ export const addNewTask = async (
 
     const uid = auth().currentUser.uid;
 
-    if (cableCount === '' || allCables === '')
+    if (company === '')
         return Toast.show(
-            'Você não preencheu todos os campos corretamente',
+            'Você não preencheu os campos corretamente',
             Toast.LONG,
         );
 
@@ -28,7 +28,8 @@ export const addNewTask = async (
             id: taskID,
             distance: 0,
             location: `${'Uberaba'} - ${'MG'}`,
-            cables: allCables,
+            company: company,
+            OSNumber: OSNumber ?? 'Não informado',
             status: 'pending',
         }),
     }
