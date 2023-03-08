@@ -30,6 +30,7 @@
     "react-native-screens": "^3.20.0",
     "react-native-simple-toast": "^2.0.0",
     "react-native-svg": "^13.8.0",
+    "react-native-uuid": "^2.0.1",
     "react-native-vision-camera": "^2.15.4",
     "rn-fetch-blob": "^0.12.0",
     "xlsx": "^0.18.5"
