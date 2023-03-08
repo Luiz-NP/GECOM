@@ -1,4 +1,5 @@
 import Toast from 'react-native-simple-toast';
+import uuid from 'react-native-uuid';
 
 /*========== FIREBASE IMPORTS ==========*/
 import firestore from '@react-native-firebase/firestore';
@@ -11,11 +12,12 @@ export const addNewTask = async (
     setUpdate,
     update,
     navigate,
-    taskID) => {
+    ) => {
 
     const uid = auth().currentUser.uid;
+    const taskID = uuid.v4();
 
-    if (company === '')
+    if (!company)
         return Toast.show(
             'Você não preencheu os campos corretamente',
             Toast.LONG,
@@ -40,14 +42,14 @@ export const addNewTask = async (
 
         console.log('task created!');
         setUpdate(!update)
-        navigate(target)
+        navigate(target, {taskID: taskID})
 
     } catch (error) {
         // if does't exist a doc for this user
         if (error.message === '[firestore/not-found] Some requested document was not found.') {
             await tasksRef.set({ ...newDataTask })
             setUpdate(!update);
-            navigate(target);
+            navigate(target, {taskID: taskID});
         }else {
             console.log(error);
         }

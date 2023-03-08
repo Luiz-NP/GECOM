@@ -7,7 +7,8 @@ export const continueAndSendPhoto = async (
     location,
     setPhoto,
     photo,
-    taskId
+    taskID,
+    navigate
 ) => {
     const data = {
         photo: photo,
@@ -19,16 +20,12 @@ export const continueAndSendPhoto = async (
     setPhoto(null);
 
     try {
-        const user = auth().currentUser
-        const folderRef = storage().ref(`${user.uid}/task${taskId}/`);
+        const user = auth().currentUser;
+        const imgID = new Date().toLocaleString().split(', ').join('-').split('/').join('-');
 
-        const imagesFromStorage = await folderRef.listAll()
-        const imagesFromStorageLength = imagesFromStorage.items.length + 1
+        const storageRef = storage().ref(`user-${user.uid}/task-${taskID}/img-${imgID}.jpg`);
 
-        const storageRef = storage().ref(`${user.uid}/task${taskId}/img${imagesFromStorageLength}.jpg`)
-
-        storageRef.putString(photo, 'base64')
-
+        await storageRef.putString(photo, 'base64');
     } catch (error) {
         console.log(error);
     }

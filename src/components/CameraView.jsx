@@ -28,7 +28,7 @@ export function CameraView({ navigation, route }) {
   };
 
   const { navigate } = navigation;
-  const { taskId } = route.params
+  const { taskID } = route.params;
 
   const [device, setDevice] = useState();
   const [photo, setPhoto] = useState(null);
@@ -62,7 +62,7 @@ export function CameraView({ navigation, route }) {
           style={{ width: '100%', height: '100%', borderRadius: 24 }}
           source={{ uri: 'data:image/jpeg;base64,' + photo }}
         />
-        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(setData, setLocation, location, setPhoto, photo, taskId)}>
+        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(setData, setLocation, location, setPhoto, photo, taskID, navigate)}>
           <Text style={styles.buttonsText}>continuar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.repeatButton} onPress={() => {
