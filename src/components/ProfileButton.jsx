@@ -1,19 +1,12 @@
 /*========== ROOT IMPORTS ==========*/
-import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {Path, Svg} from 'react-native-svg';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 const darkMode = false;
 /*========== COMPONENT DECLARATION ==========*/
-export function ProfileButton({title, text, icon}) {
+export function ProfileButton({ title, text, icon }) {
   return (
     <Pressable style={darkMode ? dark.btn : style.btn}>
       <View style={style.icon}>
-        <Svg width={24} height={24} viewBox="0 0 24 24">
-          <Path
-            d={icon}
-            fill={darkMode ? '#FFFFFF' : '#006458'}
-            fillRule="evenodd"
-          />
-        </Svg>
+        {icon}
       </View>
       <Text style={style.contentTextBtn}>
         {title} {'\n'}
@@ -37,6 +30,8 @@ const style = StyleSheet.create({
   icon: {
     width: '15%',
     height: 45,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   contentTextBtn: {
     width: '85%',
