@@ -1,9 +1,18 @@
 /*========== ROOT IMPORTS ==========*/
-import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
+import { useEffect, useState } from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
+
+import { coordsToAddress } from '../api/coordsToAddress';
 
 /*========== COMPONENT DECLARATION ==========*/
 export function NotificationLocation() {
+  const [address, setAddress] = useState();
+
+  useEffect(() => {
+    coordsToAddress(setAddress);
+  }, []);
+
   return (
     <View style={style.notificationContainer}>
       <Svg
@@ -19,7 +28,7 @@ export function NotificationLocation() {
       </Svg>
 
       <Text style={style.notificationText}>Você está localizado em:</Text>
-      <Text style={style.highlight}>Uberaba-MG</Text>
+      <Text style={style.highlight}>{address ? `${address?.city} - ${address?.state}` : '...'}</Text>
     </View>
   );
 }
