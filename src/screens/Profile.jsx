@@ -8,18 +8,21 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { Svg, Path } from 'react-native-svg';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
-import {ProfileButton} from '../components/ProfileButton';
-import {CloseIconProfile} from '../assets/icons/CloseIconProfile';
-import {LogOutIconProfile} from '../assets/icons/LogOutIconProfile';
+import { ProfileButton } from '../components/ProfileButton';
+import { CloseIconProfile } from '../assets/icons/CloseIconProfile';
+import { LogOutIconProfile } from '../assets/icons/LogOutIconProfile';
+
+import { FirstBubble } from '../assets/icons/FirstBubble';
 
 import auth from '@react-native-firebase/auth';
-import {logOut} from '../functions/logOut';
+import { logOut } from '../functions/logOut';
+import { SecondBubble } from '../assets/icons/SecondBubble';
+import { ThirdBubble } from '../assets/icons/ThirdBubble';
 
-export function Profile({navigation}) {
-  const {navigate} = navigation;
+export function Profile({ navigation }) {
+  const { navigate } = navigation;
   const user = auth().currentUser;
   const darkMode = false;
 
@@ -73,17 +76,17 @@ export function Profile({navigation}) {
           <ProfileButton
             title="Algo deu errado?"
             text="Contate o nosso suporte para solução de problemas em seu aplicativo."
+            icon={<FirstBubble />}
           />
           <ProfileButton
             title="Dúvidas?"
             text="Contate o nosso suporte para aprender sobre a plataforma."
+            icon={<SecondBubble />}
           />
           <ProfileButton
             title="Treinamento e/ou especialização"
             text="Entre em contato conosco para soolicitar um treinamento direto á sua equipe."
-            icon={
-              'M20.25 5c-2.663 0-5.258-.943-7.8-2.85a.75.75 0 00-.9 0C9.008 4.057 6.413 5 3.75 5a.75.75 0 00-.75.75V11c0 5.001 2.958 8.676 8.725 10.948a.75.75 0 00.55 0C18.042 19.676 21 16 21 11V5.75a.75.75 0 00-.75-.75zm-8.993 2.63a.75.75 0 011.486 0l.007.102v6.5l-.007.102a.75.75 0 01-1.486 0l-.007-.102v-6.5l.007-.102zM12 18a1 1 0 110-2 1 1 0 010 2z'
-            }
+            icon={<ThirdBubble />}
           />
         </View>
       </View>
