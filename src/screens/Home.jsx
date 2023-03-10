@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 
 /*========== LIBRARY IMPORTS ==========*/
 import LottieView from 'lottie-react-native';
