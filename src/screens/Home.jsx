@@ -71,7 +71,6 @@ export function Home({navigation}) {
   /*========== FRONT ==========*/
   return (
     <View style={darkMode ? dark.homeContainer : styles.homeContainer}>
-      <ConfirmModal modal={modal} setModal={setModal} />
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
@@ -147,16 +146,19 @@ export function Home({navigation}) {
           }
           keyExtractor={item => item.id}
           renderItem={({item}) => (
-            <TaskHome
-              data={item}
-              key={item.id}
-              navigate={navigate}
-              setModal={setModal}
-              setUpdate={setUpdate}
-              update={update}
-              deleteTask={deleteTask}
-              onPress={() => navigate('TaskInfo', {item})}
-            />
+            <>
+              <ConfirmModal modal={modal} setModal={setModal} update={update} setUpdate={setUpdate} data={item}/>
+              <TaskHome
+                data={item}
+                key={item.id}
+                navigate={navigate}
+                setModal={setModal}
+                setUpdate={setUpdate}
+                update={update}
+                deleteTask={deleteTask}
+                onPress={() => navigate('TaskInfo', {item})}
+              />
+            </>
           )}
         />
       ) : (
