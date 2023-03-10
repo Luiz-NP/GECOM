@@ -5,6 +5,7 @@ import { GarbageIcon } from '../assets/icons/GarbageIcon';
 import { UpdateContext } from '../contexts/UpdateContext';
 
 import { deleteTask } from '../services/deleteTask';
+import { deleteTaskImages } from '../services/deleteTaskImages';
 
 const taskOwner = 'Algar Telecom';
 const taskType = 'Fiscalização de Campo';
@@ -25,7 +26,10 @@ export function TaskHome({ data, navigate }) {
       },
       {
         text: 'sim',
-        onPress: () => deleteTask(data, setUpdate, update),
+        onPress: () => {
+          deleteTask(data, setUpdate, update);
+          deleteTaskImages(data, setUpdate, update);
+        },
       },
     ]);
   }
