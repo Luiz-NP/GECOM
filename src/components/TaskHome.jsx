@@ -1,23 +1,12 @@
 /*========== ROOT IMPORTS ==========*/
-import {useContext} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {GarbageIcon} from '../assets/icons/GarbageIcon';
-import {UpdateContext} from '../contexts/UpdateContext';
-
-import {deleteTask} from '../services/deleteTask';
 
 const taskOwner = 'Algar Telecom';
 const taskType = 'Fiscalização de Campo';
 
-// onPress: () => deleteTask(data, setUpdate, update),
-
 /*========== COMPONENT DECLARATION ==========*/
 export function TaskHome({data, navigate, setModal}) {
-  const {alert} = Alert;
-
-  // update context
-  const {update, setUpdate} = useContext(UpdateContext);
-
   const handleConfirmationWantDeleteTask = () => {
     setModal(true);
   };

@@ -20,7 +20,9 @@ import {TaskHome} from '../components/TaskHome';
 import {ButtonNavHome} from '../components/ButtonNavHome';
 
 import {AuthContext} from '../contexts/AuthContext';
+
 import {UpdateContext} from '../contexts/UpdateContext';
+import {deleteTask} from '../services/deleteTask';
 
 import {getTasks} from '../services/getTasks';
 
@@ -150,6 +152,9 @@ export function Home({navigation}) {
               key={item.id}
               navigate={navigate}
               setModal={setModal}
+              setUpdate={setUpdate}
+              update={update}
+              deleteTask={deleteTask}
               onPress={() => navigate('TaskInfo', {item})}
             />
           )}
