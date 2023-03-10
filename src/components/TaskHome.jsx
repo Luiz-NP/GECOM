@@ -1,6 +1,6 @@
 /*========== ROOT IMPORTS ==========*/
 import { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { GarbageIcon } from '../assets/icons/GarbageIcon';
 import { UpdateContext } from '../contexts/UpdateContext';
 
@@ -11,28 +11,10 @@ const taskOwner = 'Algar Telecom';
 const taskType = 'Fiscalização de Campo';
 
 /*========== COMPONENT DECLARATION ==========*/
-export function TaskHome({ data, navigate }) {
-  const { alert } = Alert;
-
-  // update context
-  const { update, setUpdate } = useContext(UpdateContext);
-
+export function TaskHome({data, navigate, setModal}) {
   const handleConfirmationWantDeleteTask = () => {
-    alert('Apagar Task?', 'Tem certeza de que deseja apagar?', [
-      {
-        text: 'nao',
-        onPress: () => '',
-        style: 'cancel',
-      },
-      {
-        text: 'sim',
-        onPress: () => {
-          deleteTask(data, setUpdate, update);
-          deleteTaskImages(data, setUpdate, update);
-        },
-      },
-    ]);
-  }
+    setModal(true);
+  };
 
   return (
     <TouchableOpacity
@@ -43,7 +25,6 @@ export function TaskHome({ data, navigate }) {
           data,
         })
       }>
-
       <Text style={styles.ownerTask}>{taskOwner}</Text>
       <Text style={styles.textTask}>{taskType}</Text>
 
@@ -55,14 +36,13 @@ export function TaskHome({ data, navigate }) {
           <Text style={styles.textInfo}>{data.location}</Text>
         </View>
       </View>
-      
+
       <TouchableOpacity
         activeOpacity={0.8}
         style={styles.deleteTask}
         onPress={handleConfirmationWantDeleteTask}>
         <GarbageIcon />
       </TouchableOpacity>
-      
     </TouchableOpacity>
   );
 }
