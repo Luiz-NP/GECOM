@@ -13,6 +13,7 @@ import {AddNewTask} from '../screens/AddTask';
 import {TaskInfo} from '../screens/TaskInfo';
 import {Setitngs} from '../screens/Settings';
 import {FinishTask} from '../screens/FinishTask';
+import {DataPoint} from '../screens/DataPoint';
 
 // routes
 export function StackRoutes() {
@@ -86,6 +87,13 @@ export function StackRoutes() {
       <Screen
         name="CameraView"
         component={CameraView}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="DataPoint"
+        component={DataPoint}
         options={{
           headerShown: false,
         }}

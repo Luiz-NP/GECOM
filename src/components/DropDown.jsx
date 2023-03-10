@@ -3,6 +3,9 @@ import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 
 export const DropDown = ({options, value, setValue}) => {
   const [dropdown, setDropdown] = useState(false);
+  
+  const data = {};
+  console.log(data)
 
   return (
     <>
@@ -23,7 +26,7 @@ export const DropDown = ({options, value, setValue}) => {
             key={index}
             onPress={() => {
               setDropdown(!dropdown);
-              setValue(prev => [...prev, value]);
+              data[`cable${index+1}`] = value;
             }}
             style={styles.option}>
             <Text style={styles.optionText}>{value}</Text>
@@ -36,7 +39,7 @@ export const DropDown = ({options, value, setValue}) => {
             key={index}
             onPress={() => {
               setDropdown(!dropdown);
-              setValue(value);
+              setValue(value)
             }}
             style={styles.option}>
             <Text style={styles.optionText}>{value}</Text>

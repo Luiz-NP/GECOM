@@ -1,6 +1,11 @@
 /*========== ROOT IMPORTS ==========*/
+import { useContext } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {GarbageIcon} from '../assets/icons/GarbageIcon';
+import { GarbageIcon } from '../assets/icons/GarbageIcon';
+import { UpdateContext } from '../contexts/UpdateContext';
+
+import { deleteTask } from '../services/deleteTask';
+import { deleteTaskImages } from '../services/deleteTaskImages';
 
 const taskOwner = 'Algar Telecom';
 const taskType = 'Fiscalização de Campo';
