@@ -17,9 +17,8 @@ import { DropDown } from '../components/DropDown';
 import { addNewTask } from '../services/addNewTask';
 
 /*========== COMPONENTS DECLARATION ==========*/
-export function DataPoint({ route, navigation }) {
+export function DataPoint({ navigation }) {
   /*========== DESTRUCTURING ==========*/
-  const { taskID } = route.params;
   const { navigate } = navigation;
 
   // dropdown options
@@ -50,7 +49,7 @@ export function DataPoint({ route, navigation }) {
 
   /*========== STATES ==========*/
   const [cableCount, setCableCount] = useState(null);
-  const [allCables, setAllCables] = useState([]);
+  const [dataPoint, setDataPoint] = useState([]);
 
   /*========== CONTEXTS ==========*/
   const { update, setUpdate } = useContext(UpdateContext);
@@ -84,7 +83,7 @@ export function DataPoint({ route, navigation }) {
           <TouchableOpacity
             activeOpacity={1.0}
             onPress={() => navigate('Profile')}></TouchableOpacity>
-          <Text style={styles.titleScreen}>Adicionar tarefa</Text>
+          <Text style={styles.titleScreen}>Selecionar tipos de cabo</Text>
         </View>
       </View>
       <NotificationLocation />
@@ -104,8 +103,8 @@ export function DataPoint({ route, navigation }) {
               <Text style={styles.label}>Tipo do Cabo {index + 1}</Text>
               <DropDown
                 options={options.cableType}
-                value={allCables[index]}
-                setValue={setAllCables}
+                value={dataPoint[index][index]}
+                setValue={setDataPoint}
                 id={index + 1}
               />
             </View>
@@ -117,12 +116,10 @@ export function DataPoint({ route, navigation }) {
             onPress={() =>
               addNewTask(
                 'Home',
-                cableCount,
-                allCables,
+                dataPoint,
                 setUpdate,
                 update,
-                navigate,
-                taskID
+                navigate
               )}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Adicionar tarefa</Text>
@@ -133,12 +130,10 @@ export function DataPoint({ route, navigation }) {
             onPress={() =>
               addNewTask(
                 'CameraView',
-                cableCount,
-                allCables,
+                dataPoint,
                 setUpdate,
                 update,
-                navigate,
-                taskID
+                navigate
               )}>
             <View style={styles.buttonHighlight}>
               <Text style={styles.buttonText}>Iniciar inspeção</Text>
