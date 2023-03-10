@@ -10,6 +10,7 @@ import {
 import React from 'react';
 
 import {deleteTask} from '../../services/deleteTask';
+import {deleteTaskImages} from '../../services/deleteTaskImages';
 
 export const ConfirmModal = ({modal, setModal, update, setUpdate, data}) => {
   return (
@@ -31,6 +32,7 @@ export const ConfirmModal = ({modal, setModal, update, setUpdate, data}) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+                deleteTask(data, setUpdate, update);
                 deleteTask(data, setUpdate, update);
                 setModal(false);
               }}
