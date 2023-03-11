@@ -20,13 +20,13 @@ export const coordsToAddress = (setAddress) => {
             
             const address = {
                 street: formattedAddress[0],
-                number: formattedAddress[1],
-                city: formattedAddress[2].slice(0, 10),
-                state: formattedAddress[2].slice(13),
+                city: formattedAddress[2].split(' - ')[0],
+                state: formattedAddress[2].split(' - ')[1],
                 CEP: formattedAddress[3],
                 contry: formattedAddress[4],
             }
-            setAddress(address)
+            setAddress(address);
+            console.log(address);
         },
         error => {
             // See error code charts below.
