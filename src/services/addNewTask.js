@@ -26,7 +26,7 @@ export const addNewTask = async (
     // get reference of firestore's doc for this user
     const tasksRef = firestore().collection('Tasks').doc(uid)
     const newDataTask = {
-        Task: firestore.FieldValue.arrayUnion({
+        Tasks: firestore.FieldValue.arrayUnion({
             id: taskID,
             distance: 0,
             location: `${'Uberaba'} - ${'MG'}`,
