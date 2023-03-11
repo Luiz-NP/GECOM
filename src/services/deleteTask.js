@@ -8,11 +8,11 @@ export const deleteTask = async (data, setUpdate, update) => {
     const tasksRef = firestore().collection('Tasks').doc(uid);
     const tasksData = (await tasksRef.get()).data();
 
-    const tasksUpdated = tasksData.Task.filter(
+    const tasksUpdated = tasksData.Tasks.filter(
         task => task.id !== taskToDelete,
     );
 
-    tasksData.Task = tasksUpdated;
+    tasksData.Tasks = tasksUpdated;
     await tasksRef.update(tasksData);
     setUpdate(!update);
 }

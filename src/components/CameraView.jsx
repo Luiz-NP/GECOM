@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { useEffect, useRef, useState, useContext } from 'react';
 
+
 import iconCamera from '../assets/camera/capture-icon.png';
 
 import { DataContext } from '../contexts/DataContext';
@@ -27,10 +28,11 @@ export function CameraView({ navigation, route }) {
     longitude: 19.0208,
   };
 
-  const { navigate } = navigation;
+  const { replace } = navigation;
   const { taskID } = route.params;
 
   const [device, setDevice] = useState();
+  const [permissions, setPermissions] = useState();
   const [photo, setPhoto] = useState(null);
   const [location, setLocation] = useState(null);
   const [lastLocation, setLastLocation] = useState(iceland);
@@ -44,16 +46,15 @@ export function CameraView({ navigation, route }) {
 
   useEffect(() => {
     setDevice(devices.back);
-
     // request the camera and location permissions
-    requestPermission()
+    requestPermission(setPermissions);
   }, [devices]);
 
   // using custom hook to get the location of user
   useInterval(() => getCurrentPosition(lastLocation, setLastLocation, setLocation, setDelay, setLoading, data), delay);
 
   // while data is loading a loading indicator is shown
-  if (loading) return <LoadingIndicator />;
+  if (loading || !device || !permissions) return <LoadingIndicator />;
 
   if (photo && location) {
     return (
@@ -62,7 +63,7 @@ export function CameraView({ navigation, route }) {
           style={{ width: '100%', height: '100%', borderRadius: 24 }}
           source={{ uri: 'data:image/jpeg;base64,' + photo }}
         />
-        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(setData, setLocation, location, setPhoto, photo, taskID, navigate)}>
+        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(setData, setLocation, location, setPhoto, photo, taskID, replace)}>
           <Text style={styles.buttonsText}>continuar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.repeatButton} onPress={() => {
@@ -79,13 +80,13 @@ export function CameraView({ navigation, route }) {
     <View
       style={styles.container}>
       <TouchableOpacity style={styles.backHomeButton} onPress={() => {
-        navigate("Home");
+        replace("Home");
       }}>
         <Text style={styles.buttonsText}>Voltar</Text>
       </TouchableOpacity>
       {data.length > 1 && (
         <TouchableOpacity style={styles.finishButton} onPress={() => {
-          navigate("FinishTask");
+          replace("FinishTask");
         }}>
           <Text style={styles.buttonsText}>Finalizar</Text>
         </TouchableOpacity>

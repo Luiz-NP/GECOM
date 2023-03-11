@@ -12,17 +12,19 @@ export const getTasks = async (
     const tasksRef = firestore().collection('Tasks').doc(uid)
     const tasksData = (await tasksRef.get()).data()
 
+    console.log(tasksData)
+
     // all tasks
-    setTasks(tasksData?.Task)
+    setTasks(tasksData?.Tasks)
 
     // pending tasks
-    const tasksPending = tasksData?.Task.filter(
+    const tasksPending = tasksData?.Tasks.filter(
         task => task.status === 'pending',
     );
     setPendingTasks(tasksPending)
 
     // completed tasks
-    const tasksCompleted = tasksData?.Task.filter(
+    const tasksCompleted = tasksData?.Tasks.filter(
         task => task.status === 'completed',
     );
     setCompletedTasks(tasksCompleted);

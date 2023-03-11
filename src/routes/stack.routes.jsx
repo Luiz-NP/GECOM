@@ -19,7 +19,7 @@ import {DataPoint} from '../screens/DataPoint';
 export function StackRoutes() {
   return (
     <Navigator
-      // initialRouteName="FinishTask"
+      // initialRouteName="DataPoint"
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
@@ -85,15 +85,15 @@ export function StackRoutes() {
         }}
       />
       <Screen
-        name="CameraView"
-        component={CameraView}
+        name="DataPoint"
+        component={DataPoint}
         options={{
           headerShown: false,
         }}
       />
       <Screen
-        name="DataPoint"
-        component={DataPoint}
+        name="CameraView"
+        component={CameraView}
         options={{
           headerShown: false,
         }}
