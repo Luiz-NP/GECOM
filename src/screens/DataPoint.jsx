@@ -5,7 +5,6 @@ import {
   StyleSheet,
   StatusBar,
   TouchableOpacity,
-  ScrollView,
 } from 'react-native';
 import { useContext, useState } from 'react';
 
@@ -14,42 +13,22 @@ import { UpdateContext } from '../contexts/UpdateContext';
 import { Path, Svg } from 'react-native-svg';
 import { NotificationLocation } from '../components/NotificationLocation';
 import { DropDown } from '../components/DropDown';
-import { addNewTask } from '../services/addNewTask';
 
+import { dataPointUpdate } from '../services/dataPointUpdate';
 /*========== COMPONENTS DECLARATION ==========*/
-export function DataPoint({ navigation }) {
+export function DataPoint({ navigation, route }) {
   /*========== DESTRUCTURING ==========*/
   const { navigate } = navigation;
-
-  // dropdown options
-  const options = {
-    varietyOfCables: [1, 2, 3, 4],
-    cableType: [
-      'CTP-APL 40X10 P',
-      'CTP-APL 20P',
-      'CTP-APL XSDL 40X20 P',
-      'CTP-APL 40X30 P',
-      'CTP-APL XSDL 40X30 P',
-      'CTP-APL 40X40 P',
-      'CTP-APL 40X50 P',
-      'CTP-APL XSDL 50P',
-      'CTP-APL 40X100 P',
-      'CTP-APL XSDL 100 P',
-      'CTP-APL 200 P',
-      'CTP-APL XSDL 40X200 P',
-      'CTP-APL 300 P',
-      'CTP-APL XSDL 40X300 P',
-      'CTP-APL XSDL 40X400 P',
-      'CTS-APL-G 40C600 P',
-      'CTP-APL 40X1200 P',
-      'CTP-APL 40X1800 P',
-      'CTP-APL 40X2400 P',
-    ],
-  };
+  const { taskID } = route.params;
 
   /*========== STATES ==========*/
-  const [cableCount, setCableCount] = useState(null);
-  const [dataPoint, setDataPoint] = useState([]);
+  const [cableType, setCableType] = useState([
+    {label: 'CTP-APL 20P', value: 'CTP-APL 20P'},
+    {label: 'CTP-APL 40P', value: 'CTP-APL 40P'},
+    {label: 'CTP-APL 60P', value: 'CTP-APL 60P'},
+    {label: 'CTP-APL 80P', value: 'CTP-APL 80P'},
+  ]);
+  const [cableTypes, setCableTypes] = useState(null);
 
   /*========== CONTEXTS ==========*/
   const { update, setUpdate } = useContext(UpdateContext);
@@ -87,60 +66,34 @@ export function DataPoint({ navigation }) {
         </View>
       </View>
       <NotificationLocation />
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.form}>
+      <View showsVerticalScrollIndicator={false} style={styles.form}>
         <View style={[styles.inputArea, styles.spacer]}>
           <View style={styles.localInput}></View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Variedade de Cabos</Text>
             <DropDown
-              options={options.varietyOfCables}
-              value={cableCount}
-              setValue={setCableCount}
+              items={cableType} 
+              setItems={setCableType}
+              value={cableTypes}
+              setValue={setCableTypes}
+              multiple={true}
             />
           </View>
-          {Array.from({ length: cableCount }).map((value, index) => (
-            <View key={index}>
-              <Text style={styles.label}>Tipo do Cabo {index + 1}</Text>
-              <DropDown
-                options={options.cableType}
-                value={dataPoint[index][index]}
-                setValue={setDataPoint}
-                id={index + 1}
-              />
-            </View>
-          ))}
         </View>
-        <View style={styles.actionArea}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() =>
-              addNewTask(
-                'Home',
-                dataPoint,
-                setUpdate,
-                update,
-                navigate
-              )}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Adicionar tarefa</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() =>
-              addNewTask(
-                'CameraView',
-                dataPoint,
-                setUpdate,
-                update,
-                navigate
-              )}>
-            <View style={styles.buttonHighlight}>
-              <Text style={styles.buttonText}>Iniciar inspeção</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      </View>
+        <TouchableOpacity
+          style={styles.continueButton}
+          activeOpacity={0.8}
+          onPress={() => {
+            navigate('CameraView', {taskID: taskID, activeCamera: true});
+            dataPointUpdate(
+            cableTypes,
+            taskID
+          )}}>
+          <View style={styles.buttonHighlight}>
+            <Text style={styles.buttonText}>Continuar a inspeção</Text>
+          </View>
+        </TouchableOpacity>
     </View>
   );
 }
@@ -153,6 +106,7 @@ const styles = StyleSheet.create({
 
   spacer: {
     marginTop: 24,
+    zIndex: 1,
   },
 
   backBtn: {
@@ -215,20 +169,15 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 36,
   },
-  button: {
-    width: '100%',
-    height: 60,
-    backgroundColor: '#1e1e1e',
-    borderRadius: 15,
-    marginVertical: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+  continueButton: {
+    position: 'absolute',
+    bottom: 48,
+    width: '100%'
   },
   buttonHighlight: {
     width: '100%',
     height: 60,
     backgroundColor: '#025248',
-    borderRadius: 15,
     marginVertical: 6,
     alignItems: 'center',
     justifyContent: 'center',

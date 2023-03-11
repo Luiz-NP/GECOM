@@ -5,7 +5,6 @@ import {
   StyleSheet,
   StatusBar,
   TouchableOpacity,
-  ScrollView,
   TextInput,
 } from 'react-native';
 import { useContext, useState } from 'react';
@@ -22,13 +21,15 @@ export function AddNewTask({ navigation }) {
   /*========== DESTRUCTURING ==========*/
   const { navigate } = navigation;
 
-  // dropdown options
-  const options = {
-    company: ['Algar', 'Claro', 'Tim', 'Vivo', 'Ctbc'],
-  };
-
   /*========== STATES ==========*/
-  const [company, setCompany] = useState(null);
+  const [company, setCompany] = useState([
+    {label: 'Algar', value: 'Algar'}, 
+    {label: 'Claro', value: 'Claro'}, 
+    {label: 'Tim', value: 'Tim'}, 
+    {label: 'Vivo', value: 'Vivo'}, 
+    {label: 'Ctbc', value: 'Ctbc'}
+  ]);
+  const [companyValue, setCompanyValue] = useState(null);
   const [OSNumber, setOSNumber] = useState(null);
 
   /*========== CONTEXTS ==========*/
@@ -67,7 +68,7 @@ export function AddNewTask({ navigation }) {
         </View>
       </View>
       <NotificationLocation />
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.form}>
+      <View showsVerticalScrollIndicator={false} style={styles.form}>
         <View style={[styles.inputArea, styles.spacer]}>
           <View style={styles.localInput}></View>
           <View style={styles.inputContainer}>
@@ -81,46 +82,48 @@ export function AddNewTask({ navigation }) {
               maxLength={1}
             />
             <Text style={styles.label}>Empresa</Text>
-            <DropDown
-              options={options.company}
-              value={company}
-              setValue={setCompany}
+            <DropDown 
+              items={company} 
+              setItems={setCompany}
+              value={companyValue}
+              setValue={setCompanyValue}
+              multiple={false}
             />
           </View>
         </View>
-        <View style={styles.actionArea}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() =>
-              addNewTask(
-                'Home',
-                company,
-                OSNumber,
-                setUpdate,
-                update,
-                navigate
-              )}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Adicionar tarefa</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() =>
-              addNewTask(
-                'CameraView',
-                company,
-                OSNumber,
-                setUpdate,
-                update,
-                navigate
-              )}>
-            <View style={styles.buttonHighlight}>
-              <Text style={styles.buttonText}>Iniciar inspeção</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() =>
+                addNewTask(
+                  'Home',
+                  companyValue,
+                  OSNumber,
+                  setUpdate,
+                  update,
+                  navigate
+                )}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Adicionar tarefa</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() =>
+                addNewTask(
+                  'CameraView',
+                  companyValue,
+                  OSNumber,
+                  setUpdate,
+                  update,
+                  navigate
+                )}>
+              <View style={styles.buttonHighlight}>
+                <Text style={styles.buttonText}>Iniciar inspeção</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
     </View>
   );
 }
@@ -133,6 +136,7 @@ const styles = StyleSheet.create({
 
   spacer: {
     marginTop: 24,
+    zIndex: 1
   },
 
   backBtn: {
@@ -206,11 +210,16 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 36,
   },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 48,
+    width: '100%'
+  },
+
   button: {
     width: '100%',
     height: 60,
     backgroundColor: '#1e1e1e',
-    borderRadius: 15,
     marginVertical: 12,
     alignItems: 'center',
     justifyContent: 'center',
@@ -219,7 +228,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 60,
     backgroundColor: '#025248',
-    borderRadius: 15,
     marginVertical: 6,
     alignItems: 'center',
     justifyContent: 'center',
