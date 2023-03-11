@@ -8,8 +8,10 @@ export const continueAndSendPhoto = async (
     setPhoto,
     photo,
     taskID,
-    navigate
+    replace
 ) => {
+    replace('DataPoint', {taskID: taskID});
+
     const data = {
         photo: photo,
         location: location,
