@@ -88,12 +88,10 @@ const styles = StyleSheet.create({
 
   deleteTask: {
     position: 'absolute',
-    right: 0,
-    height: '100%',
-    paddingTop: 24,
-    paddingBottom: 24,
-    paddingLeft: 24,
-    paddingRight: 16,
+    top: 36,
+    right: 12,
+    backgroundColor: '#006458',
+    padding: 6,
     borderRadius: 50,
   },
 });
