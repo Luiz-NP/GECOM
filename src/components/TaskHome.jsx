@@ -1,8 +1,7 @@
 /*========== ROOT IMPORTS ==========*/
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import { GarbageIcon } from '../assets/icons/GarbageIcon';
+import {GarbageIcon} from '../assets/icons/GarbageIcon';
 
-const taskOwner = 'Algar Telecom';
 const taskType = 'Fiscalização de Campo';
 
 /*========== COMPONENT DECLARATION ==========*/
@@ -20,7 +19,7 @@ export function TaskHome({data, navigate, setModal}) {
           data,
         })
       }>
-      <Text style={styles.ownerTask}>{taskOwner}</Text>
+      <Text style={styles.ownerTask}>{data.company}</Text>
       <Text style={styles.textTask}>{taskType}</Text>
 
       <View style={styles.contentInfo}>

@@ -7,33 +7,32 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import { useContext, useState } from 'react';
+import {useContext, useState} from 'react';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
-import { UpdateContext } from '../contexts/UpdateContext';
-import { Path, Svg } from 'react-native-svg';
-import { NotificationLocation } from '../components/NotificationLocation';
-import { DropDown } from '../components/DropDown';
-import { addNewTask } from '../services/addNewTask';
+import {UpdateContext} from '../contexts/UpdateContext';
+import {Path, Svg} from 'react-native-svg';
+import {NotificationLocation} from '../components/NotificationLocation';
+import {DropDown} from '../components/DropDown';
+import {addNewTask} from '../services/addNewTask';
 
 /*========== COMPONENTS DECLARATION ==========*/
-export function AddNewTask({ navigation }) {
+export function AddNewTask({navigation}) {
   /*========== DESTRUCTURING ==========*/
-  const { navigate } = navigation;
+  const {navigate} = navigation;
 
   /*========== STATES ==========*/
   const [company, setCompany] = useState([
-    {label: 'Algar', value: 'Algar'}, 
-    {label: 'Claro', value: 'Claro'}, 
-    {label: 'Tim', value: 'Tim'}, 
-    {label: 'Vivo', value: 'Vivo'}, 
-    {label: 'Ctbc', value: 'Ctbc'}
+    {label: 'Algar Telecom', value: 'Algar Telecom'},
+    {label: 'Claro', value: 'Claro'},
+    {label: 'Tim', value: 'Tim'},
+    {label: 'Vivo', value: 'Vivo'},
   ]);
   const [companyValue, setCompanyValue] = useState(null);
   const [OSNumber, setOSNumber] = useState(null);
 
   /*========== CONTEXTS ==========*/
-  const { update, setUpdate } = useContext(UpdateContext);
+  const {update, setUpdate} = useContext(UpdateContext);
 
   /*========== FRONT ==========*/
   return (
@@ -79,11 +78,14 @@ export function AddNewTask({ navigation }) {
               placeholder="Numero da OS"
               placeholderTextColor={'#444'}
               onChangeText={text => setOSNumber(text)}
-              maxLength={1}
+              maxLength={5}
             />
-            <Text style={styles.label}>Empresa</Text>
-            <DropDown 
-              items={company} 
+            <View style={styles.required}>
+              <Text style={styles.label}>Empresa</Text>
+              <Text style={styles.requiredText}>*</Text>
+            </View>
+            <DropDown
+              items={company}
               setItems={setCompany}
               value={companyValue}
               setValue={setCompanyValue}
@@ -92,38 +94,40 @@ export function AddNewTask({ navigation }) {
           </View>
         </View>
       </View>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() =>
-                addNewTask(
-                  'Home',
-                  companyValue,
-                  OSNumber,
-                  setUpdate,
-                  update,
-                  navigate
-                )}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Adicionar tarefa</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() =>
-                addNewTask(
-                  'CameraView',
-                  companyValue,
-                  OSNumber,
-                  setUpdate,
-                  update,
-                  navigate
-                )}>
-              <View style={styles.buttonHighlight}>
-                <Text style={styles.buttonText}>Iniciar inspeção</Text>
-              </View>
-            </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() =>
+            addNewTask(
+              'Home',
+              companyValue,
+              OSNumber,
+              setUpdate,
+              update,
+              navigate,
+            )
+          }>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Adicionar tarefa</Text>
           </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() =>
+            addNewTask(
+              'CameraView',
+              companyValue,
+              OSNumber,
+              setUpdate,
+              update,
+              navigate,
+            )
+          }>
+          <View style={styles.buttonHighlight}>
+            <Text style={styles.buttonText}>Iniciar inspeção</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -136,7 +140,7 @@ const styles = StyleSheet.create({
 
   spacer: {
     marginTop: 24,
-    zIndex: 1
+    zIndex: 1,
   },
 
   backBtn: {
@@ -182,12 +186,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
 
+  required: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
   label: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 16,
     color: '#FFFFFF',
     marginBottom: 6,
     marginTop: 12,
+  },
+
+  requiredText: {
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
+    color: '#FF0000',
+    marginTop: 6,
+    marginLeft: 2,
   },
 
   input: {
@@ -213,7 +230,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     position: 'absolute',
     bottom: 48,
-    width: '100%'
+    width: '100%',
   },
 
   button: {

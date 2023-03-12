@@ -46,15 +46,15 @@ export function TaskInfo({route, navigation}) {
           <Text style={styles.title}>Informações da tarefa</Text>
         </View>
       </View>
-      <ScrollView>
+      <ScrollView style={styles.container}>
         <View style={styles.infoBubble}>
           <Text style={styles.headerText}>O.S</Text>
-          <Text style={styles.osText}>23578</Text>
+          <Text style={styles.osText}>{data.OSNumber}</Text>
         </View>
         <View style={styles.dataBubble}>
           <Svg
-            width={32}
-            height={32}
+            width={24}
+            height={24}
             style={[{marginBottom: 6}]}
             viewBox="0 0 24 24"
             fill="none"
@@ -64,7 +64,7 @@ export function TaskInfo({route, navigation}) {
               fill="white"
             />
           </Svg>
-          <Text style={styles.dataInfo}>Uberaba - MG</Text>
+          <Text style={styles.dataInfo}>Rua Calixto Alves de Souza</Text>
         </View>
         <View style={styles.cableBubble}>
           <Text style={styles.cableText}>Tipos de cabos</Text>
@@ -82,12 +82,13 @@ export function TaskInfo({route, navigation}) {
               <Text style={styles.cableType}>CTP APL 1000P</Text>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => navigate('CameraView', {taskID: data.id})}
-            style={styles.initTaskButton}>
-            <Text style={styles.initTaskButtontext}>Iniciar Task</Text>
-          </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => navigate('CameraView', {taskID: data.id})}
+          style={styles.initTaskButton}>
+          <Text style={styles.initTaskButtontext}>Iniciar tarefa</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -97,6 +98,10 @@ const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
     backgroundColor: '#025248',
+  },
+
+  container: {
+    paddingHorizontal: 24,
   },
 
   userArea: {
@@ -154,7 +159,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     marginTop: 24,
     borderBottomWidth: 1,
-    borderColor: '#006458',
+    borderColor: '#00c4ac',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -162,15 +167,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     paddingHorizontal: 24,
-    borderBottomWidth: 1,
-    borderColor: '#006458',
     justifyContent: 'center',
     alignItems: 'center',
   },
   cableBubble: {
     width: '100%',
     paddingVertical: 24,
-    borderColor: '#006458',
+    borderRadius: 15,
+    borderColor: '#00c4ac',
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -211,7 +215,7 @@ const styles = StyleSheet.create({
   },
 
   initTaskButton: {
-    width: '80%',
+    width: '100%',
     borderRadius: 15,
     paddingVertical: 8,
     borderWidth: 1,

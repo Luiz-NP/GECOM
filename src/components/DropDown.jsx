@@ -11,6 +11,7 @@ export const DropDown = ({items, setItems, value, setValue, multiple}) => {
       open={open}
       value={value}
       items={items}
+      
       setOpen={setOpen}
       setValue={setValue}
       setItems={setItems}
@@ -21,9 +22,10 @@ export const DropDown = ({items, setItems, value, setValue, multiple}) => {
       scrollViewProps={{
         nestedScrollEnabled: true
       }}
-      badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}
+      badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#00c4ac", "#8ac926", "#00b4d8", "#e9c46a"]}
       searchable
       searchPlaceholder="Pesquisar. . ."
+      
       style={{
         backgroundColor: '#1e1e1e',
         flex: 1,
