@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   StatusBar,
+  useState,
 } from 'react-native';
 import React from 'react';
 
@@ -13,6 +14,10 @@ import LottieView from 'lottie-react-native';
 
 import {deleteTask} from '../../services/deleteTask';
 import {deleteTaskImages} from '../../services/deleteTaskImages';
+
+let loadingDelete = false;
+
+console.log(loadingDelete);
 
 export const ConfirmModal = ({modal, setModal, update, setUpdate, data}) => {
   return (
@@ -48,9 +53,13 @@ export const ConfirmModal = ({modal, setModal, update, setUpdate, data}) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  deleteTask(data, setUpdate, update);
-                  setModal(false);
                   loadingDelete = true;
+                  deleteTask(data, setUpdate, update);
+                  setTimeout(() => {
+                    setUpdate(!update);
+                    setModal(false);
+                    loadingDelete = false;
+                  }, 1000);
                 }}
                 activeOpacity={0.8}
                 style={styles.confirmBtn}>
@@ -73,7 +82,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     width: '100%',
-    height: 300,
+    height: 200,
     backgroundColor: '#025248',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -94,14 +103,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
     marginTop: 'auto',
     marginBottom: 24,
   },
 
   cancelBtn: {
-    width: 150,
-    height: 60,
+    width: 175,
+    height: 70,
     backgroundColor: '#1e1e1e',
     borderRadius: 15,
     alignItems: 'center',
@@ -115,8 +123,8 @@ const styles = StyleSheet.create({
   },
 
   confirmBtn: {
-    width: 150,
-    height: 60,
+    width: 175,
+    height: 70,
     backgroundColor: '#00c4ac',
     borderRadius: 15,
     alignItems: 'center',
@@ -133,7 +141,7 @@ const styles = StyleSheet.create({
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 24,
     color: 'white',
-    marginTop: 48,
+    marginVertical: 24,
   },
 
   topArea: {
