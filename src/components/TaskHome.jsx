@@ -35,7 +35,7 @@ export function TaskHome({data, navigate, setModal}) {
         activeOpacity={0.8}
         style={styles.deleteTask}
         onPress={handleConfirmationWantDeleteTask}>
-        <GarbageIcon />
+        <GarbageIcon width={32} height={32} />
       </TouchableOpacity>
     </TouchableOpacity>
   );
