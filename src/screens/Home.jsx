@@ -147,7 +147,13 @@ export function Home({navigation}) {
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <>
-              <ConfirmModal modal={modal} setModal={setModal} update={update} setUpdate={setUpdate} data={item}/>
+              <ConfirmModal
+                modal={modal}
+                setModal={setModal}
+                update={update}
+                setUpdate={setUpdate}
+                data={item}
+              />
               <TaskHome
                 data={item}
                 key={item.id}

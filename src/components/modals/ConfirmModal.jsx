@@ -25,7 +25,7 @@ export const ConfirmModal = ({modal, setModal, update, setUpdate, data}) => {
       visible={modal}
       transparent={true}
       statusBarTranslucent
-      animationType="fade">
+      animationType="slide">
       <StatusBar barStyle="light-content" translucent />
       <View style={styles.container}>
         <View style={styles.bottomContainer}>
@@ -56,10 +56,9 @@ export const ConfirmModal = ({modal, setModal, update, setUpdate, data}) => {
                   loadingDelete = true;
                   deleteTask(data, setUpdate, update);
                   setTimeout(() => {
-                    setUpdate(!update);
                     setModal(false);
                     loadingDelete = false;
-                  }, 1000);
+                  }, 3000);
                 }}
                 activeOpacity={0.8}
                 style={styles.confirmBtn}>
@@ -78,8 +77,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     marginBottom: 24,
-    backgroundColor: 'rgba(0,0,0,0.5)',
   },
+
   bottomContainer: {
     width: '100%',
     height: 200,
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
   cancelBtn: {
     width: 175,
     height: 70,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: 'white',
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
@@ -119,7 +118,7 @@ const styles = StyleSheet.create({
   cancelBtnText: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 16,
-    color: 'white',
+    color: 'black',
   },
 
   confirmBtn: {
