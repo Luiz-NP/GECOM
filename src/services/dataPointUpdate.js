@@ -12,16 +12,8 @@ export const dataPointUpdate = async (
         Toast.LONG,
     );
 
+    navigate('CameraView', {taskID: taskID});
     const { uid } = auth().currentUser;
-
-    const cableTypesObject = cableTypes.map((value, index) => {
-        const key = `cableType${index+1}`;
-        return { [key]: value };
-    });
-
-    console.log(...cableTypesObject)
-
-    console.log(cableTypesObject);
 
     const taskRef = firestore().collection('Tasks').doc(uid)
     
