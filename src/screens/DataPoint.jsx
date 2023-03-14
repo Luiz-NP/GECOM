@@ -85,10 +85,10 @@ export function DataPoint({ navigation, route }) {
           style={styles.continueButton}
           activeOpacity={0.8}
           onPress={() => {
-            navigate('CameraView', {taskID: taskID, activeCamera: true});
             dataPointUpdate(
             cableTypes,
-            taskID
+            taskID,
+            navigate
           )}}>
           <View style={styles.buttonHighlight}>
             <Text style={styles.buttonText}>Continuar a inspeção</Text>

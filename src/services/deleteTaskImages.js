@@ -1,7 +1,7 @@
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 
-export const deleteTaskImages = async (data, setUpdate, update) => {
+export const deleteTaskImages = async (data) => {
     const taskID = data.id;
 
     try {

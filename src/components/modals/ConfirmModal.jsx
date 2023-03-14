@@ -55,6 +55,7 @@ export const ConfirmModal = ({modal, setModal, update, setUpdate, data}) => {
                 onPress={() => {
                   loadingDelete = true;
                   deleteTask(data, setUpdate, update);
+                  deleteTaskImages(data);
                   setTimeout(() => {
                     setModal(false);
                     loadingDelete = false;
