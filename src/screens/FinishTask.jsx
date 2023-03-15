@@ -1,62 +1,87 @@
-import { Button, StyleSheet, View, Text } from "react-native";
-import { useContext, useEffect, useState } from "react";
-import { PositionsContext } from "../contexts/PositionsContext";
+import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
+import {useContext, useEffect, useState} from 'react';
+import {PositionsContext} from '../contexts/PositionsContext';
 
-import { calcMeters } from "../api/calcMeters";
-import { downloadExcel } from "../services/downloadExcel";
+import {calcMeters} from '../api/calcMeters';
+import {downloadExcel} from '../services/downloadExcel';
+import LottieView from 'lottie-react-native';
 
-import { LoadingIndicator } from "../components/LoadingIndicator";
+import {LoadingIndicator} from '../components/LoadingIndicator';
 
-export const FinishTask = ({ navigation }) => {
+export const FinishTask = ({navigation}) => {
+  const {navigate} = navigation;
+  const [speed, setSpeed] = useState(1);
 
-	const { navigate } = navigation;
+  const [meters, setMeters] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [roadPoints, setRoadPoints] = useState();
 
-	const [meters, setMeters] = useState(0);
-	const [loading, setLoading] = useState(false);
-	const [roadPoints, setRoadPoints] = useState();
+  const {positions, setPositions} = useContext(PositionsContext);
 
-	const { positions, setPositions } = useContext(PositionsContext);
+  useEffect(() => {
+    calcMeters(positions, setPositions, setMeters);
+    setTimeout(() => setSpeed(0), 2000);
+  }, []);
 
-	useEffect(() => {
-		calcMeters(
-			positions,
-			setPositions,
-			setMeters
-		)
-	}, []);
+  // loading state
+  if (loading) return <LoadingIndicator />;
 
-	// loading state
-	if (loading) return <LoadingIndicator />
-
-	return (
-		<View style={styles.wrapper}>
-			<Text style={styles.title}>Task Finalizada!</Text>
-			<Text style={styles.info}>{meters} metros percorridos.</Text>
-			<Button onPress={() => downloadExcel(roadPoints)} title="Download Excel" />
-			<View style={styles.space}></View>
-			<Button onPress={() => navigate("Home")} title="Voltar" />
-		</View>
-	);
+  return (
+    <View style={styles.container}>
+      <LottieView
+        source={require('../assets/img/concluded.json')}
+        style={styles.animation}
+        autoPlay
+        speed={speed}
+      />
+      <View style={styles.textArea}>
+        <Text style={styles.title}>Tarefa finalizada</Text>
+        <Text style={styles.text}>{meters} metros percorridos</Text>
+      </View>
+      <TouchableOpacity
+        style={styles.downloadBtn}
+        activeOpacity={0.8}
+        onPress={() => downloadExcel(roadPoints)}>
+        <Text style={styles.downloadBtnText}>Baixar relatório</Text>
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-	wrapper: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-		backgroundColor: "black",
-	},
-
-	title: {
-		fontSize: 24,
-		marginBottom: 24,
-	},
-
-	info: {
-		marginBottom: 24,
-	},
-
-	space: {
-		marginVertical: 24,
-	}
+  container: {
+    flex: 1,
+    backgroundColor: '#006458',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textArea: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 32,
+    color: '#fff',
+    fontFamily: 'ClashGrotesk-Medium',
+  },
+  text: {
+    fontSize: 24,
+    color: '#fff',
+    fontFamily: 'ClashGrotesk-Light',
+  },
+  animation: {
+    width: 300,
+    height: 300,
+  },
+  downloadBtn: {
+    backgroundColor: '#025248',
+    padding: 16,
+    borderRadius: 8,
+    marginTop: 24,
+  },
+  downloadBtnText: {
+    fontSize: 16,
+    color: 'white',
+    fontFamily: 'ClashGrotesk-Medium',
+  },
 });

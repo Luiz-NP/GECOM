@@ -19,7 +19,7 @@ import {DataPoint} from '../screens/DataPoint';
 export function StackRoutes() {
   return (
     <Navigator
-      // initialRouteName="DataPoint"
+      // initialRouteName="FinishTask"
       screenOptions={{
         gestureEnabled: false,
         gestureDirection: 'horizontal',
