@@ -6,20 +6,21 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-import { useContext, useState } from 'react';
+import { useState, useContext } from 'react';
+import { PositionsContext } from "../contexts/PositionsContext";
+
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
-import { UpdateContext } from '../contexts/UpdateContext';
 import { Path, Svg } from 'react-native-svg';
 import { NotificationLocation } from '../components/NotificationLocation';
 import { DropDown } from '../components/DropDown';
 
-import { dataPointUpdate } from '../services/dataPointUpdate';
+import { dataPointAndCableTypeLengthUpdate } from '../services/dataPointAndCableTypeLengthUpdate';
 /*========== COMPONENTS DECLARATION ==========*/
 export function DataPoint({ navigation, route }) {
   /*========== DESTRUCTURING ==========*/
   const { navigate } = navigation;
-  const { taskID } = route.params;
+  const { taskID, meters } = route.params;
 
   /*========== STATES ==========*/
   const [cableType, setCableType] = useState([
@@ -30,8 +31,7 @@ export function DataPoint({ navigation, route }) {
   ]);
   const [cableTypes, setCableTypes] = useState(null);
 
-  /*========== CONTEXTS ==========*/
-  const { update, setUpdate } = useContext(UpdateContext);
+  const { positions, setPositions } = useContext(PositionsContext)
 
   /*========== FRONT ==========*/
   return (
@@ -85,10 +85,13 @@ export function DataPoint({ navigation, route }) {
           style={styles.continueButton}
           activeOpacity={0.8}
           onPress={() => {
-            dataPointUpdate(
+            dataPointAndCableTypeLengthUpdate(
             cableTypes,
             taskID,
-            navigate
+            navigate,
+            meters,
+            positions, 
+            setPositions,
           )}}>
           <View style={styles.buttonHighlight}>
             <Text style={styles.buttonText}>Continuar a inspeção</Text>

@@ -7,7 +7,7 @@ export const getCurrentPosition = (
     setLocation,
     setDelay,
     setLoading,
-    data
+    positions
 ) => {
     Geolocation.getCurrentPosition(
         position => {
@@ -21,10 +21,10 @@ export const getCurrentPosition = (
             setLastLocation(coordinates);
 
             const expression = diference < 1 &&
-                !data.some(
+                !positions?.some(
                     x =>
-                        coordinates.latitude === x.location.latitude &&
-                        coordinates.longitude === x.location.longitude,
+                        coordinates.latitude === x.latitude &&
+                        coordinates.longitude === x.longitude,
                 )
 
             if (expression) {

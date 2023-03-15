@@ -1,23 +1,24 @@
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
+import { calcMeters } from '../api/calcMeters';
 
 export const continueAndSendPhoto = async (
-    setData,
+    positions,
+    setPositions,
     setLocation,
     location,
     setPhoto,
     photo,
+    meters,
+    setMeters,
     taskID,
     replace
 ) => {
-    replace('DataPoint', {taskID: taskID});
+    replace('DataPoint', {taskID: taskID, meters: meters});
+    if (positions.length > 1) calcMeters(positions, setMeters);
+    console.log("meters in continueAndSendPhoto", meters);
 
-    const data = {
-        photo: photo,
-        location: location,
-    };
-
-    setData(prev => [...prev, data]);
+    setPositions(prev => [...prev, location]);
     setLocation(null);
     setPhoto(null);
 

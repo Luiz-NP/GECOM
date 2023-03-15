@@ -12,7 +12,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 
 import iconCamera from '../assets/camera/capture-icon.png';
 
-import { DataContext } from '../contexts/DataContext';
+import { PositionsContext } from '../contexts/PositionsContext';
 import { useInterval } from '../hooks/useInterval';
 
 import { getCurrentPosition } from '../functions/getCurrentPosition';
@@ -40,7 +40,7 @@ export function CameraView({ navigation, route }) {
   const [loading, setLoading] = useState(false);
 
   const devices = useCameraDevices('wide-angle-camera');
-  const { data, setData } = useContext(DataContext);
+  const { positions, setPositions, meters, setMeters } = useContext(PositionsContext);
 
   const camera = useRef();
 
@@ -51,7 +51,7 @@ export function CameraView({ navigation, route }) {
   }, [devices]);
 
   // using custom hook to get the location of user
-  useInterval(() => getCurrentPosition(lastLocation, setLastLocation, setLocation, setDelay, setLoading, data), delay);
+  useInterval(() => getCurrentPosition(lastLocation, setLastLocation, setLocation, setDelay, setLoading, positions), delay);
 
   // while data is loading a loading indicator is shown
   if (loading || !device || !permissions) return <LoadingIndicator />;
@@ -63,7 +63,7 @@ export function CameraView({ navigation, route }) {
           style={{ width: '100%', height: '100%', borderRadius: 24 }}
           source={{ uri: 'data:image/jpeg;base64,' + photo }}
         />
-        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(setData, setLocation, location, setPhoto, photo, taskID, replace)}>
+        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(positions, setPositions, setLocation, location, setPhoto, photo, meters, setMeters, taskID, replace)}>
           <Text style={styles.buttonsText}>continuar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.repeatButton} onPress={() => {
@@ -84,7 +84,7 @@ export function CameraView({ navigation, route }) {
       }}>
         <Text style={styles.buttonsText}>Voltar</Text>
       </TouchableOpacity>
-      {data.length > 1 && (
+      {positions?.length > 1 && (
         <TouchableOpacity style={styles.finishButton} onPress={() => {
           replace("FinishTask");
         }}>

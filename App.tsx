@@ -1,16 +1,16 @@
 import {Routes} from './src/routes';
 import {AuthProvider} from './src/contexts/AuthContext';
-import {DataProvider} from './src/contexts/DataContext';
+import {PositionsProvider} from './src/contexts/PositionsContext';
 import {UpdateProvider} from './src/contexts/UpdateContext';
 
 const App = () => {
   return (
     <AuthProvider>
-      <DataProvider>
+      <PositionsProvider>
         <UpdateProvider>
           <Routes />
         </UpdateProvider>
-      </DataProvider>  
+      </PositionsProvider> 
     </AuthProvider>
   );
 };
