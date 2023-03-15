@@ -20,7 +20,7 @@ import { dataPointAndCableTypeLengthUpdate } from '../services/dataPointAndCable
 export function DataPoint({ navigation, route }) {
   /*========== DESTRUCTURING ==========*/
   const { navigate } = navigation;
-  const { taskID, meters } = route.params;
+  const { taskID } = route.params;
 
   /*========== STATES ==========*/
   const [cableType, setCableType] = useState([
@@ -31,7 +31,7 @@ export function DataPoint({ navigation, route }) {
   ]);
   const [cableTypes, setCableTypes] = useState(null);
 
-  const { positions, setPositions } = useContext(PositionsContext)
+  const { positions, setPositions, meters, setMeters } = useContext(PositionsContext)
 
   /*========== FRONT ==========*/
   return (
@@ -90,8 +90,7 @@ export function DataPoint({ navigation, route }) {
             taskID,
             navigate,
             meters,
-            positions, 
-            setPositions,
+            setMeters,
           )}}>
           <View style={styles.buttonHighlight}>
             <Text style={styles.buttonText}>Continuar a inspeção</Text>
