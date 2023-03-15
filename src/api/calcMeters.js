@@ -4,6 +4,7 @@ import { getPreciseDistance } from 'geolib';
 
 export const calcMeters = async (
     positions,
+    setPositions,
     setMeters
 ) => {
     const apiKey = "AIzaSyACDtPI_RGlrWSaj--md9PQFctUHi-PtV8";
@@ -36,7 +37,7 @@ export const calcMeters = async (
             console.log("meters:", meters);
 
             setMeters(prev => prev + meters);
-
+            setPositions([]);
         })
         .catch(err => console.log(err));
 };

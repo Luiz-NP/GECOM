@@ -6,7 +6,6 @@ export const continueAndSendPhoto = async (
     positions,
     setPositions,
     setLocation,
-    location,
     setPhoto,
     photo,
     meters,
@@ -14,11 +13,10 @@ export const continueAndSendPhoto = async (
     taskID,
     replace
 ) => {
-    replace('DataPoint', {taskID: taskID, meters: meters});
-    if (positions.length > 1) calcMeters(positions, setMeters);
-    console.log("meters in continueAndSendPhoto", meters);
+    replace('DataPoint', {taskID: taskID});
+    if (positions.length > 1) calcMeters(positions, setPositions, setMeters);
+    console.log(positions);
 
-    setPositions(prev => [...prev, location]);
     setLocation(null);
     setPhoto(null);
 

@@ -50,6 +50,10 @@ export function CameraView({ navigation, route }) {
     requestPermission(setPermissions);
   }, [devices]);
 
+  useEffect(() => {
+    if (location) setPositions(prev => [...prev, location]);
+  }, [location]);
+
   // using custom hook to get the location of user
   useInterval(() => getCurrentPosition(lastLocation, setLastLocation, setLocation, setDelay, setLoading, positions), delay);
 
@@ -63,7 +67,7 @@ export function CameraView({ navigation, route }) {
           style={{ width: '100%', height: '100%', borderRadius: 24 }}
           source={{ uri: 'data:image/jpeg;base64,' + photo }}
         />
-        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(positions, setPositions, setLocation, location, setPhoto, photo, meters, setMeters, taskID, replace)}>
+        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(positions, setPositions, setLocation, setPhoto, photo, meters, setMeters, taskID, replace)}>
           <Text style={styles.buttonsText}>continuar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.repeatButton} onPress={() => {

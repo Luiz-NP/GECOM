@@ -1,6 +1,5 @@
 import auth from "@react-native-firebase/auth"
 import firestore from "@react-native-firebase/firestore"
-import { useContext } from "react";
 
 import Toast from 'react-native-simple-toast';
 
@@ -9,6 +8,7 @@ export const dataPointAndCableTypeLengthUpdate = async (
     taskID,
     navigate,
     meters,
+    setMeters
 ) => {
     if (!cableTypes) return Toast.show(
         'Selecione pelo menos um tipo de cabo',
@@ -26,7 +26,7 @@ export const dataPointAndCableTypeLengthUpdate = async (
     const dataPoints = dataPointUpdate(taskData, cableTypes);
 
     // cable type length update
-    const cableTypesLength = cableTypesLengthUpdate(taskData, cableTypes, meters);
+    const cableTypesLength = cableTypesLengthUpdate(taskData, cableTypes, meters, setMeters);
 
     const newDataTask = {
         Tasks: firestore.FieldValue.arrayUnion({...taskData, dataPoints: dataPoints, cableTypesLength})
@@ -45,7 +45,7 @@ function dataPointUpdate(taskData, cableTypes) {
     return prevDataPointsObjectCopyPlusNewInfo[prevDataPointsLengthPlusOne] = cableTypes;
 }
 
-function cableTypesLengthUpdate(taskData, cableTypes, meters) {
+function cableTypesLengthUpdate(taskData, cableTypes, meters, setMeters) {
     const taskCableTypesLength = taskData?.cableTypesLength;
     const prevCablesTypesLengthObject = taskCableTypesLength ? JSON.parse(JSON.stringify(taskCableTypesLength)) : {};
 
@@ -56,6 +56,8 @@ function cableTypesLengthUpdate(taskData, cableTypes, meters) {
         prevCablesTypesLengthObject[value] += meters :
         prevCablesTypesLengthObject[value] = 0;
     });
+
+    setMeters(0);
 
     // new cableTypesLength object copied and uploaded
     return prevCablesTypesLengthObject;
