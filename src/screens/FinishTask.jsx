@@ -1,6 +1,6 @@
 import { Button, StyleSheet, View, Text } from "react-native";
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../contexts/DataContext";
+import { PositionsContext } from "../contexts/PositionsContext";
 
 import { calcMeters } from "../api/calcMeters";
 import { downloadExcel } from "../services/downloadExcel";
@@ -12,18 +12,16 @@ export const FinishTask = ({ navigation }) => {
 	const { navigate } = navigation;
 
 	const [meters, setMeters] = useState(0);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const [roadPoints, setRoadPoints] = useState();
 
-	const { data, setData } = useContext(DataContext);
+	const { positions, setPositions } = useContext(PositionsContext);
 
 	useEffect(() => {
 		calcMeters(
-			setLoading,
-			data,
-			setRoadPoints,
-			setMeters,
-			setData
+			positions,
+			setPositions,
+			setMeters
 		)
 	}, []);
 

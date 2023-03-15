@@ -4,8 +4,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 export const DropDown = ({items, setItems, value, setValue, multiple}) => {
   const [open, setOpen] = useState(false);
 
-  console.log(value)
-
   return (
     <DropDownPicker
       open={open}
