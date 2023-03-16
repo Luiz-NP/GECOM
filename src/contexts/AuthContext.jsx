@@ -9,20 +9,19 @@ export const AuthContext = createContext({});
 export function AuthProvider({children}) {
   const [user, setUser] = useState(null);
 
-  if (auth().currentUser !== null) {
-    LogRocket.identify(auth().currentUser.uid, {
-      name: auth().currentUser.displayName,
-      email: auth().currentUser.email,
-    });
-  } else {
-    LogRocket.identify('anonymous', {
-      name: 'Usuário Anônimo',
-      email: 'Nenhum',
-    });
-  }
-
   useEffect(() => {
     auth().onAuthStateChanged(user => setUser(user));
+    if (auth().currentUser !== null) {
+      LogRocket.identify(auth().currentUser.uid, {
+        name: auth().currentUser.displayName,
+        email: auth().currentUser.email,
+      });
+    } else {
+      LogRocket.identify('anonymous', {
+        name: 'Usuário Anônimo',
+        email: 'Nenhum',
+      });
+    }
   }, []);
 
   return <AuthContext.Provider value={{user}}>{children}</AuthContext.Provider>;
