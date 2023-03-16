@@ -41,11 +41,12 @@ export function Home({navigation}) {
   const [tasks, setTasks] = useState([]);
   const [pendingTasks, setPendingTasks] = useState(0);
   const [completedTasks, setCompletedTasks] = useState(0);
+  const [modal, setModal] = useState(false);
+  const [modalData, setModalData] = useState();
 
   /*========== CONTEXTS ==========*/
   const {user} = useContext(AuthContext); // getting user from AuthContext
   const {update, setUpdate} = useContext(UpdateContext); // reload data when change
-  const [modal, setModal] = useState(false);
 
   /*========= WORKAROUNDS =========*/
   let profileImage = user?.photoURL?.replace('s96-c', 's400-c');
@@ -75,6 +76,13 @@ export function Home({navigation}) {
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
+      />
+      <ConfirmModal
+        modal={modal}
+        setModal={setModal}
+        update={update}
+        setUpdate={setUpdate}
+        data={modalData}
       />
       <View style={styles.header}>
         <View style={styles.userArea}>
@@ -147,15 +155,9 @@ export function Home({navigation}) {
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <>
-              <ConfirmModal
-                modal={modal}
-                setModal={setModal}
-                update={update}
-                setUpdate={setUpdate}
-                data={item}
-              />
               <TaskHome
                 data={item}
+                setModalData={setModalData}
                 key={item.id}
                 navigate={navigate}
                 setModal={setModal}

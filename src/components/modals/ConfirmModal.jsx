@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   StatusBar,
-  useState,
 } from 'react-native';
 import React from 'react';
 
@@ -16,8 +15,6 @@ import {deleteTask} from '../../services/deleteTask';
 import {deleteTaskImages} from '../../services/deleteTaskImages';
 
 let loadingDelete = false;
-
-console.log(loadingDelete);
 
 export const ConfirmModal = ({modal, setModal, update, setUpdate, data}) => {
   return (

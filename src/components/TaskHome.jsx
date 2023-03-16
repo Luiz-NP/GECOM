@@ -5,8 +5,9 @@ import {GarbageIcon} from '../assets/icons/GarbageIcon';
 const taskType = 'Fiscalização de Campo';
 
 /*========== COMPONENT DECLARATION ==========*/
-export function TaskHome({data, navigate, setModal}) {
+export function TaskHome({data, setModalData, navigate, setModal}) {
   const handleConfirmationWantDeleteTask = () => {
+    setModalData(data);
     setModal(true);
   };
 
