@@ -7,8 +7,6 @@ export const dataPointAndCableTypeLengthUpdate = async (
     cableTypes,
     taskID,
     navigate,
-    meters,
-    setMeters
 ) => {
     if (!cableTypes) return Toast.show(
         'Selecione pelo menos um tipo de cabo',
@@ -17,48 +15,52 @@ export const dataPointAndCableTypeLengthUpdate = async (
 
     navigate('CameraView', {taskID: taskID});
     const { uid } = auth().currentUser;
-    console.log(meters)
 
     const taskRef = firestore().collection('Tasks').doc(uid)
     const taskData = await (await taskRef.get()).data().Tasks.find(task => task.id === taskID);
     
     // data point update
-    const dataPoints = dataPointUpdate(taskData, cableTypes);
+    const dataPoints = await dataPointUpdate(taskData, cableTypes);
 
     // cable type length update
-    const cableTypesLength = cableTypesLengthUpdate(taskData, cableTypes, meters, setMeters);
+    // const cableTypesLength = cableTypesLengthUpdate(taskData, cableTypes);
 
     const newDataTask = {
-        Tasks: firestore.FieldValue.arrayUnion({...taskData, dataPoints: dataPoints, cableTypesLength})
+        Tasks: firestore.FieldValue.arrayUnion({...taskData, dataPoints: dataPoints})
     };
 
     // update user's tasks
     await taskRef.set({ ...newDataTask });
 }
 
-function dataPointUpdate(taskData, cableTypes) {
+async function dataPointUpdate(taskData, cableTypes) {
     const taskDataPoints = taskData?.dataPoints;
-    const prevDataPointsObjectCopyPlusNewInfo = taskDataPoints ? JSON.parse(JSON.stringify(taskDataPoints)) : {};
-    const prevDataPointsLengthPlusOne = taskDataPoints ? Object.keys(taskData.dataPoints).length+1 : 1;
+    const prevDataPoints = taskDataPoints ? JSON.parse(JSON.stringify(taskDataPoints)) : [];
+    const IOcables = {
+        incomingCables: prevDataPoints[prevDataPoints.length-1]?.comingOutCables ?? [],
+        comingOutCables: cableTypes,
+    };
 
-    // new dataPoint object copied and uploaded
-    return prevDataPointsObjectCopyPlusNewInfo[prevDataPointsLengthPlusOne] = cableTypes;
-}
+    console.log(prevDataPoints)
 
-function cableTypesLengthUpdate(taskData, cableTypes, meters, setMeters) {
-    const taskCableTypesLength = taskData?.cableTypesLength;
-    const prevCablesTypesLengthObject = taskCableTypesLength ? JSON.parse(JSON.stringify(taskCableTypesLength)) : {};
-
-    console.log(meters)
+    const newDataPoints = [...prevDataPoints, IOcables];
     
-    cableTypes.forEach(value => {
-        Object.keys(prevCablesTypesLengthObject).includes(value) ? 
-        prevCablesTypesLengthObject[value] += meters :
-        prevCablesTypesLengthObject[value] = 0;
-    });
-
-    setMeters(0);
-
-    // new cableTypesLength object copied and uploaded
-    return prevCablesTypesLengthObject;
+    return newDataPoints;
 }
+
+// function cableTypesLengthUpdate(taskData, cableTypes) {
+//     const taskCableTypesLength = taskData?.cableTypesLength;
+//     const prevCablesTypesLengthObject = taskCableTypesLength ? JSON.parse(JSON.stringify(taskCableTypesLength)) : {};
+
+//     console.log(meters)
+    
+//     cableTypes.forEach(value => {
+//         Object.keys(prevCablesTypesLengthObject).includes(value) ? 
+//         prevCablesTypesLengthObject[value] += meters :
+//         prevCablesTypesLengthObject[value] = 0;
+//     });
+
+
+//     // new cableTypesLength object copied and uploaded
+//     return prevCablesTypesLengthObject;
+// }

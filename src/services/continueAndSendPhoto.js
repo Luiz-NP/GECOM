@@ -1,21 +1,18 @@
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
-import { calcMeters } from '../api/calcMeters';
+import { alignPointToStreet } from '../api/alignPointToStreet';
 
 export const continueAndSendPhoto = async (
-    positions,
-    setPositions,
+    setPosition,
+    location,
     setLocation,
     setPhoto,
     photo,
-    meters,
-    setMeters,
     taskID,
     replace
 ) => {
     replace('DataPoint', {taskID: taskID});
-    if (positions.length > 1) calcMeters(positions, setPositions, setMeters);
-    console.log(positions);
+    alignPointToStreet(location, setPosition);
 
     setLocation(null);
     setPhoto(null);
