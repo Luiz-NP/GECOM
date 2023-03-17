@@ -31,14 +31,14 @@ export function Welcome({navigation}) {
   /*========== USE EFFECTS ==========*/
   useEffect(() => {
     setTimeout(() => setLoading(false), 2800);
-    if (user?.emailVerified) navigate("Home");
+    if (user?.emailVerified) navigate('Home');
   }, [user]);
 
   /*========== FRONT ==========*/
   // loads while verifying the user
   if (loading)
     return (
-      <View style={styles.welcomeContainer}>
+      <View style={loadingStyle.container}>
         <StatusBar
           barStyle="light-content"
           backgroundColor="transparent"
@@ -49,6 +49,10 @@ export function Welcome({navigation}) {
           autoPlay
           speed={speed}
         />
+        <View style={loadingStyle.bottomContainer}>
+          <Text style={loadingStyle.subTitle}>from</Text>
+          <Text style={loadingStyle.title}>🎩 QuarkzPlace</Text>
+        </View>
       </View>
     );
 
@@ -153,5 +157,35 @@ const styles = StyleSheet.create({
     color: '#8af3cb',
     textAlign: 'center',
     fontSize: 24,
+  },
+});
+
+const loadingStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#025248',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomContainer: {
+    width: '100%',
+    height: 'auto',
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    padding: 24,
+    marginBottom: 36,
+    marginTop: 'auto',
+  },
+  title: {
+    fontFamily: 'ClashGrotesk-Medium',
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 24,
+  },
+  subTitle: {
+    fontFamily: 'ClashGrotesk-Light',
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 16,
   },
 });
