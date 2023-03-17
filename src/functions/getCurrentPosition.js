@@ -7,25 +7,20 @@ export const getCurrentPosition = (
     setLocation,
     setDelay,
     setLoading,
-    positions
+    position
 ) => {
     Geolocation.getCurrentPosition(
-        position => {
+        info => {
             const coordinates = {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
+                latitude: info.coords.latitude,
+                longitude: info.coords.longitude,
             };
 
             const diference = getPreciseDistance(lastLocation, coordinates);
 
             setLastLocation(coordinates);
 
-            const expression = diference < 1 &&
-                !positions?.some(
-                    x =>
-                        coordinates.latitude === x.latitude &&
-                        coordinates.longitude === x.longitude,
-                )
+            const expression = diference < 1 && !(position.latitude === coordinates.latitude && position.longitude === coordinates.longitude);
 
             if (expression) {
                 setLocation(coordinates);
@@ -37,6 +32,6 @@ export const getCurrentPosition = (
             // See error code charts below.
             console.log(error.code, error.message);
         },
-        { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 },
+        { enableHighAccuracy: true, timeout: 60000 },
     )
 }

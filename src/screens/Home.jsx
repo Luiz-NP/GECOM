@@ -27,9 +27,9 @@ import {deleteTask} from '../services/deleteTask';
 import {getTasks} from '../services/getTasks';
 
 import {backButtonHome} from '../utils/backButtonHome';
-import {addTask} from '../utils/addTask';
 
 import {ConfirmModal} from '../components/modals/ConfirmModal';
+import { requestPermission } from '../utils/requestPermission';
 
 /*========== COMPONENT DECLARATION ==========*/
 export function Home({navigation}) {
@@ -59,6 +59,7 @@ export function Home({navigation}) {
     if (!user) navigate('Auth');
 
     setUpdate(!update);
+    requestPermission();
   }, []);
 
   useEffect(() => {
@@ -187,7 +188,9 @@ export function Home({navigation}) {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          addTask(navigate, setButtonSelected);
+          navigate('AddNewTask');
+          // set button selected to 0
+          setTimeout(() => setButtonSelected(0), 1000);
         }}
         style={styles.addTaskButton}>
         <Svg

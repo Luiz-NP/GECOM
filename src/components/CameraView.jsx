@@ -12,7 +12,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 
 import iconCamera from '../assets/camera/capture-icon.png';
 
-import { PositionsContext } from '../contexts/PositionsContext';
+import { PositionContext } from '../contexts/PositionContext';
 import { useInterval } from '../hooks/useInterval';
 
 import { getCurrentPosition } from '../functions/getCurrentPosition';
@@ -32,33 +32,29 @@ export function CameraView({ navigation, route }) {
   const { taskID } = route.params;
 
   const [device, setDevice] = useState();
-  const [permissions, setPermissions] = useState();
   const [photo, setPhoto] = useState(null);
   const [location, setLocation] = useState(null);
   const [lastLocation, setLastLocation] = useState(iceland);
   const [delay, setDelay] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const devices = useCameraDevices('wide-angle-camera');
-  const { positions, setPositions, meters, setMeters } = useContext(PositionsContext);
+  const { position, setPosition } = useContext(PositionContext);
 
   const camera = useRef();
 
   useEffect(() => {
     setDevice(devices.back);
     // request the camera and location permissions
-    requestPermission(setPermissions);
+    requestPermission();
+    setLoading(false);
   }, [devices]);
 
-  useEffect(() => {
-    if (location) setPositions(prev => [...prev, location]);
-  }, [location]);
-
   // using custom hook to get the location of user
-  useInterval(() => getCurrentPosition(lastLocation, setLastLocation, setLocation, setDelay, setLoading, positions), delay);
+  useInterval(() => getCurrentPosition(lastLocation, setLastLocation, setLocation, setDelay, setLoading, position), delay);
 
   // while data is loading a loading indicator is shown
-  if (loading || !device || !permissions) return <LoadingIndicator />;
+  if (loading || !device) return <LoadingIndicator />;
 
   if (photo && location) {
     return (
@@ -67,7 +63,7 @@ export function CameraView({ navigation, route }) {
           style={{ width: '100%', height: '100%', borderRadius: 24 }}
           source={{ uri: 'data:image/jpeg;base64,' + photo }}
         />
-        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(positions, setPositions, setLocation, setPhoto, photo, meters, setMeters, taskID, replace)}>
+        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(setPosition, location, setLocation, setPhoto, photo, taskID, replace)}>
           <Text style={styles.buttonsText}>continuar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.repeatButton} onPress={() => {
@@ -88,7 +84,7 @@ export function CameraView({ navigation, route }) {
       }}>
         <Text style={styles.buttonsText}>Voltar</Text>
       </TouchableOpacity>
-      {positions?.length > 1 && (
+      {position?.length > 1 && (
         <TouchableOpacity style={styles.finishButton} onPress={() => {
           replace("FinishTask");
         }}>

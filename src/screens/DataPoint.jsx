@@ -7,8 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useState, useContext } from 'react';
-import { PositionsContext } from "../contexts/PositionsContext";
-
+import { PositionContext } from "../contexts/PositionContext";
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import { Path, Svg } from 'react-native-svg';
@@ -31,7 +30,7 @@ export function DataPoint({ navigation, route }) {
   ]);
   const [cableTypes, setCableTypes] = useState(null);
 
-  const { positions, setPositions, meters, setMeters } = useContext(PositionsContext)
+  const { position, setPosition, meters, setMeters } = useContext(PositionContext)
 
   /*========== FRONT ==========*/
   return (

@@ -2,7 +2,7 @@ import { PermissionsAndroid } from 'react-native';
 
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 
-export const requestPermission = async (setPermissions) => {
+export const requestPermission = async () => {
     try {
         await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.CAMERA,
@@ -16,8 +16,6 @@ export const requestPermission = async (setPermissions) => {
             interval: 10000,
             fastInterval: 5000,
         });
-
-        setPermissions(true);
     } catch (error) {
         console.log('request permission error:', error);
     }

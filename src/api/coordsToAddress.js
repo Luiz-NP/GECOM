@@ -32,7 +32,7 @@ export const coordsToAddress = (setAddress) => {
             // See error code charts below.
             console.log(error.code, error.message);
         },
-        { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 },
+        { enableHighAccuracy: true, timeout: 60000},
     )
 
 };
