@@ -35,7 +35,7 @@ import { requestPermission } from '../utils/requestPermission';
 export function Home({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
-  const darkMode = false;
+  const darkMode = true;
   /*========== STATES ==========*/
   const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
   const [tasks, setTasks] = useState([]);
