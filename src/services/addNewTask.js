@@ -7,21 +7,14 @@ import auth from '@react-native-firebase/auth';
 
 export const addNewTask = async (
     target,
-    company,
-    OSNumber,
+    data,
     setUpdate,
     update,
     navigate,
-    ) => {
+) => {
 
     const uid = auth().currentUser.uid;
     const taskID = uuid.v4();
-
-    if (!company)
-        return Toast.show(
-            'Você não preencheu os campos corretamente',
-            Toast.LONG,
-        );
 
     // get reference of firestore's doc for this user
     const tasksRef = firestore().collection('Tasks').doc(uid)
@@ -30,8 +23,8 @@ export const addNewTask = async (
             id: taskID,
             distance: 0,
             location: `${'Uberaba'} - ${'MG'}`,
-            company: company,
-            OSNumber: OSNumber ?? 'Não informado',
+            company: data.company,
+            OSNumber: data.OSNumber ?? 'Não informado',
             status: 'pending',
         }),
     }
