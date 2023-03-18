@@ -1,19 +1,17 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const {Screen, Navigator} = createNativeStackNavigator();
+const { Screen, Navigator } = createNativeStackNavigator();
 
 // screens
-import {Welcome} from '../screens/Welcome';
-import {Auth} from '../screens/Auth';
-import {Register} from '../screens/Register';
-import {Home} from '../screens/Home';
-import {Profile} from '../screens/Profile';
-import {CameraView} from '../components/CameraView';
-import {AddNewTask} from '../screens/AddTask';
-import {TaskInfo} from '../screens/TaskInfo';
-import {Setitngs} from '../screens/Settings';
-import {FinishTask} from '../screens/FinishTask';
-import {DataPoint} from '../screens/DataPoint';
+import { Welcome } from '../screens/Welcome';
+import { Auth } from '../screens/Auth';
+import { Register } from '../screens/Register';
+import { Home } from '../screens/Home';
+import { AddNewTask } from '../screens/AddNewTask';
+import { Profile } from '../screens/Profile';
+import { CameraView } from '../components/CameraView';
+import { TaskInfo } from '../screens/TaskInfo';
+import { Setitngs } from '../screens/Settings';
 
 // routes
 export function StackRoutes() {
@@ -49,20 +47,6 @@ export function StackRoutes() {
         }}
       />
       <Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Screen
-        name="AddNewTask"
-        component={AddNewTask}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Screen
         name="Profile"
         component={Profile}
         options={{
@@ -78,6 +62,20 @@ export function StackRoutes() {
         }}
       />
       <Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="AddNewTask"
+        component={AddNewTask}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
         name="TaskInfo"
         component={TaskInfo}
         options={{
@@ -85,22 +83,8 @@ export function StackRoutes() {
         }}
       />
       <Screen
-        name="DataPoint"
-        component={DataPoint}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Screen
         name="CameraView"
         component={CameraView}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Screen
-        name="FinishTask"
-        component={FinishTask}
         options={{
           headerShown: false,
         }}
