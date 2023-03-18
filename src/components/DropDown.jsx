@@ -1,29 +1,30 @@
 import {useState} from "react"
 import DropDownPicker from 'react-native-dropdown-picker';
 
-export const DropDown = ({items, setItems, value, setValue, multiple}) => {
+export const DropDown = ({value, setValue, items, setItems}) => {
   const [open, setOpen] = useState(false);
 
   return (
     <DropDownPicker
       open={open}
-      value={value}
-      items={items}
-      
       setOpen={setOpen}
-      setValue={setValue}
-      setItems={setItems}
-      multiple={multiple}
-      theme="DARK"
-      mode="BADGE"
-      listMode="SCROLLVIEW"
-      scrollViewProps={{
-        nestedScrollEnabled: true
+      
+      value={value}
+      setValue={item => {
+        console.log(item())
+        setValue(item())
       }}
-      badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#00c4ac", "#8ac926", "#00b4d8", "#e9c46a"]}
+      
+      items={items}
+      setItems={setItems}
+      
       searchable
       searchPlaceholder="Pesquisar. . ."
       
+      theme="DARK"
+      
+      listMode="SCROLLVIEW"
+
       style={{
         backgroundColor: '#1e1e1e',
         flex: 1,
