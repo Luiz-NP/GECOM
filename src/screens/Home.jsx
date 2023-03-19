@@ -29,7 +29,7 @@ import {getTasks} from '../services/getTasks';
 import {backButtonHome} from '../utils/backButtonHome';
 
 import {ConfirmModal} from '../components/modals/ConfirmModal';
-import { requestPermission } from '../utils/requestPermission';
+import {requestPermission} from '../utils/requestPermission';
 
 /*========== COMPONENT DECLARATION ==========*/
 export function Home({navigation}) {
@@ -249,65 +249,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 30,
-  },
-
-  btnNav: {
-    width: '31%',
-    borderRadius: 15,
-    paddingVertical: 8,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#00C4AC',
-  },
-
-  count: {
-    position: 'absolute',
-    borderColor: '#00c4ac',
-    backgroundColor: '#00c4ac',
-    fontFamily: 'ClashGrotesk-Medium',
-    color: '#FFFFFF',
-    fontSize: 16,
-    borderRadius: 5,
-    width: 24,
-    textAlign: 'center',
-    top: -10,
-    right: -10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
-    elevation: 24,
-    borderRadius: 100,
-  },
-
-  btnNavSelected: {
-    width: '31%',
-    borderRadius: 15,
-    paddingVertical: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#00C4AC',
-  },
-
-  textBtnNav: {
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 14,
-    color: '#00c4ac',
-  },
-
-  textBtnNavSelected: {
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 14,
-    color: '#FFFFFF',
   },
 
   addTaskButton: {
