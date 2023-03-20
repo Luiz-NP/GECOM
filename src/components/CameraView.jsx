@@ -5,10 +5,11 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  BackHandler
 } from 'react-native';
-import { useEffect, useRef, useState, useContext } from 'react';
-
+import { useEffect, useRef, useState, useContext, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
 import iconCamera from '../assets/camera/capture-icon.png';
 
@@ -29,7 +30,7 @@ export function CameraView({ navigation, route }) {
   };
 
   const { replace } = navigation;
-  const { taskID } = route.params;
+  const { taskID, PointsCount } = route.params;
 
   const [device, setDevice] = useState();
   const [photo, setPhoto] = useState(null);
@@ -53,6 +54,20 @@ export function CameraView({ navigation, route }) {
   // using custom hook to get the location of user
   useInterval(() => getCurrentPosition(lastLocation, setLastLocation, setLocation, setDelay, setLoading, position), delay);
 
+  // defining back button behavior to block user back action
+  useFocusEffect(useCallback(() => {
+    const onBackPress = () => {
+      return true;
+    };
+
+    const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+    );
+
+    return () => subscription.remove();
+  }, []));
+
   // while data is loading a loading indicator is shown
   if (loading || !device) return <LoadingIndicator />;
 
@@ -63,7 +78,7 @@ export function CameraView({ navigation, route }) {
           style={{ width: '100%', height: '100%', borderRadius: 24 }}
           source={{ uri: 'data:image/jpeg;base64,' + photo }}
         />
-        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(setPosition, location, setLocation, setPhoto, photo, taskID, replace)}>
+        <TouchableOpacity style={styles.continueButton} onPress={() => continueAndSendPhoto(setPosition, location, setLocation, setPhoto, photo, taskID, replace, setLoading)}>
           <Text style={styles.buttonsText}>continuar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.repeatButton} onPress={() => {

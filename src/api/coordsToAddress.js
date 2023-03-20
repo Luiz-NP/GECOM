@@ -26,7 +26,6 @@ export const coordsToAddress = (setAddress) => {
                 contry: formattedAddress[4],
             }
             setAddress(address);
-            console.log(address);
         },
         error => {
             // See error code charts below.

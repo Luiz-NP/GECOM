@@ -1,18 +1,25 @@
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import { getDataPoints } from './getDataPoints';
 
-export const deleteTask = async (data, setUpdate, update) => {
-    const taskToDelete = data.id;
-
+export const deleteTask = async (taskID, setUpdate, update) => {
     const { uid } = auth().currentUser;
-    const tasksRef = firestore().collection('Tasks').doc(uid);
-    const tasksData = (await tasksRef.get()).data();
+    const tasksRef = firestore().collection('users').doc(uid).collection('Tasks').doc(`Task-${taskID}`);
+    const dataPoints = await getDataPoints(taskID);
 
-    const tasksUpdated = tasksData.Tasks.filter(
-        task => task.id !== taskToDelete,
-    );
+    await tasksRef.delete();
+    
+    // deleting dataPoints
+    dataPoints.map(async (_, index) => {
+        await firestore()
+            .collection('users')
+            .doc(uid)
+            .collection('Tasks')
+            .doc(`Task-${taskID}`)
+            .collection('Points')
+            .doc(`Point-${index+1}`)
+            .delete();
+    });
 
-    tasksData.Tasks = tasksUpdated;
-    await tasksRef.update(tasksData);
     setUpdate(!update);
 }

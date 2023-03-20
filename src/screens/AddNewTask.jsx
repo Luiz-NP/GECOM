@@ -7,34 +7,55 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import {useContext, useState} from 'react';
+import { useContext, useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import Toast from "react-native-simple-toast";
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import {UpdateContext} from '../contexts/UpdateContext';
 import {Path, Svg} from 'react-native-svg';
 import {NotificationLocation} from '../components/NotificationLocation';
-import {DropDown} from '../components/DropDown';
-import {addNewTask} from '../services/addNewTask';
+import { DropDown } from '../components/DropDown';
+import { useEffect } from 'react';
+import { addNewTask } from '../services/addNewTask';
+import { coordsToAddress } from '../api/coordsToAddress';
 
-/*========== COMPONENTS DECLARATION ==========*/
-export function AddNewTask({navigation}) {
-  /*========== DESTRUCTURING ==========*/
-  const {navigate} = navigation;
+export const AddNewTask = ({ navigation }) => {
+  const { navigate } = navigation;
 
-  /*========== STATES ==========*/
+  const { control, handleSubmit, formState: { errors } } = useForm();
+  const [address, setAddress] = useState();
   const [company, setCompany] = useState([
     {label: 'Algar Telecom', value: 'Algar Telecom'},
     {label: 'Claro', value: 'Claro'},
     {label: 'Tim', value: 'Tim'},
     {label: 'Vivo', value: 'Vivo'},
   ]);
-  const [companyValue, setCompanyValue] = useState(null);
-  const [OSNumber, setOSNumber] = useState(null);
 
-  /*========== CONTEXTS ==========*/
-  const {update, setUpdate} = useContext(UpdateContext);
+  const { update, setUpdate } = useContext(UpdateContext);
 
-  /*========== FRONT ==========*/
+  useEffect(() => {
+    if (errors?.company) return Toast.show(
+      errors.company.message,
+      Toast.LONG,
+    );
+  }, [errors?.company]);
+
+  useEffect(() => {
+    coordsToAddress(setAddress);
+  }, []);
+
+  const onSubmit = (data, target) => {
+    addNewTask(
+      target,
+      data,
+      address,
+      setUpdate,
+      update,
+      navigate,
+    );
+  }
+
   return (
     <View style={styles.homeContainer}>
       <StatusBar
@@ -72,65 +93,67 @@ export function AddNewTask({navigation}) {
           <View style={styles.localInput}></View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Adicionar OS (opcional)</Text>
-            <TextInput
-              style={styles.input}
-              keyboardType="numeric"
-              placeholder="Numero da OS"
-              placeholderTextColor={'#444'}
-              onChangeText={text => setOSNumber(text)}
-              maxLength={5}
+
+            <Controller
+              control={control}
+              name="OSnumber"
+              render={({ field: { value, onChange } }) => (
+                <TextInput
+                  style={styles.input}
+                  value={value}
+                  onChangeText={onChange}
+                  keyboardType="numeric"
+                  placeholder="Numero da OS"
+                  placeholderTextColor={'#444'}
+                />
+              )}
             />
+            
             <View style={styles.required}>
               <Text style={styles.label}>Empresa</Text>
               <Text style={styles.requiredText}>*</Text>
             </View>
-            <DropDown
-              items={company}
-              setItems={setCompany}
-              value={companyValue}
-              setValue={setCompanyValue}
-              multiple={false}
+
+            <Controller
+              control={control}
+              name="company"
+              rules={{
+                required: "Selecione uma empresa."
+              }}
+              render={({ field: { value, onChange } }) => (
+                <DropDown
+                  value={value}
+                  setValue={onChange}
+                  items={company}
+                  setItems={setCompany}
+                />
+              )}
             />
+
           </View>
         </View>
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() =>
-            addNewTask(
-              'Home',
-              companyValue,
-              OSNumber,
-              setUpdate,
-              update,
-              navigate,
-            )
-          }>
+          onPress={handleSubmit((data) => onSubmit(data, 'Home'))}
+        >
           <View style={styles.button}>
             <Text style={styles.buttonText}>Adicionar tarefa</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() =>
-            addNewTask(
-              'CameraView',
-              companyValue,
-              OSNumber,
-              setUpdate,
-              update,
-              navigate,
-            )
-          }>
+          onPress={handleSubmit((data) => onSubmit(data, 'CameraView'))}
+        >
           <View style={styles.buttonHighlight}>
             <Text style={styles.buttonText}>Iniciar inspeção</Text>
           </View>
         </TouchableOpacity>
       </View>
     </View>
-  );
-}
+  )
+};
 
 const styles = StyleSheet.create({
   homeContainer: {

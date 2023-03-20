@@ -1,21 +1,43 @@
-import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
-import {useEffect, useState} from 'react';
+import { TouchableOpacity, StyleSheet, View, Text, BackHandler } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
 
-import {downloadExcel} from '../services/downloadExcel';
 import LottieView from 'lottie-react-native';
 
-import {LoadingIndicator} from '../components/LoadingIndicator';
+import { LoadingIndicator } from '../components/LoadingIndicator';
+import { downloadExcel } from '../services/downloadExcel';
+import { useFocusEffect } from '@react-navigation/native';
+import { calcMetersAndFinishTask } from '../functions/calcMetersAndFinishTask';
 
-export const FinishTask = ({navigation}) => {
-  const {navigate} = navigation;
+export const FinishTask = ({ navigation, route }) => {
+  const { navigate } = navigation;
+  const { taskID } = route.params;
 
   const [speed, setSpeed] = useState(1);
   const [meters, setMeters] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setSpeed(0), 2000);
+    if (!loading) setTimeout(() => setSpeed(0), 1900);
+  }, [loading]);
+
+  useEffect(() => {
+    calcMetersAndFinishTask(taskID, setMeters, setLoading);
   }, []);
+
+  // defining back button behavior to block user back action
+  useFocusEffect(useCallback(() => {
+    const onBackPress = () => {
+      navigate('Home');
+      return true;
+    };
+
+    const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+    );
+
+    return () => subscription.remove();
+  }, []));
 
   // loading state
   if (loading) return <LoadingIndicator />;
@@ -37,6 +59,12 @@ export const FinishTask = ({navigation}) => {
         activeOpacity={0.8}
         onPress={() => downloadExcel(roadPoints)}>
         <Text style={styles.downloadBtnText}>Baixar relatório</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.backButton}
+        activeOpacity={0.8}
+        onPress={() => navigate('Home')}>
+        <Text style={styles.backButtonText}>Voltar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -74,6 +102,17 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   downloadBtnText: {
+    fontSize: 16,
+    color: 'white',
+    fontFamily: 'ClashGrotesk-Medium',
+  },
+  backButton: {
+    backgroundColor: '#025248',
+    padding: 16,
+    borderRadius: 8,
+    marginTop: 24,
+  },
+  backButtonText: {
     fontSize: 16,
     color: 'white',
     fontFamily: 'ClashGrotesk-Medium',

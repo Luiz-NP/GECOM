@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  BackHandler,
 } from 'react-native';
 import {useCallback, useContext, useEffect, useState} from 'react';
 
@@ -26,7 +27,7 @@ import {deleteTask} from '../services/deleteTask';
 
 import {getTasks} from '../services/getTasks';
 
-import {backButtonHome} from '../utils/backButtonHome';
+import {backButtonBehavior} from '../utils/backButtonBehavior';
 
 import {ConfirmModal} from '../components/modals/ConfirmModal';
 import {requestPermission} from '../utils/requestPermission';
@@ -35,7 +36,7 @@ import {requestPermission} from '../utils/requestPermission';
 export function Home({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
-  const darkMode = false;
+  const darkMode = true;
   /*========== STATES ==========*/
   const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
   const [tasks, setTasks] = useState([]);
@@ -68,7 +69,19 @@ export function Home({navigation}) {
   }, [update]);
 
   // defining back button behavior to block user back action
-  useFocusEffect(useCallback(backButtonHome, []));
+  useFocusEffect(useCallback(() => {
+    const onBackPress = () => {
+      BackHandler.exitApp();
+      return true;
+    };
+
+    const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+    );
+
+    return () => subscription.remove()
+  }, []));
 
   /*========== FRONT ==========*/
   return (
@@ -187,7 +200,9 @@ export function Home({navigation}) {
       )}
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => {
+        onPress={async () => {
+          if (!(await requestPermission())) return requestPermission();
+
           navigate('AddNewTask');
           // set button selected to 0
           setTimeout(() => setButtonSelected(0), 1000);

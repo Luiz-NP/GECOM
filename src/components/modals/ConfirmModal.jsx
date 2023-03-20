@@ -28,6 +28,7 @@ export const ConfirmModal = ({modal, setModal, update, setUpdate, data}) => {
         <View style={styles.bottomContainer}>
           <LottieView
             autoPlay
+            speed={1}
             source={require('../../assets/img/confirm.json')}
             style={
               loadingDelete
@@ -51,12 +52,12 @@ export const ConfirmModal = ({modal, setModal, update, setUpdate, data}) => {
               <TouchableOpacity
                 onPress={() => {
                   loadingDelete = true;
-                  deleteTask(data, setUpdate, update);
-                  deleteTaskImages(data);
+                  deleteTask(data.id, setUpdate, update);
+                  deleteTaskImages(data.id);
                   setTimeout(() => {
                     setModal(false);
                     loadingDelete = false;
-                  }, 3000);
+                  }, 1000);
                 }}
                 activeOpacity={0.8}
                 style={styles.confirmBtn}>

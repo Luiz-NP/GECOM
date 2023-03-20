@@ -9,21 +9,24 @@ export const continueAndSendPhoto = async (
     setPhoto,
     photo,
     taskID,
-    replace
+    replace,
+    setLoading
 ) => {
-    replace('DataPoint', {taskID: taskID});
+    setLoading(true);
     alignPointToStreet(location, setPosition);
-
-    setLocation(null);
-    setPhoto(null);
-
+    
     try {
         const user = auth().currentUser;
         const imgID = new Date().toLocaleString().split(', ').join('-').split('/').join('-');
-
+        
         const storageRef = storage().ref(`user-${user.uid}/task-${taskID}/img-${imgID}.jpg`);
-
+        
         await storageRef.putString(photo, 'base64');
+        
+        replace('DataPoint', {taskID: taskID, imageRef: storageRef.path});
+        setLocation(null);
+        setPhoto(null);
+        setLoading(false);
     } catch (error) {
         console.log(error);
     }
