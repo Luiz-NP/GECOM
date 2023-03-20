@@ -20,7 +20,8 @@ export const getCurrentPosition = (
 
             setLastLocation(coordinates);
 
-            const expression = diference < 1 && !(position.latitude === coordinates.latitude && position.longitude === coordinates.longitude);
+            const expression = diference < 1 && (position.latitude !== coordinates.latitude && position.longitude !== coordinates.longitude);
+            console.log(diference, position, coordinates);
 
             if (expression) {
                 setLocation(coordinates);
@@ -32,6 +33,6 @@ export const getCurrentPosition = (
             // See error code charts below.
             console.log(error.code, error.message);
         },
-        { enableHighAccuracy: true, timeout: 60000 },
+        { enableHighAccuracy: true, timeout: 60000, maximumAge: 10000 },
     )
 }
