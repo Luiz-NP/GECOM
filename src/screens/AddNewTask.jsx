@@ -18,12 +18,19 @@ import {NotificationLocation} from '../components/NotificationLocation';
 import { DropDown } from '../components/DropDown';
 import { useEffect } from 'react';
 import { addNewTask } from '../services/addNewTask';
-
+import { coordsToAddress } from '../api/coordsToAddress';
 
 export const AddNewTask = ({ navigation }) => {
   const { navigate } = navigation;
 
   const { control, handleSubmit, formState: { errors } } = useForm();
+  const [address, setAddress] = useState();
+  const [company, setCompany] = useState([
+    {label: 'Algar Telecom', value: 'Algar Telecom'},
+    {label: 'Claro', value: 'Claro'},
+    {label: 'Tim', value: 'Tim'},
+    {label: 'Vivo', value: 'Vivo'},
+  ]);
 
   const { update, setUpdate } = useContext(UpdateContext);
 
@@ -34,22 +41,20 @@ export const AddNewTask = ({ navigation }) => {
     );
   }, [errors?.company]);
 
+  useEffect(() => {
+    coordsToAddress(setAddress);
+  }, []);
+
   const onSubmit = (data, target) => {
     addNewTask(
       target,
       data,
+      address,
       setUpdate,
       update,
       navigate,
     );
   }
-
-  const [company, setCompany] = useState([
-    {label: 'Algar Telecom', value: 'Algar Telecom'},
-    {label: 'Claro', value: 'Claro'},
-    {label: 'Tim', value: 'Tim'},
-    {label: 'Vivo', value: 'Vivo'},
-  ]);
 
   return (
     <View style={styles.homeContainer}>
