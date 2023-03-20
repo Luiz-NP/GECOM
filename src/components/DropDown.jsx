@@ -10,10 +10,7 @@ export const DropDown = ({value, setValue, items, setItems}) => {
       setOpen={setOpen}
       
       value={value}
-      setValue={item => {
-        console.log(item())
-        setValue(item())
-      }}
+      setValue={item => setValue(item())}
       
       items={items}
       setItems={setItems}
@@ -41,8 +38,6 @@ export const DropDown = ({value, setValue, items, setItems}) => {
       dropDownContainerStyle={{
         backgroundColor: '#1e1e1e',
         borderColor: '#1e1e1e',
-        position: "relative",
-        top: 0,
       }}
       badgeTextStyle={{
         color: 'black',
