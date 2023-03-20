@@ -14,6 +14,7 @@ export const FinishTask = ({ navigation, route }) => {
 
   const [speed, setSpeed] = useState(1);
   const [meters, setMeters] = useState(0);
+  const [cableTypesLength, setCableTypesLength] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export const FinishTask = ({ navigation, route }) => {
   }, [loading]);
 
   useEffect(() => {
-    calcMetersAndFinishTask(taskID, setMeters, setLoading);
+    calcMetersAndFinishTask(taskID, setMeters, setLoading, setCableTypesLength);
   }, []);
 
   // defining back button behavior to block user back action
@@ -57,7 +58,7 @@ export const FinishTask = ({ navigation, route }) => {
       <TouchableOpacity
         style={styles.downloadBtn}
         activeOpacity={0.8}
-        onPress={() => downloadExcel(roadPoints)}>
+        onPress={() => downloadExcel(cableTypesLength)}>
         <Text style={styles.downloadBtnText}>Baixar relatório</Text>
       </TouchableOpacity>
       <TouchableOpacity

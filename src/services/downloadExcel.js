@@ -3,11 +3,11 @@ import { Alert } from "react-native";
 import XLSX from "xlsx";
 import RNFetchBlob from "rn-fetch-blob";
 
-export const downloadExcel = async (location) => {
+export const downloadExcel = async (data) => {
 
     try {
         const wb = XLSX.utils.book_new();
-        const ws = XLSX.utils.json_to_sheet(location);
+        const ws = XLSX.utils.json_to_sheet(data);
 
         XLSX.utils.book_append_sheet(wb, ws, "Dados GECOM", true);
         const file = XLSX.write(wb, { type: 'base64' });
