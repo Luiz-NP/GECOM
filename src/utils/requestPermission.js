@@ -16,7 +16,10 @@ export const requestPermission = async () => {
             interval: 10000,
             fastInterval: 5000,
         });
+
+        return true;
     } catch (error) {
         console.log('request permission error:', error);
+        return false;
     }
 }
