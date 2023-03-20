@@ -6,12 +6,14 @@ const { Screen, Navigator } = createNativeStackNavigator();
 import { Welcome } from '../screens/Welcome';
 import { Auth } from '../screens/Auth';
 import { Register } from '../screens/Register';
-import { Home } from '../screens/Home';
-import { AddNewTask } from '../screens/AddNewTask';
 import { Profile } from '../screens/Profile';
-import { CameraView } from '../components/CameraView';
-import { TaskInfo } from '../screens/TaskInfo';
 import { Setitngs } from '../screens/Settings';
+import { Home } from '../screens/Home';
+import { TaskInfo } from '../screens/TaskInfo';
+import { AddNewTask } from '../screens/AddNewTask';
+import { CameraView } from '../components/CameraView';
+import { DataPoint } from '../screens/DataPoint';
+import { FinishTask } from '../screens/FinishTask';
 
 // routes
 export function StackRoutes() {
@@ -85,6 +87,20 @@ export function StackRoutes() {
       <Screen
         name="CameraView"
         component={CameraView}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="DataPoint"
+        component={DataPoint}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name="FinishTask"
+        component={FinishTask}
         options={{
           headerShown: false,
         }}
