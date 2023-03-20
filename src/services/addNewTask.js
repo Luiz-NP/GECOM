@@ -1,4 +1,3 @@
-import Toast from 'react-native-simple-toast';
 import uuid from 'react-native-uuid';
 
 /*========== FIREBASE IMPORTS ==========*/
@@ -8,43 +7,33 @@ import auth from '@react-native-firebase/auth';
 export const addNewTask = async (
     target,
     data,
+    address,
     setUpdate,
     update,
     navigate,
 ) => {
-
     const uid = auth().currentUser.uid;
     const taskID = uuid.v4();
 
-    // get reference of firestore's doc for this user
-    const tasksRef = firestore().collection('Tasks').doc(uid)
-    const newDataTask = {
-        Tasks: firestore.FieldValue.arrayUnion({
-            id: taskID,
-            distance: 0,
-            location: `${'Uberaba'} - ${'MG'}`,
-            company: data.company,
-            OSNumber: data.OSNumber ?? 'Não informado',
-            status: 'pending',
-        }),
+    // // get reference of firestore's doc for this user
+    const tasksRef = firestore().collection('users').doc(uid).collection('Tasks').doc(`Task-${taskID}`);
+
+    const newTaskData = {
+        id: taskID,
+        distance: 0,
+        location: `${address.city} - ${address.state}`,
+        company: data.company,
+        OSNumber: data.OSNumber ?? 'Não informado',
+        status: 'pending',
     }
 
     try {
-        // update user's tasks
-        await tasksRef.update({ ...newDataTask })
-
-        console.log('task created!');
-        setUpdate(!update)
-        navigate(target, {taskID: taskID})
+        // set user's task
+        await tasksRef.set({ ...newTaskData })
+        setUpdate(!update);
+        navigate(target, {taskID: taskID});
 
     } catch (error) {
-        // if does't exist a doc for this user
-        if (error.message === '[firestore/not-found] Some requested document was not found.') {
-            await tasksRef.set({ ...newDataTask })
-            setUpdate(!update);
-            navigate(target, {taskID: taskID});
-        }else {
-            console.log(error);
-        }
+        console.log(error);
     }
 }
