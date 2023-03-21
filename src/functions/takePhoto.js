@@ -3,7 +3,6 @@ import RNFS from 'react-native-fs';
 export const takePhoto = async (camera, setDelay, setLoading, setPhoto) => {
 
     const photo = await camera.current.takePhoto({
-        // flash: 'on',
     });
     setDelay(3000);
     setLoading(true);
