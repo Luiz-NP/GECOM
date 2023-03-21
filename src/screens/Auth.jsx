@@ -14,8 +14,8 @@ import LottieView from 'lottie-react-native';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import { ForgotPasswordModal } from '../components/modals/ForgotPasswordModal';
-import { signInWithEmailAndPassword } from '../functions/signInWithEmailAndPassword';
-import { signInWithGoogle } from '../functions/signInWithGoogle';
+import { authSignInWithEmailAndPassword } from '../functions/authSignInWithEmailAndPassword';
+import { authSignInWithGoogle } from '../functions/authSignInWithGoogle';
 
 import { GoogleIcon } from '../assets/icons/GoogleIcon';
 import { ComeBackAuthIcon } from '../assets/icons/ComeBackAuthIcon';
@@ -32,7 +32,7 @@ export function Auth({ navigation }) {
 
   /*========== FUNCTIONS ==========*/
   const handleSignInWithGoogle = () => {
-    signInWithGoogle()
+    authSignInWithGoogle()
       .then(() => {
         console.log('Signed in with Google!');
         navigate('Home');
@@ -93,7 +93,7 @@ export function Auth({ navigation }) {
             <GoogleIcon />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => signInWithEmailAndPassword(email, password, navigate)}
+            onPress={() => authSignInWithEmailAndPassword(email, password, navigate)}
             style={styles.authBtn}
             activeOpacity={0.8}>
             <Text style={styles.authText}>Autenticar</Text>

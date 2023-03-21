@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 import LottieView from 'lottie-react-native';
 
-import { signUp } from '../functions/signUp';
+import { authSignUp } from '../functions/authSignUp';
 
 import { ComeBackAuthIcon } from '../assets/icons/ComeBackAuthIcon';
 
@@ -83,7 +83,7 @@ export function Register({ navigation }) {
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity
-            onPress={() => signUp(firstName, lastName, email, password, navigate)}
+            onPress={() => authSignUp(firstName, lastName, email, password, navigate)}
             style={styles.registerBtn}
             activeOpacity={0.8}>
             <Text style={styles.registerText}>Finalizar registro</Text>

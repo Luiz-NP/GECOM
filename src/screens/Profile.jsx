@@ -17,7 +17,7 @@ import { LogOutIconProfile } from '../assets/icons/LogOutIconProfile';
 import { FirstBubble } from '../assets/icons/FirstBubble';
 
 import auth from '@react-native-firebase/auth';
-import { logOut } from '../functions/logOut';
+import { authSignOut } from '../functions/authSignOut';
 import { SecondBubble } from '../assets/icons/SecondBubble';
 import { ThirdBubble } from '../assets/icons/ThirdBubble';
 
@@ -54,7 +54,7 @@ export function Profile({ navigation }) {
         </View>
 
         <TouchableOpacity
-          onPress={() => logOut(navigate)}
+          onPress={() => authSignOut(navigate)}
           activeOpacity={0.8}
           style={darkMode ? dark.logOutContainer : style.logOutContainer}>
           <LogOutIconProfile />
