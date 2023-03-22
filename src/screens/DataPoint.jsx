@@ -154,7 +154,7 @@ export function DataPoint({ navigation, route }) {
           </Svg>
         </TouchableOpacity>
 
-        {cableCount > 0 && (<TouchableOpacity style={styles.removeButton} onPress={() => cableCount < 2 ? '' : setCableCount(cableCount-1)}>
+        <TouchableOpacity style={styles.removeButton} onPress={() => cableCount < 2 ? '' : setCableCount(cableCount-1)}>
           <Svg
             width={42}
             height={42}
@@ -176,7 +176,7 @@ export function DataPoint({ navigation, route }) {
               </G>
             </G>
           </Svg>
-        </TouchableOpacity>)}
+        </TouchableOpacity>
       </View>
 
         {dataPointsLength > 0 && (
