@@ -21,9 +21,10 @@ export const continueAndSendPhoto = async (
         
         const storageRef = storage().ref(`user-${user.uid}/task-${taskID}/img-${imgID}.jpg`);
         
+        replace('DataPoint', {taskID: taskID, imageRef: storageRef.path});
+        
         await storageRef.putString(photo, 'base64');
         
-        replace('DataPoint', {taskID: taskID, imageRef: storageRef.path});
         setLocation(null);
         setPhoto(null);
         setLoading(false);

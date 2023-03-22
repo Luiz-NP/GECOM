@@ -12,7 +12,7 @@ export const addNewTask = async (
     update,
     navigate,
 ) => {
-    const uid = auth().currentUser.uid;
+    const { uid } = auth().currentUser;
     const taskID = uuid.v4();
 
     // // get reference of firestore's doc for this user
