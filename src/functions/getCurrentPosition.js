@@ -33,6 +33,6 @@ export const getCurrentPosition = (
             // See error code charts below.
             console.log(error.code, error.message);
         },
-        { enableHighAccuracy: true, timeout: 60000, maximumAge: 10000 },
+        { enableHighAccuracy: false, timeout: 60000, maximumAge: 5000 },
     )
 }

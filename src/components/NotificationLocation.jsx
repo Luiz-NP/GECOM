@@ -1,18 +1,9 @@
 /*========== ROOT IMPORTS ==========*/
-import { useEffect, useState } from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 
-import { coordsToAddress } from '../api/coordsToAddress';
-
 /*========== COMPONENT DECLARATION ==========*/
-export function NotificationLocation() {
-  const [address, setAddress] = useState();
-
-  useEffect(() => {
-    coordsToAddress(setAddress);
-  }, []);
-
+export function NotificationLocation({ address }) {
   return (
     <View style={style.notificationContainer}>
       <Svg

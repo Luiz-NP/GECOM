@@ -1,7 +1,7 @@
 import LottieView from 'lottie-react-native';
 import {StyleSheet, Text, View} from 'react-native';
 
-export const LoadingIndicator = () => {
+export const LoadingIndicator = ({ text }) => {
   return (
     <View style={style.container}>
       <LottieView
@@ -9,7 +9,7 @@ export const LoadingIndicator = () => {
         autoPlay
         loop
       />
-      <Text style={style.text}>Aguarde um momento...</Text>
+      <Text style={style.text}>{text ? text : 'Aguarde um momento...'}</Text>
     </View>
   );
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import Geolocation from "@react-native-community/geolocation";
 
-export const coordsToAddress = (setAddress) => {
+export const coordsToAddress = (setPosition) => {
     const apiKey = "AIzaSyACDtPI_RGlrWSaj--md9PQFctUHi-PtV8";
 
     Geolocation.getCurrentPosition(
@@ -25,7 +25,7 @@ export const coordsToAddress = (setAddress) => {
                 CEP: formattedAddress[3],
                 contry: formattedAddress[4],
             }
-            setAddress(address);
+            setPosition(address);
         },
         error => {
             // See error code charts below.

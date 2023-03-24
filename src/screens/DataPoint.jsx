@@ -61,6 +61,7 @@ export function DataPoint({ navigation, route }) {
   }, []));
 
   const onSubmit = (data, finish) => {
+    console.log(control)
     const fields = {};
     
     if (finish) return addNewDataPoint(fields, position, taskID, navigate, target = 'FinishTask', imageRef);
@@ -110,7 +111,6 @@ export function DataPoint({ navigation, route }) {
           <Text style={styles.titleScreen}>Selecionar tipos de cabo</Text>
         </View>
       </View>
-      <NotificationLocation />
       <View style={styles.form}>
         {Array.from({ length: cableCount }).map((_, index) => (
           <View key={index} style={{marginBottom: 48, zIndex: cableType.length - index}}>
