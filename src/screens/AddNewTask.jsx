@@ -19,6 +19,7 @@ import { DropDown } from '../components/DropDown';
 import { useEffect } from 'react';
 import { addNewTask } from '../services/addNewTask';
 import { coordsToAddress } from '../api/coordsToAddress';
+import { LoadingIndicator } from '../components/LoadingIndicator';
 
 export const AddNewTask = ({ navigation }) => {
   const { navigate } = navigation;
@@ -56,6 +57,8 @@ export const AddNewTask = ({ navigation }) => {
     );
   }
 
+  if (!address) return <LoadingIndicator text="Obtendo localização..." />
+
   return (
     <View style={styles.homeContainer}>
       <StatusBar
@@ -87,7 +90,7 @@ export const AddNewTask = ({ navigation }) => {
           <Text style={styles.titleScreen}>Adicionar tarefa</Text>
         </View>
       </View>
-      <NotificationLocation />
+      <NotificationLocation address={address} />
       <View showsVerticalScrollIndicator={false} style={styles.form}>
         <View style={[styles.inputArea, styles.spacer]}>
           <View style={styles.localInput}></View>
