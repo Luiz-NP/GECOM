@@ -16,7 +16,8 @@ export const addNewTask = async (
     const taskID = uuid.v4();
 
     // // get reference of firestore's doc for this user
-    const tasksRef = firestore().collection('users').doc(uid).collection('Tasks').doc(`Task-${taskID}`);
+    const userUidRef = firestore().collection('users').doc(uid);
+    const tasksRef = userUidRef.collection('Tasks').doc(`Task-${taskID}`);
 
     const newTaskData = {
         id: taskID,
@@ -28,6 +29,9 @@ export const addNewTask = async (
     }
 
     try {
+        // set user uid doc
+        await userUidRef.set({});
+
         // set user's task
         await tasksRef.set({ ...newTaskData })
         setUpdate(!update);
