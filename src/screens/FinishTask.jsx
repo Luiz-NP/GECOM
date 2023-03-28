@@ -22,7 +22,7 @@ export const FinishTask = ({ navigation, route }) => {
   }, [loading]);
 
   useEffect(() => {
-    calcMetersAndFinishTask(taskID, setMeters, setLoading, setCableTypesLength);
+    calcMetersAndFinishTask(taskID, meters, setMeters, setLoading, setCableTypesLength);
   }, []);
 
   // defining back button behavior to block user back action
