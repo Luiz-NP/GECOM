@@ -1,7 +1,8 @@
 import { getPreciseDistance } from "geolib";
+import { finishTask } from "../services/finishTask";
 import { getDataPoints } from "../services/getDataPoints";
 
-export const calcMetersAndFinishTask = async (taskID, setMeters, setLoading, setCableTypesLength) => {
+export const calcMetersAndFinishTask = async (taskID, meters, setMeters, setLoading, setCableTypesLength) => {
 	const cableTypesLengthObject = {};
 	const allCoords = [];
 
@@ -30,5 +31,6 @@ export const calcMetersAndFinishTask = async (taskID, setMeters, setLoading, set
 	for (key in cableTypesLengthObject) setCableTypesLength(prev => [...prev, {cabos: key, metros: cableTypesLengthObject[key]}]);
 	console.log(cableTypesLengthObject);
 
+	finishTask(taskID, meters);
 	setLoading(false);
 };
