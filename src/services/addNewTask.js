@@ -21,7 +21,7 @@ export const addNewTask = async (
 
     const newTaskData = {
         id: taskID,
-        distance: 0,
+        meters: 0,
         location: `${address.city} - ${address.state}`,
         company: data.company,
         OSNumber: data.OSNumber ?? 'Não informado',
