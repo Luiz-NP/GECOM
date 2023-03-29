@@ -2,9 +2,10 @@ import { getPreciseDistance } from "geolib";
 import { finishTask } from "../services/finishTask";
 import { getDataPoints } from "../services/getDataPoints";
 
-export const calcMetersAndFinishTask = async (taskID, meters, setMeters, setLoading, setCableTypesLength) => {
+export const calcMetersAndFinishTask = async (taskID, setMeters, setLoading, setCableTypesLength) => {
 	const cableTypesLengthObject = {};
 	const allCoords = [];
+	let meters = 0;
 
 	const dataPoints = await getDataPoints(taskID);
 	const cableTypes = dataPoints.map(value => JSON.parse(JSON.stringify(value.cables.in)));
@@ -19,8 +20,8 @@ export const calcMetersAndFinishTask = async (taskID, meters, setMeters, setLoad
 	function calcMetersBetweenPoints(coords) {
 		allCoords.push(coords);
 		if (allCoords.length > 1) {
-			const meters = getPreciseDistance(allCoords[allCoords.length-2], allCoords[allCoords.length-1]);
-			setMeters(prev => prev+meters);
+			const metersBetweenPoints = getPreciseDistance(allCoords[allCoords.length-2], allCoords[allCoords.length-1]);
+			meters += metersBetweenPoints;
 
 			cableTypes.forEach(cables => {
 				for (key in cables) cableTypesLengthObject[cables[key]] += meters;
@@ -31,6 +32,7 @@ export const calcMetersAndFinishTask = async (taskID, meters, setMeters, setLoad
 	for (key in cableTypesLengthObject) setCableTypesLength(prev => [...prev, {cabos: key, metros: cableTypesLengthObject[key]}]);
 	console.log(cableTypesLengthObject);
 
-	finishTask(taskID, meters);
+	finishTask(taskID, meters, cableTypesLengthObject);
+	setMeters(prev => prev + meters);
 	setLoading(false);
 };
