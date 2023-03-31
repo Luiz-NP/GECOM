@@ -4,6 +4,8 @@ import uuid from 'react-native-uuid';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
+import { dateGenerator } from '../utils/dategenerator';
+
 export const addNewTask = async (
     target,
     data,
@@ -26,6 +28,12 @@ export const addNewTask = async (
         company: data.company,
         OSNumber: data.OSNumber ?? 'Não informado',
         status: 'pending',
+        started: {
+            day: dateGenerator().day,
+            month: dateGenerator().month,
+            year: dateGenerator().year,
+            hour: dateGenerator().hour,
+        }
     }
 
     try {

@@ -1,6 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
+import { dateGenerator } from '../utils/dategenerator';
+
 export const finishTask = async (taskID, meters, cableTypesLengthObject) => {
 	const { uid } = auth().currentUser;
 
@@ -11,6 +13,12 @@ export const finishTask = async (taskID, meters, cableTypesLengthObject) => {
       traveled: meters,
       byCableType: cableTypesLengthObject,
     },
-    status: "completed"
+    status: "completed",
+    finished: {
+      day: dateGenerator().day,
+      month: dateGenerator().month,
+      year: dateGenerator().year,
+      hour: dateGenerator().hour,
+    }
   });
 }
