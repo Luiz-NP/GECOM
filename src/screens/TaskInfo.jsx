@@ -1,4 +1,3 @@
-/*========== ROOT IMPORTS ==========*/
 import {
   View,
   StatusBar,
@@ -7,16 +6,15 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-/*========== LOCAL FILES & COMPONENTS ==========*/
 
-/*========== LIBRARY IMPORTS ==========*/
 import Svg, {Path} from 'react-native-svg';
+
+import auth from "@react-native-firebase/auth"
 
 export function TaskInfo({route, navigation}) {
   const {data} = route.params;
   const {navigate} = navigation;
-
-  console.log(data);
+  const { displayName } = auth().currentUser;
 
   return (
     <View style={styles.homeContainer}>
@@ -64,31 +62,43 @@ export function TaskInfo({route, navigation}) {
               fill="white"
             />
           </Svg>
-          <Text style={styles.dataInfo}>Rua Calixto Alves de Souza</Text>
+          <Text style={styles.dataInfo}>{data.location.street}</Text>
+          <Text style={styles.dataInfo}>{data.location.city} - {data.location.state}</Text>
         </View>
-        <View style={styles.cableBubble}>
-          <Text style={styles.cableText}>Tipos de cabos</Text>
-          <View style={styles.cableComponent}>
-            <View style={styles.cableItem}>
-              <Text style={styles.cableType}>CTP APL XDSL</Text>
+        <View style={styles.infoWrapper}>
+          <View style={styles.infoContainer}>
+            <Text style={styles.infoLabel}>Vistoriador:</Text>
+            <View style={styles.infoValueContainer}>
+              <Text style={styles.infoValueText}>{displayName}</Text>
             </View>
-            <View style={styles.cableItem}>
-              <Text style={styles.cableType}>CTP APL 10P</Text>
+          </View>
+          <View style={styles.infoContainer}>
+            <Text style={styles.infoLabel}>Empresa:</Text>
+            <View style={styles.infoValueContainer}>
+              <Text style={styles.infoValueText}>{data.company}</Text>
             </View>
-            <View style={styles.cableItem}>
-              <Text style={styles.cableType}>CTP APL 200P</Text>
+          </View>
+          <View style={styles.infoContainer}>
+            <Text style={styles.infoLabel}>Status:</Text>
+            <View style={styles.infoValueContainer}>
+              <Text style={styles.infoValueText}>{data.status === "pending" ? "Em andamento" : "Finalizada"}</Text>
             </View>
-            <View style={styles.cableItem}>
-              <Text style={styles.cableType}>CTP APL 1000P</Text>
+          </View>
+          <View style={styles.infoContainer}>
+            <Text style={styles.infoLabel}>Metragem:</Text>
+            <View style={styles.infoValueContainer}>
+              <Text style={styles.infoValueText}>{data.meters?.traveled ?? 0} metros</Text>
             </View>
           </View>
         </View>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => navigate('CameraView', {taskID: data.id})}
-          style={styles.initTaskButton}>
-          <Text style={styles.initTaskButtontext}>Iniciar tarefa</Text>
-        </TouchableOpacity>
+        {data.status === "pending" && (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigate('CameraView', {taskID: data.id})}
+            style={styles.initTaskButton}>
+            <Text style={styles.initTaskButtontext}>Iniciar tarefa</Text>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     </View>
   );
@@ -170,14 +180,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  cableBubble: {
+  infoWrapper: {
     width: '100%',
     paddingVertical: 24,
-    borderRadius: 15,
+    paddingLeft: 24,
+    borderRadius: 12,
     borderColor: '#00c4ac',
     borderWidth: 1,
-    justifyContent: 'center',
+  },
+  infoContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
+    marginVertical: 2,
+    justifyContent: 'space-between',
+    marginRight: 64
   },
   dataTitle: {
     fontFamily: 'ClashGrotesk-Medium',
@@ -188,27 +204,24 @@ const styles = StyleSheet.create({
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 18,
     color: '#FFFFFF',
+    marginVertical: 2,
   },
-  cableText: {
+  infoLabel: {
     fontFamily: 'ClashGrotesk-Medium',
-    fontSize: 24,
+    fontSize: 20,
     color: '#FFFFFF',
   },
-  cableComponent: {
-    width: '100%',
-    paddingHorizontal: 72,
-    marginTop: 12,
-  },
-  cableItem: {
+  infoValueContainer: {
     backgroundColor: '#006458',
     borderRadius: 100,
     alignItems: 'center',
     marginTop: 6,
     justifyContent: 'center',
-    paddingVertical: 8,
+    padding: 8,
+    marginLeft: 12
   },
 
-  cableType: {
+  infoValueText: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 18,
     color: '#FFFFFF',
