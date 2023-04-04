@@ -75,6 +75,7 @@ export function StackRoutes() {
         component={AddNewTask}
         options={{
           headerShown: false,
+          navigationBarColor: '#025248'
         }}
       />
       <Screen
@@ -96,6 +97,7 @@ export function StackRoutes() {
         component={DataPoint}
         options={{
           headerShown: false,
+          navigationBarColor: '#025248'
         }}
       />
       <Screen

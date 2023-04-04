@@ -13,12 +13,11 @@ import Toast from 'react-native-simple-toast';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import { Path, Svg, G, Polygon, Rect } from 'react-native-svg';
-import { NotificationLocation } from '../components/NotificationLocation';
-import { DropDown } from '../components/DropDown';
 import { PositionContext } from "../contexts/PositionContext";
 import { addNewDataPoint } from '../services/addNewDataPoint';
 import { getDataPoints } from '../services/getDataPoints';
 import { useFocusEffect } from '@react-navigation/native';
+import { DropDown } from '../components/DropDown';
 
 /*========== COMPONENTS DECLARATION ==========*/
 export function DataPoint({ navigation, route }) {
@@ -28,12 +27,15 @@ export function DataPoint({ navigation, route }) {
 
   const { control, handleSubmit  } = useForm();
   /*========== STATES ==========*/
-  const [cableType, setCableType] = useState([
+  const cableTypes = [
     {label: 'CTP-APL 20P', value: 'CTP-APL 20P'},
     {label: 'CTP-APL 40P', value: 'CTP-APL 40P'},
     {label: 'CTP-APL 60P', value: 'CTP-APL 60P'},
     {label: 'CTP-APL 80P', value: 'CTP-APL 80P'},
-  ]);
+    {label: 'CTP-APL 100P', value: 'CTP-APL 100P'},
+    {label: 'CTP-APL 120P', value: 'CTP-APL 120P'},
+    {label: 'CTP-APL 200P', value: 'CTP-APL 200P'},
+  ];
   const [cableCount, setCableCount] = useState(1);
   const [dataPointsLength, setDataPointsLength] = useState();
 
@@ -113,25 +115,20 @@ export function DataPoint({ navigation, route }) {
       </View>
       <View style={styles.form}>
         {Array.from({ length: cableCount }).map((_, index) => (
-          <View key={index} style={{marginBottom: 48, zIndex: cableType.length - index}}>
+          <View key={index} style={{marginBottom: 8, zIndex: cableTypes.length - index}}>
             <Text style={styles.label}>Tipo do cabo {index+1}</Text>
 
             <Controller
               control={control}
               name={`cable-${index+1}`}
-              render={({ field: { value, onChange } }) => (
-                <DropDown
-                  value={value}
-                  setValue={onChange}
-                  items={cableType}
-                  setItems={setCableType}
-                />
+              render={({ field: { onChange } }) => (
+                <DropDown data={cableTypes} onChange={onChange}/>
               )}
             />
           </View>
         ))}
 
-        <TouchableOpacity style={styles.addButton} onPress={() => setCableCount(cableCount+1)}>
+        <TouchableOpacity style={styles.addButton} onPress={() => cableCount >= 4 ? null : setCableCount(cableCount+1)}>
           <Svg
             width={42}
             height={42}
@@ -154,7 +151,7 @@ export function DataPoint({ navigation, route }) {
           </Svg>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.removeButton} onPress={() => cableCount < 2 ? '' : setCableCount(cableCount-1)}>
+        <TouchableOpacity style={styles.removeButton} onPress={() => cableCount <= 1 ? null : setCableCount(cableCount-1)}>
           <Svg
             width={42}
             height={42}
