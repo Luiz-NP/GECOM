@@ -63,7 +63,6 @@ export function DataPoint({ navigation, route }) {
   }, []));
 
   const onSubmit = (data, finish) => {
-    console.log(control)
     const fields = {};
     
     if (finish) return addNewDataPoint(fields, position, taskID, navigate, target = 'FinishTask', imageRef);

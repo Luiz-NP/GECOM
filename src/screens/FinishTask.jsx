@@ -58,7 +58,7 @@ export const FinishTask = ({ navigation, route }) => {
       <TouchableOpacity
         style={styles.downloadBtn}
         activeOpacity={0.8}
-        onPress={() => downloadExcel(cableTypesLength)}>
+        onPress={() => downloadExcel(taskID, cableTypesLength)}>
         <Text style={styles.downloadBtnText}>Baixar relatório</Text>
       </TouchableOpacity>
       <TouchableOpacity

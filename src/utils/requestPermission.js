@@ -11,6 +11,10 @@ export const requestPermission = async () => {
         await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         );
+
+        await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        );
     
         await RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
             interval: 10000,

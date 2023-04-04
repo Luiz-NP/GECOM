@@ -27,8 +27,6 @@ import {deleteTask} from '../services/deleteTask';
 
 import {getTasks} from '../services/getTasks';
 
-import {backButtonBehavior} from '../utils/backButtonBehavior';
-
 import {ConfirmModal} from '../components/modals/ConfirmModal';
 import {requestPermission} from '../utils/requestPermission';
 
