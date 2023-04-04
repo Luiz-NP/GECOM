@@ -25,10 +25,10 @@ export function TaskHome({data, setModalData, navigate, setModal}) {
 
       <View style={styles.contentInfo}>
         <View style={styles.info}>
-          <Text style={styles.textInfo}>{data.distance}km</Text>
+          <Text style={styles.textInfo}>{data.meters?.traveled ?? 0}km</Text>
         </View>
         <View style={styles.info}>
-          <Text style={styles.textInfo}>{data.location}</Text>
+          <Text style={styles.textInfo}>{data.location.city}</Text>
         </View>
       </View>
 
