@@ -31,8 +31,13 @@ export function Welcome({navigation}) {
 
   /*========== USE EFFECTS ==========*/
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3000);
-    if (user?.emailVerified) navigate('Home');
+    setTimeout(() => {
+      if (user?.emailVerified) navigate('Home');
+      
+      setTimeout(() => setLoading(false), 1000);
+
+    }, 2000);
+    
   }, [user]);
 
   /*========== FRONT ==========*/
