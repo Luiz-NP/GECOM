@@ -9,12 +9,12 @@ import {
 
 import Svg, {Path} from 'react-native-svg';
 
-import auth from "@react-native-firebase/auth"
+import auth from '@react-native-firebase/auth';
 
 export function TaskInfo({route, navigation}) {
   const {data} = route.params;
   const {navigate} = navigation;
-  const { displayName } = auth().currentUser;
+  const {displayName} = auth().currentUser;
 
   return (
     <View style={styles.homeContainer}>
@@ -63,35 +63,48 @@ export function TaskInfo({route, navigation}) {
             />
           </Svg>
           <Text style={styles.dataInfo}>{data.location.street}</Text>
-          <Text style={styles.dataInfo}>{data.location.city} - {data.location.state}</Text>
+          <Text style={styles.dataInfo}>
+            {data.location.city} - {data.location.state}
+          </Text>
         </View>
         <View style={styles.infoWrapper}>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoLabel}>Vistoriador:</Text>
+            <Text style={styles.infoLabel}>Técnico</Text>
             <View style={styles.infoValueContainer}>
               <Text style={styles.infoValueText}>{displayName}</Text>
             </View>
           </View>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoLabel}>Empresa:</Text>
+            <Text style={styles.infoLabel}>Empresa</Text>
             <View style={styles.infoValueContainer}>
               <Text style={styles.infoValueText}>{data.company}</Text>
             </View>
           </View>
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoLabel}>Status:</Text>
+          {/* <View style={styles.infoContainer}>
+            <Text style={styles.infoLabel}>Status</Text>
             <View style={styles.infoValueContainer}>
-              <Text style={styles.infoValueText}>{data.status === "pending" ? "Em andamento" : "Finalizada"}</Text>
+              <Text style={styles.infoValueText}>
+                {data.status === 'pending' ? 'Em andamento' : 'Finalizada'}
+              </Text>
             </View>
-          </View>
+          </View> */}
           <View style={styles.infoContainer}>
-            <Text style={styles.infoLabel}>Metragem:</Text>
+            <Text style={styles.infoLabel}>Distância</Text>
             <View style={styles.infoValueContainer}>
-              <Text style={styles.infoValueText}>{data.meters?.traveled ?? 0} metros</Text>
+              <Text style={styles.infoValueText}>
+                {data.meters?.traveled ?? 0} metros
+              </Text>
             </View>
           </View>
         </View>
-        {data.status === "pending" && (
+        <TouchableOpacity activeOpacity={0.8} style={styles.initTaskButton}>
+          <Text style={styles.initTaskButtontext}>
+            {data.status === 'pending'
+              ? 'Trefa em andamento'
+              : 'Tarefa finalizada'}
+          </Text>
+        </TouchableOpacity>
+        {data.status === 'pending' && (
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => navigate('CameraView', {taskID: data.id})}
@@ -183,17 +196,17 @@ const styles = StyleSheet.create({
   infoWrapper: {
     width: '100%',
     paddingVertical: 24,
-    paddingLeft: 24,
-    borderRadius: 12,
+    borderRadius: 25,
     borderColor: '#00c4ac',
-    borderWidth: 1,
+    borderWidth: 2,
+    paddingHorizontal: 12,
   },
   infoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 2,
+    paddingHorizontal: 6,
     justifyContent: 'space-between',
-    marginRight: 64
   },
   dataTitle: {
     fontFamily: 'ClashGrotesk-Medium',
@@ -218,9 +231,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
     justifyContent: 'center',
     padding: 8,
-    marginLeft: 12
   },
-
   infoValueText: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 18,

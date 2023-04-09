@@ -34,9 +34,9 @@ import {requestPermission} from '../utils/requestPermission';
 export function Home({navigation}) {
   /*========== DESTRUCTURING ==========*/
   const {navigate} = navigation;
-  const darkMode = true;
+  const darkMode = false;
   /*========== STATES ==========*/
-  const [buttonSelected, setButtonSelected] = useState(0); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
+  const [buttonSelected, setButtonSelected] = useState(1); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
   const [tasks, setTasks] = useState([]);
   const [pendingTasks, setPendingTasks] = useState(0);
   const [completedTasks, setCompletedTasks] = useState(0);
@@ -67,19 +67,21 @@ export function Home({navigation}) {
   }, [update]);
 
   // defining back button behavior to block user back action
-  useFocusEffect(useCallback(() => {
-    const onBackPress = () => {
-      BackHandler.exitApp();
-      return true;
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        BackHandler.exitApp();
+        return true;
+      };
 
-    const subscription = BackHandler.addEventListener(
+      const subscription = BackHandler.addEventListener(
         'hardwareBackPress',
         onBackPress,
-    );
+      );
 
-    return () => subscription.remove()
-  }, []));
+      return () => subscription.remove();
+    }, []),
+  );
 
   /*========== FRONT ==========*/
   return (
@@ -130,21 +132,11 @@ export function Home({navigation}) {
         <ButtonNavHome
           buttonSelected={buttonSelected}
           setButtonSelected={setButtonSelected}
-          tasks={tasks}
-          number={0}
-          text={'Todas'}
-          isToShowCount={false}
-        />
-
-        <ButtonNavHome
-          buttonSelected={buttonSelected}
-          setButtonSelected={setButtonSelected}
           tasks={pendingTasks}
           number={1}
           text={'Pendentes'}
           isToShowCount={true}
         />
-
         <ButtonNavHome
           buttonSelected={buttonSelected}
           setButtonSelected={setButtonSelected}
@@ -152,6 +144,14 @@ export function Home({navigation}) {
           number={2}
           text={'Concluídas'}
           isToShowCount={true}
+        />
+        <ButtonNavHome
+          buttonSelected={buttonSelected}
+          setButtonSelected={setButtonSelected}
+          tasks={tasks}
+          number={0}
+          text={'Todas'}
+          isToShowCount={false}
         />
       </View>
 
