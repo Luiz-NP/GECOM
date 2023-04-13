@@ -36,7 +36,7 @@ export function Home({navigation}) {
   const {navigate} = navigation;
   const darkMode = false;
   /*========== STATES ==========*/
-  const [buttonSelected, setButtonSelected] = useState(1); // indexs: 0 = Todas | 1 = Pendentes | 3 = Concluídas
+  const [buttonSelected, setButtonSelected] = useState(1); // indexs: 0 = Todas | 1 = Pendentes | 2 = Concluídas
   const [tasks, setTasks] = useState([]);
   const [pendingTasks, setPendingTasks] = useState(0);
   const [completedTasks, setCompletedTasks] = useState(0);
@@ -127,13 +127,12 @@ export function Home({navigation}) {
           </TouchableOpacity>
         </View>
       </View>
-
       <View style={styles.nav}>
         <ButtonNavHome
           buttonSelected={buttonSelected}
           setButtonSelected={setButtonSelected}
           tasks={pendingTasks}
-          number={1}
+          number={0}
           text={'Pendentes'}
           isToShowCount={true}
         />
@@ -141,7 +140,7 @@ export function Home({navigation}) {
           buttonSelected={buttonSelected}
           setButtonSelected={setButtonSelected}
           tasks={completedTasks}
-          number={2}
+          number={1}
           text={'Concluídas'}
           isToShowCount={true}
         />
@@ -149,53 +148,52 @@ export function Home({navigation}) {
           buttonSelected={buttonSelected}
           setButtonSelected={setButtonSelected}
           tasks={tasks}
-          number={0}
+          number={2}
           text={'Todas'}
           isToShowCount={false}
         />
       </View>
-
-      {tasks?.length ? (
-        <FlatList
-          data={
-            buttonSelected === 0
-              ? tasks
-              : buttonSelected === 1
-              ? pendingTasks
-              : completedTasks
-          }
-          keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <>
-              <TaskHome
-                data={item}
-                setModalData={setModalData}
-                key={item.id}
-                navigate={navigate}
-                setModal={setModal}
-                setUpdate={setUpdate}
-                update={update}
-                deleteTask={deleteTask}
-                onPress={() => navigate('TaskInfo', {item})}
-              />
-            </>
-          )}
-        />
-      ) : (
-        <View style={styles.notFoundTask}>
-          <LottieView
-            style={{
-              width: 200,
-              height: 200,
-              alignSelf: 'center',
-            }}
-            source={require('../assets/img/not_found.json')}
-            loop
-            autoPlay
-          />
-          <Text style={styles.notFoundTaskText}>Nenhuma tarefa encontrada</Text>
-        </View>
-      )}
+      <FlatList
+        data={
+          buttonSelected === 0
+            ? pendingTasks
+            : buttonSelected === 2
+            ? tasks
+            : completedTasks
+        }
+        ListEmptyComponent={() => (
+          <View style={styles.notFoundTask}>
+            <LottieView
+              style={{
+                width: 200,
+                height: 200,
+              }}
+              source={require('../assets/img/not_found.json')}
+              loop
+              autoPlay
+            />
+            <Text style={styles.notFoundTaskText}>
+              Nenhuma tarefa encontrada
+            </Text>
+          </View>
+        )}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <>
+            <TaskHome
+              data={item}
+              setModalData={setModalData}
+              key={item.id}
+              navigate={navigate}
+              setModal={setModal}
+              setUpdate={setUpdate}
+              update={update}
+              deleteTask={deleteTask}
+              onPress={() => navigate('TaskInfo', {item})}
+            />
+          </>
+        )}
+      />
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={async () => {
@@ -277,8 +275,9 @@ const styles = StyleSheet.create({
   },
 
   notFoundTask: {
-    alignItems: 'center',
     flex: 1,
+    height: 500,
+    alignItems: 'center',
     justifyContent: 'center',
   },
 

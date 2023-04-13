@@ -1,5 +1,5 @@
 /*========== ROOT IMPORTS ==========*/
-import { useState } from 'react';
+import {useState} from 'react';
 import {
   StatusBar,
   StyleSheet,
@@ -15,24 +15,22 @@ import Svg, {Path} from 'react-native-svg';
 
 export function Setitngs({navigation}) {
   const {navigate} = navigation;
-  const [isEnabled, setIsEnabled] = useState(false);
 
+  const [tasksNotification, setTasksNotification] = useState(false);
+  const [updateNotification, setUpdateNotification] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
-    async function toggleDarkMode() {
-    setDarkMode(!darkMode);
-    }
-
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-    
-
+  const toggleDarkMode = () => setDarkMode(previousState => !previousState);
+  const toggleUpdate = () =>
+    setUpdateNotification(previousState => !previousState);
+  const toggleTasks = () =>
+    setTasksNotification(previousState => !previousState);
 
   /*========== FRONT ==========*/
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      style={darkMode ? dark.profileContainer : style.profileContainer}
-      >
+      style={darkMode ? dark.profileContainer : style.profileContainer}>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
@@ -64,7 +62,7 @@ export function Setitngs({navigation}) {
         </View>
       </View>
       <View style={darkMode ? dark.settingBubble : style.settingBubble}>
-        <Text style={style.typeText}>Alertas</Text>
+        <Text style={style.typeText}>Notificações</Text>
         <View style={darkMode ? dark.settingContainer : style.settingContainer}>
           <View style={style.textArea}>
             <Text style={style.settingTitle}>Suas tarefas</Text>
@@ -76,10 +74,10 @@ export function Setitngs({navigation}) {
           <View style={style.switchArea}>
             <Switch
               trackColor={{false: '#025248', true: '#018c7b'}}
-              thumbColor={isEnabled ? '#00c4ac' : '#00c4ac'}
+              thumbColor={tasksNotification ? '#00c4ac' : '#00c4ac'}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
+              onValueChange={toggleTasks}
+              value={tasksNotification}
             />
           </View>
         </View>
@@ -94,10 +92,10 @@ export function Setitngs({navigation}) {
           <View style={style.switchArea}>
             <Switch
               trackColor={{false: '#025248', true: '#018c7b'}}
-              thumbColor={isEnabled ? '#00c4ac' : '#00c4ac'}
+              thumbColor={updateNotification ? '#00c4ac' : '#00c4ac'}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
+              onValueChange={toggleUpdate}
+              value={updateNotification}
             />
           </View>
         </View>
@@ -114,7 +112,7 @@ export function Setitngs({navigation}) {
           <View style={style.switchArea}>
             <Switch
               trackColor={{false: '#025248', true: '#018c7b'}}
-              thumbColor={isEnabled ? '#00c4ac' : '#00c4ac'}
+              thumbColor={darkMode ? '#00c4ac' : '#00c4ac'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleDarkMode}
               value={darkMode}
@@ -214,24 +212,24 @@ const style = StyleSheet.create({
   specialIndicator: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',    
-    },
-    indicator: {
-      fontFamily: 'ClashGrotesk-Medium',
-      fontSize: 16,
-      color: '#fff',
-      paddingHorizontal: 12,
-    },
-    themeContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: '#006458',
-      borderRadius: 12,
-      padding: 12,
-      height: 50,
-      justifyContent: 'space-between',
-      marginVertical: 2,
-    },
+    justifyContent: 'space-between',
+  },
+  indicator: {
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 16,
+    color: '#fff',
+    paddingHorizontal: 12,
+  },
+  themeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#006458',
+    borderRadius: 12,
+    padding: 12,
+    height: 50,
+    justifyContent: 'space-between',
+    marginVertical: 2,
+  },
 });
 
 const dark = StyleSheet.create({

@@ -29,7 +29,7 @@ export const ButtonNavHome = ({
 
 const styles = StyleSheet.create({
   btnNavSelected: {
-    width: '31%',
+    width: '32%',
     borderRadius: 15,
     paddingVertical: 8,
     alignItems: 'center',

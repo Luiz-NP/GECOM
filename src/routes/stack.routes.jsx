@@ -1,19 +1,19 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const { Screen, Navigator } = createNativeStackNavigator();
+const {Screen, Navigator} = createNativeStackNavigator();
 
 // screens
-import { Welcome } from '../screens/Welcome';
-import { Auth } from '../screens/Auth';
-import { Register } from '../screens/Register';
-import { Profile } from '../screens/Profile';
-import { Setitngs } from '../screens/Settings';
-import { Home } from '../screens/Home';
-import { TaskInfo } from '../screens/TaskInfo';
-import { AddNewTask } from '../screens/AddNewTask';
-import { CameraView } from '../components/CameraView';
-import { DataPoint } from '../screens/DataPoint';
-import { FinishTask } from '../screens/FinishTask';
+import {Welcome} from '../screens/Welcome';
+import {Auth} from '../screens/Auth';
+import {Register} from '../screens/Register';
+import {Profile} from '../screens/Profile';
+import {Setitngs} from '../screens/Settings';
+import {Home} from '../screens/Home';
+import {TaskInfo} from '../screens/TaskInfo';
+import {AddNewTask} from '../screens/AddNewTask';
+import {CameraView} from '../components/CameraView';
+import {DataPoint} from '../screens/DataPoint';
+import {FinishTask} from '../screens/FinishTask';
 
 // routes
 export function StackRoutes() {
@@ -24,7 +24,7 @@ export function StackRoutes() {
         gestureEnabled: false,
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
-        navigationBarColor: 'rgba(0,0,0,0.002))',
+        navigationBarColor: 'rgba(0,0,0,0.00))',
         statusBarColor: 'transparent',
       }}>
       <Screen
@@ -75,7 +75,6 @@ export function StackRoutes() {
         component={AddNewTask}
         options={{
           headerShown: false,
-          navigationBarColor: '#025248'
         }}
       />
       <Screen
@@ -97,7 +96,7 @@ export function StackRoutes() {
         component={DataPoint}
         options={{
           headerShown: false,
-          navigationBarColor: '#025248'
+          navigationBarColor: '#025248',
         }}
       />
       <Screen

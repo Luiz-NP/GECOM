@@ -7,24 +7,28 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import { useContext, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import Toast from "react-native-simple-toast";
+import {useContext, useState} from 'react';
+import {useForm, Controller} from 'react-hook-form';
+import Toast from 'react-native-simple-toast';
 
 /*========== LOCAL FILES & COMPONENTS ==========*/
 import {UpdateContext} from '../contexts/UpdateContext';
 import {Path, Svg} from 'react-native-svg';
 import {NotificationLocation} from '../components/NotificationLocation';
-import { useEffect } from 'react';
-import { addNewTask } from '../services/addNewTask';
-import { coordsToAddress } from '../api/coordsToAddress';
-import { LoadingIndicator } from '../components/LoadingIndicator';
-import { DropDown } from '../components/DropDown';
+import {useEffect} from 'react';
+import {addNewTask} from '../services/addNewTask';
+import {coordsToAddress} from '../api/coordsToAddress';
+import {LoadingIndicator} from '../components/LoadingIndicator';
+import {DropDown} from '../components/DropDown';
 
-export const AddNewTask = ({ navigation }) => {
-  const { navigate } = navigation;
+export const AddNewTask = ({navigation}) => {
+  const {navigate} = navigation;
 
-  const { control, handleSubmit, formState: { errors } } = useForm();
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm();
   const [address, setAddress] = useState();
   const company = [
     {label: 'Algar Telecom', value: 'Algar Telecom'},
@@ -33,13 +37,10 @@ export const AddNewTask = ({ navigation }) => {
     {label: 'Vivo', value: 'Vivo'},
   ];
 
-  const { update, setUpdate } = useContext(UpdateContext);
+  const {update, setUpdate} = useContext(UpdateContext);
 
   useEffect(() => {
-    if (errors?.company) return Toast.show(
-      errors.company.message,
-      Toast.LONG,
-    );
+    if (errors?.company) return Toast.show(errors.company.message, Toast.LONG);
   }, [errors?.company]);
 
   useEffect(() => {
@@ -47,17 +48,10 @@ export const AddNewTask = ({ navigation }) => {
   }, []);
 
   const onSubmit = (data, target) => {
-    addNewTask(
-      target,
-      data,
-      address,
-      setUpdate,
-      update,
-      navigate,
-    );
-  }
+    addNewTask(target, data, address, setUpdate, update, navigate);
+  };
 
-  if (!address) return <LoadingIndicator text="Obtendo localização..." />
+  if (!address) return <LoadingIndicator text="Obtendo localização..." />;
 
   return (
     <View style={styles.homeContainer}>
@@ -99,8 +93,8 @@ export const AddNewTask = ({ navigation }) => {
 
             <Controller
               control={control}
-              name="OSnumber"
-              render={({ field: { value, onChange } }) => (
+              name="OSNumber"
+              render={({field: {value, onChange}}) => (
                 <TextInput
                   style={styles.input}
                   value={value}
@@ -111,7 +105,7 @@ export const AddNewTask = ({ navigation }) => {
                 />
               )}
             />
-            
+
             <View style={styles.required}>
               <Text style={styles.label}>Empresa</Text>
               <Text style={styles.requiredText}>*</Text>
@@ -121,36 +115,33 @@ export const AddNewTask = ({ navigation }) => {
               control={control}
               name="company"
               rules={{
-                required: "Selecione uma empresa."
+                required: 'Selecione uma empresa.',
               }}
-              render={({ field: { onChange } }) => (
-                <DropDown data={company} onChange={onChange}/>
+              render={({field: {onChange}}) => (
+                <DropDown data={company} onChange={onChange} />
               )}
             />
-
           </View>
         </View>
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={handleSubmit((data) => onSubmit(data, 'Home'))}
-        >
+          onPress={handleSubmit(data => onSubmit(data, 'Home'))}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Adicionar tarefa</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={handleSubmit((data) => onSubmit(data, 'CameraView'))}
-        >
+          onPress={handleSubmit(data => onSubmit(data, 'CameraView'))}>
           <View style={styles.buttonHighlight}>
             <Text style={styles.buttonText}>Iniciar inspeção</Text>
           </View>
         </TouchableOpacity>
       </View>
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({

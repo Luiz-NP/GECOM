@@ -7,6 +7,8 @@ import {
   ScrollView,
 } from 'react-native';
 
+import Toast from 'react-native-simple-toast';
+
 import Svg, {Path} from 'react-native-svg';
 
 import auth from '@react-native-firebase/auth';
@@ -80,14 +82,6 @@ export function TaskInfo({route, navigation}) {
               <Text style={styles.infoValueText}>{data.company}</Text>
             </View>
           </View>
-          {/* <View style={styles.infoContainer}>
-            <Text style={styles.infoLabel}>Status</Text>
-            <View style={styles.infoValueContainer}>
-              <Text style={styles.infoValueText}>
-                {data.status === 'pending' ? 'Em andamento' : 'Finalizada'}
-              </Text>
-            </View>
-          </View> */}
           <View style={styles.infoContainer}>
             <Text style={styles.infoLabel}>Distância</Text>
             <View style={styles.infoValueContainer}>
@@ -97,10 +91,15 @@ export function TaskInfo({route, navigation}) {
             </View>
           </View>
         </View>
-        <TouchableOpacity activeOpacity={0.8} style={styles.initTaskButton}>
-          <Text style={styles.initTaskButtontext}>
+        <TouchableOpacity
+          activeOpacity={1.0}
+          onPress={() => {
+            Toast.show('Tarefa já finalizada!', Toast.LONG);
+          }}
+          style={styles.statusBadge}>
+          <Text style={styles.statusText}>
             {data.status === 'pending'
-              ? 'Trefa em andamento'
+              ? 'Tarefa em andamento'
               : 'Tarefa finalizada'}
           </Text>
         </TouchableOpacity>
@@ -251,6 +250,38 @@ const styles = StyleSheet.create({
   },
 
   initTaskButtontext: {
+    fontFamily: 'ClashGrotesk-Medium',
+    fontSize: 24,
+    color: '#FFFFFF',
+  },
+
+  statusBadge: {
+    width: '100%',
+    height: 100,
+    borderRadius: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00c4ac',
+    marginTop: 24,
+    marginBottom: 48,
+  },
+
+  statusBadgeFinished: {
+    width: '100%',
+    height: 100,
+    borderRadius: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#025248',
+    marginTop: 24,
+    marginBottom: 48,
+  },
+
+  statusText: {
     fontFamily: 'ClashGrotesk-Medium',
     fontSize: 24,
     color: '#FFFFFF',
