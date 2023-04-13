@@ -1,16 +1,22 @@
-import { TouchableOpacity, StyleSheet, View, Text, BackHandler } from 'react-native';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  Text,
+  BackHandler,
+} from 'react-native';
+import {useCallback, useEffect, useState} from 'react';
 
 import LottieView from 'lottie-react-native';
 
-import { LoadingIndicator } from '../components/LoadingIndicator';
-import { downloadExcel } from '../services/downloadExcel';
-import { useFocusEffect } from '@react-navigation/native';
-import { calcMetersAndFinishTask } from '../functions/calcMetersAndFinishTask';
+import {LoadingIndicator} from '../components/LoadingIndicator';
+import {downloadExcel} from '../services/downloadExcel';
+import {useFocusEffect} from '@react-navigation/native';
+import {calcMetersAndFinishTask} from '../functions/calcMetersAndFinishTask';
 
-export const FinishTask = ({ navigation, route }) => {
-  const { navigate } = navigation;
-  const { taskID } = route.params;
+export const FinishTask = ({navigation, route}) => {
+  const {navigate} = navigation;
+  const {taskID} = route.params;
 
   const [speed, setSpeed] = useState(1);
   const [meters, setMeters] = useState(0);
@@ -26,22 +32,26 @@ export const FinishTask = ({ navigation, route }) => {
   }, []);
 
   // defining back button behavior to block user back action
-  useFocusEffect(useCallback(() => {
-    const onBackPress = () => {
-      navigate('Home');
-      return true;
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        navigate('Home');
+        return true;
+      };
 
-    const subscription = BackHandler.addEventListener(
+      const subscription = BackHandler.addEventListener(
         'hardwareBackPress',
         onBackPress,
-    );
+      );
 
-    return () => subscription.remove();
-  }, []));
+      return () => subscription.remove();
+    }, []),
+  );
 
   // loading state
   if (loading) return <LoadingIndicator />;
+
+  const {update, setUpdate} = useContext(UpdateContext); // reload data when change
 
   return (
     <View style={styles.container}>
@@ -64,7 +74,7 @@ export const FinishTask = ({ navigation, route }) => {
       <TouchableOpacity
         style={styles.backButton}
         activeOpacity={0.8}
-        onPress={() => navigate('Home')}>
+        onPress={(() => setUpdate(!update), navigate('Home'))}>
         <Text style={styles.backButtonText}>Voltar</Text>
       </TouchableOpacity>
     </View>

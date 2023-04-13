@@ -99,6 +99,7 @@ export const AddNewTask = ({navigation}) => {
                   style={styles.input}
                   value={value}
                   onChangeText={onChange}
+                  maxLength={5}
                   keyboardType="numeric"
                   placeholder="Numero da OS"
                   placeholderTextColor={'#444'}
