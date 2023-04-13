@@ -94,13 +94,20 @@ export function TaskInfo({route, navigation}) {
         <TouchableOpacity
           activeOpacity={1.0}
           onPress={() => {
-            Toast.show('Tarefa já finalizada!', Toast.LONG);
+            Toast.show(
+              `${
+                data.status === 'pending'
+                  ? 'Tarefa em andamento'
+                  : 'Tarefa concluída'
+              }`,
+              Toast.LONG,
+            );
           }}
           style={styles.statusBadge}>
           <Text style={styles.statusText}>
             {data.status === 'pending'
               ? 'Tarefa em andamento'
-              : 'Tarefa finalizada'}
+              : 'Tarefa concluída'}
           </Text>
         </TouchableOpacity>
         {data.status === 'pending' && (
@@ -241,7 +248,8 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 15,
     paddingVertical: 8,
-    borderWidth: 1,
+    borderWidth: 2,
+    height: 80,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#00c4ac',
@@ -260,10 +268,10 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 15,
     paddingVertical: 8,
-    borderWidth: 1,
+    borderColor: '#00c4ac',
+    borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00c4ac',
     marginTop: 24,
     marginBottom: 48,
   },

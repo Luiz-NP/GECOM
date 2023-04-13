@@ -11,6 +11,16 @@ export function TaskHome({data, setModalData, navigate, setModal}) {
     setModal(true);
   };
 
+  let meters = data.meters?.traveled ?? 0;
+
+  if (meters === 0) {
+    meters = 'Não iniciada';
+  }
+
+  if (meters > 0) {
+    meters = `${meters} metros`;
+  }
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -25,7 +35,9 @@ export function TaskHome({data, setModalData, navigate, setModal}) {
 
       <View style={styles.contentInfo}>
         <View style={styles.info}>
-          <Text style={styles.textInfo}>{data.meters?.traveled ?? 0}km</Text>
+          <Text style={styles.textInfo}>
+            {meters === 'Não iniciada' ? meters : meters}
+          </Text>
         </View>
         <View style={styles.info}>
           <Text style={styles.textInfo}>{data.location.city}</Text>
