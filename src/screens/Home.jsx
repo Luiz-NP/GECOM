@@ -43,6 +43,8 @@ export function Home({navigation}) {
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState();
 
+  console.log('tasks', tasks);
+
   /*========== CONTEXTS ==========*/
   const {user} = useContext(AuthContext); // getting user from AuthContext
   const {update, setUpdate} = useContext(UpdateContext); // reload data when change

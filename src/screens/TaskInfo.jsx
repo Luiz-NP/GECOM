@@ -18,6 +18,18 @@ export function TaskInfo({route, navigation}) {
   const {navigate} = navigation;
   const {displayName} = auth().currentUser;
 
+  let meters = data.meters?.traveled ?? 0;
+
+  if (meters === 0) {
+    meters = 'Não iniciada';
+  }
+
+  if (meters > 0) {
+    meters = `${meters} metros`;
+  }
+
+  console.log(data.meters?.traveled);
+
   return (
     <View style={styles.homeContainer}>
       <StatusBar
@@ -85,9 +97,7 @@ export function TaskInfo({route, navigation}) {
           <View style={styles.infoContainer}>
             <Text style={styles.infoLabel}>Distância</Text>
             <View style={styles.infoValueContainer}>
-              <Text style={styles.infoValueText}>
-                {data.meters?.traveled ?? 0} metros
-              </Text>
+              <Text style={styles.infoValueText}>{meters}</Text>
             </View>
           </View>
         </View>
