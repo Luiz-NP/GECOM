@@ -24,7 +24,7 @@ export function StackRoutes() {
         gestureEnabled: false,
         gestureDirection: 'horizontal',
         animation: 'slide_from_right',
-        navigationBarColor: 'rgba(0,0,0,0.00))',
+        navigationBarColor: 'rgba(0,0,0,0.002))',
         statusBarColor: 'transparent',
       }}>
       <Screen
