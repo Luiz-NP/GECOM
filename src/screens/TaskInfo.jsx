@@ -83,7 +83,7 @@ export function TaskInfo({route, navigation}) {
         </View>
         <View style={styles.infoWrapper}>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoLabel}>Técnico</Text>
+            <Text style={styles.infoLabel}>Colaborador</Text>
             <View style={styles.infoValueContainer}>
               <Text style={styles.infoValueText}>{displayName}</Text>
             </View>

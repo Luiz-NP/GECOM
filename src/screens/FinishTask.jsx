@@ -51,8 +51,6 @@ export const FinishTask = ({navigation, route}) => {
   // loading state
   if (loading) return <LoadingIndicator />;
 
-  const {update, setUpdate} = useContext(UpdateContext); // reload data when change
-
   return (
     <View style={styles.container}>
       <LottieView
@@ -74,7 +72,7 @@ export const FinishTask = ({navigation, route}) => {
       <TouchableOpacity
         style={styles.backButton}
         activeOpacity={0.8}
-        onPress={(() => setUpdate(!update), navigate('Home'))}>
+        onPress={() => navigate('Home')}>
         <Text style={styles.backButtonText}>Voltar</Text>
       </TouchableOpacity>
     </View>

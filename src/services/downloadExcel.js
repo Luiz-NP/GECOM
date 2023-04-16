@@ -14,7 +14,7 @@ export const downloadExcel = async (taskID, cableTypesLength) => {
 
   const organizedTaskData = {
     ['Número da OS']: taskData.OSNumber,
-    ['Técnico autorizado']: taskData.owner,
+    Vistoriador: taskData.owner,
     Empresa: taskData.company,
     ['Local da vistoria']: taskData.location,
     ['Início']: formattedStartedDate,
@@ -62,14 +62,14 @@ export const downloadExcel = async (taskID, cableTypesLength) => {
     // Send notification to phone of user
     await RNFetchBlob.android.addCompleteDownload({
       title: 'GECOM.xlsx',
-      description: 'Relatório baixado com sucesso',
+      description: 'Download complete',
       mime: 'application/xlsx',
       path: filePath,
       showNotification: true,
     });
 
     // Show a message telling that dowload of excel is completed
-    Alert.alert('Relatório baixado com sucesso', 'Verifique suas notificações');
+    Alert.alert('Download completed', 'Verifique suas notificações');
   } catch (error) {
     console.log(error);
   }
